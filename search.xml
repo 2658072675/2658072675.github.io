@@ -1,0 +1,815 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>《高效使用你的VPS》搭建私人多端音乐平台</title>
+      <link href="/1211.html"/>
+      <url>/1211.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>买了一台vps做科学上网，却仅仅只做了科学上网！这不符合我们勤俭节约的理念，所以《高效使用你的VPS》将会教大家如何高效地榨干vps，以获得最大的收益。《高效使用你的VPS》未来可能持续更新（我得自己先体验过才会看情况值不值得更新）。</p><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>本期教程所需要的东西：</p><ul><li>域名一个（推荐解析到CloudFlare，有免费的CDN）</li><li>vps云服务器一台，预装Linux系统</li><li>手</li></ul><h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>本教程采用操作较为简单的docker安装，这里推荐大家安装宝塔面板（<a href="https://www.bt.cn/">https://www.bt.cn/</a> ） 再从宝塔面板一键安装，这样既方便建站，又方便对vps进行管理。安装宝塔面板非常简单，这里就不写了。</p><h4 id="Navidrome优缺点"><a href="#Navidrome优缺点" class="headerlink" title="Navidrome优缺点"></a>Navidrome优缺点</h4><p><strong>优点：</strong></p><ul><li>内存占用低（待机状态40Mb左右）</li><li>界面简洁，支持中文</li><li>支持Subsonic API，也就是说Subsonic能用的客户端，Navidrome都能用</li></ul><p><strong>缺点：</strong></p><ul><li>好像没法显示歌词</li><li>不支持通过界面删除歌曲（作者说的是为了安全考虑，我个人感觉过于谨慎了）</li></ul><h4 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h4><p>直接在宝塔面板的应用商店里面下载就可以了</p><p><img src="https://pic.sky350.cn/images/1211_1.png" alt="1211_1"></p><h4 id="安装docker-compose"><a href="#安装docker-compose" class="headerlink" title="安装docker-compose"></a>安装docker-compose</h4><p>这时候一般是没有安装docker-compose的，大家可以连接ssh敲一下docker-compose看看有没有下面的提示，没有的话就得安装。</p><p><img src="https://pic.sky350.cn/images/1211_2.png"></p><p>安装也不难，首先设置国内镜像源</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/docker/daemon.json</span><br></pre></td></tr></table></figure><p>写入下面的内容</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;registry-mirrors&quot;: [&quot;https://cq20bk8v.mirror.aliyuncs.com&quot;] &#125;</span><br></pre></td></tr></table></figure><p>按esc键 在输入  :wq</p><p>四条命令敲一下</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install epel-release</span><br><span class="line">yum install python3-pip </span><br><span class="line">pip3 install --upgrade pip </span><br><span class="line">pip3 install docker-compose</span><br></pre></td></tr></table></figure><p>若是报错：ModuleNotFoundError: No module named ‘setuptools_rust’</p><p>解决方法：pip3 install -U pip setuptools</p><p>这一步就完成了</p><h4 id="部署navidrome"><a href="#部署navidrome" class="headerlink" title="部署navidrome"></a>部署navidrome</h4><p>这一步还是比较简单的，宝塔面板—-&gt;文件，点击根目录就到vps的根目录了，选择一个位置用来存放歌曲，我个人则是在home目录下创建了个music文件夹，music里面再创建两个文件夹，一个data，一个song，前者用来存放缓存，后者用来存放歌曲。</p><p><img src="https://pic.sky350.cn/images/1211_3.png" alt="1211_3"></p><p>此外，仍需在music目录下创建一个名为<code>docker-compose.yaml</code>的文件，双击编辑，内容复制下面的内容。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;3&quot;</span><br><span class="line">services:</span><br><span class="line">  navidrome:</span><br><span class="line">    container_name: navidrome</span><br><span class="line">    image: deluan/navidrome:latest</span><br><span class="line">    user: 0:0 #0:0代表用root用户运行</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;4533:4533&quot;</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    environment:</span><br><span class="line">      # Optional: put your config options customization here. Examples:</span><br><span class="line">      ND_SCANSCHEDULE: 1h</span><br><span class="line">      ND_LOGLEVEL: info  </span><br><span class="line">      ND_SESSIONTIMEOUT: 24h</span><br><span class="line">      ND_BASEURL: &quot;&quot;</span><br><span class="line">      ND_ENABLETRANSCODINGCONFIG: &quot;true&quot;</span><br><span class="line">      ND_TRANSCODINGCACHESIZE: &quot;4000M&quot;</span><br><span class="line">      ND_IMAGECACHESIZE: &quot;1000M&quot;</span><br><span class="line">      </span><br><span class="line">    volumes:</span><br><span class="line">      - &quot;/home/music/data:/data&quot;</span><br><span class="line">      - &quot;/home/music/song:/music:ro&quot;</span><br><span class="line"></span><br><span class="line">  miniserve:</span><br><span class="line">    image: svenstaro/miniserve:latest</span><br><span class="line">    depends_on:</span><br><span class="line">      - navidrome</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;4534:4534&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - &quot;/home/music/song:/downloads&quot;  </span><br><span class="line">    command: &quot;-r -z -u -q -p 4534 -a admin:123456 /downloads&quot; </span><br><span class="line">    restart: unless-stopped</span><br></pre></td></tr></table></figure><p>注意：在安装navidrome的同时，我们顺便安装一个miniserve文件服务器，可以用来上传音乐文件，如果你存储音乐的文件夹和我不一样，请将两处<code>/home/music/song</code>都进行修改。</p><ul><li><code>/home/music/data</code>：用来存储navidrome缓存的位置</li><li><code>/home/music/song</code>：存储音乐文件的路径</li><li><code>admin:123456</code>：miniserve文件服务器的用户名和密码，格式 用户名:密码</li></ul><p>下面连接ssh</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /home/music</span><br><span class="line">#先进入music目录</span><br><span class="line">docker-compose up -d</span><br><span class="line">#再输入上面这条命令开始部署</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/1211_3_1.png" alt="1211_3_1"></p><p>done就完成部署了。</p><h4 id="配置-amp-优化"><a href="#配置-amp-优化" class="headerlink" title="配置&amp;优化"></a>配置&amp;优化</h4><p>打开IP:4533（navidrome），创建用户名和密码</p><p><img src="https://pic.sky350.cn/images/1211_4.png" alt="1211_4"></p><p>点击右上角头像，点击Personal，Language选择简体中文。</p><p><img src="https://pic.sky350.cn/images/1211_4_1.png" alt="1211_4_1"></p><p>当我们上传音乐文件之后，点击头像左边的图标可以快速扫描音乐文件。</p><p><img src="https://pic.sky350.cn/images/1211_4_2.png" alt="1211_4_2"></p><p>打开IP:4534（miniserve），输入我们预先设置的用户名和密码</p><p><img src="https://pic.sky350.cn/images/1211_5.png" alt="1211_5"></p><p><img src="https://pic.sky350.cn/images/1211_6.png" alt="1211_6"></p><p>到此工作就完成了，我们只需要将下载到的音乐上传到服务器就好了。</p><p><img src="https://pic.sky350.cn/images/1211_7.png"></p><h4 id="适配APP平台"><a href="#适配APP平台" class="headerlink" title="适配APP平台"></a>适配APP平台</h4><p>Navidrome 可以与以下所有 Subsonic 客户端兼容。</p><ul><li>iOS：play:Sub、 substreamer、 Amperfy和 iSub</li><li>安卓：DSub， Subtracks， substreamer， Ultrasonic和 Audinaut</li><li>桌面：Sublime Music (Linux) 和Sonixd (Windows&#x2F;Linux&#x2F;macOS)</li><li>CLI：Jellycli (Windows&#x2F;Linux) 和STMP (Linux&#x2F;macOS)</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Navidrome是一个非常不错的程序，就是大家需要想办法下载到自己喜欢的歌曲，而且，歌曲也会占用服务器的一部分空间，服务器比较闲的朋友可以拿来耍耍，或者家里有软路由的也可以直接搭建在软路由上。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 系列教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vps </tag>
+            
+            <tag> 服务器 </tag>
+            
+            <tag> 域名 </tag>
+            
+            <tag> 博客 </tag>
+            
+            <tag> 建站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>《高效使用你的VPS》搭建私人多平台笔记系统</title>
+      <link href="/871.html"/>
+      <url>/871.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>买了一台vps做科学上网，却仅仅只做了科学上网！这不符合我们勤俭节约的理念，所以《高效使用你的VPS》将会教大家如何高效地榨干vps，以获得最大的收益。《高效使用你的VPS》未来可能持续更新（我得自己先体验过才会看情况值不值得更新）。</p><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>本期教程所需要的东西：</p><ul><li>域名一个（推荐解析到CloudFlare，有免费的CDN） </li><li>vps云服务器一台，预装Linux系统</li><li>手<h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><h4 id="软件选用"><a href="#软件选用" class="headerlink" title="软件选用"></a>软件选用</h4>在笔记软件选用这方面，按照我们一贯的追求，开源+轻量，所以我们选择了Joplin，官方对它的评价是</li></ul><p><img src="https://pic.sky350.cn/images/3828774827.png"></p><p>自由，开源，多平台！非常符合我们的要求。</p><p><a href="https://joplinapp.org/">Joplin下载</a></p><h4 id="安装Cloudreve"><a href="#安装Cloudreve" class="headerlink" title="安装Cloudreve"></a>安装Cloudreve</h4><p>Cloudreve是一款公私兼备的网盘系统，我们之前也有介绍过，也有出过安装教程<br><img src="https://pic.sky350.cn/images/3887403712.png"></p><p>我们看到它是支持WebDAV功能的，而这个也正是Joplin支持的存储策略</p><p><a href="https://www.sky350.com/603.html">Cloudreve安装教程</a></p><h4 id="打开WebDAV"><a href="#打开WebDAV" class="headerlink" title="打开WebDAV"></a>打开WebDAV</h4><p>我们登录上Cloudreve，点击左边的WebDAV，创建一个新账号，目录最好填一下，否则笔记文件将同步到网盘根目录，根目录会变得很凌乱。</p><p><img src="https://pic.sky350.cn/images/2155805312.png"></p><h4 id="设置Joplin"><a href="#设置Joplin" class="headerlink" title="设置Joplin"></a>设置Joplin</h4><p>打开Joplin，点击顶部的Tools-Options</p><p><img src="https://pic.sky350.cn/images/1718512752.png"></p><p>在Language中选择中文</p><p><img src="https://pic.sky350.cn/images/1167539224.png"></p><p>左边点击同步，选择WebDAV，将我们网盘WebDAV的信息填入，确定，返回，点击左下角的同步检查是否正确，不出意外的话就设置完了。</p><p><img src="https://pic.sky350.cn/images/3250873580.png"></p><p><strong>在手机或者平板上的设置也类似</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 系列教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vps </tag>
+            
+            <tag> 服务器 </tag>
+            
+            <tag> 域名 </tag>
+            
+            <tag> 博客 </tag>
+            
+            <tag> 建站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>V2RayA——新一代Linux客户端安装配置教程</title>
+      <link href="/1210.html"/>
+      <url>/1210.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>上一次我们介绍的Qv2ray还是有一些同学不会安装，而且Qv2ray也不再更新了，所以我就另外去找了，刚好找到一个安装配置都非常简单的软件，也就是本章的主角——v2rayA</p><h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><p><img src="https://pic.sky350.cn/images/1210_1.png"></p><p>在官网的介绍中我们可以发现，v2rayA是一款非常强大的软件，它甚至能提供透明代理（几乎完全全局代理，目标服务器检测不到代理服务器）。好我就精简一下官方的教程教给大家怎么去安装配置Qv2ray，官网我会放到文章末尾。 </p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="安装内核"><a href="#安装内核" class="headerlink" title="安装内核"></a>安装内核</h4><p>V2Ray &#x2F; Xray 的官方脚本，不是很懂Linux或者家里连不上GitHub的建议看下面V2rayA提供的镜像脚本一键安装方法</p><p>V2Ray 安装参考：<a href="https://github.com/v2fly/fhs-install-v2ray">https://github.com/v2fly/fhs-install-v2ray</a><br>Xray 安装参考：<a href="https://github.com/XTLS/Xray-install">https://github.com/XTLS/Xray-install</a></p><p>v2rayA 提供的镜像脚本（推荐）</p><p><code>curl -Ls https://mirrors.v2raya.org/go.sh | sudo bash</code></p><p>安装后可以关掉服务</p><p><code>sudo systemctl disable v2ray --now   ### Xray 需要替换服务为 xray</code><br>内核安装完成。</p><h4 id="安装v2rayA"><a href="#安装v2rayA" class="headerlink" title="安装v2rayA"></a>安装v2rayA</h4><p> 方法一：通过软件源安装<br> 添加公钥</p><p><code>wget -qO - https://apt.v2raya.mzz.pub/key/public-key.asc | sudo apt-key add -</code></p><p>添加 V2RayA 软件源</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;deb https://apt.v2raya.mzz.pub/ v2raya main&quot; | sudo tee /etc/apt/sources.list.d/v2raya.list</span><br><span class="line">sudo apt update</span><br></pre></td></tr></table></figure><p>安装 V2RayA</p><p><code>sudo apt install v2raya</code></p><p>方法二：手动安装 deb 包</p><p>下载 deb 包</p><p><a href="https://github.com/v2rayA/v2rayA/releases">点我下载</a></p><p>然后可以使用 Gdebi、QApt 等图形化工具来安装，也可以使用命令行：</p><p><code>sudo apt install /path/download/installer_debian_xxx_vxxx.deb ### 自行替换 deb 包所在的实际路径</code></p><h3 id="启动-amp-配置"><a href="#启动-amp-配置" class="headerlink" title="启动&amp;配置"></a>启动&amp;配置</h3><h4 id="开机自启"><a href="#开机自启" class="headerlink" title="开机自启"></a>开机自启</h4><p>启动 v2rayA</p><p><code>sudo systemctl start v2raya.service</code></p><p>设置开机自动启动</p><p><code>sudo systemctl enable v2raya.service</code></p><h4 id="软件配置"><a href="#软件配置" class="headerlink" title="软件配置"></a>软件配置</h4><p>v2rayA的UI是以网页的形式呈现的，所以我们打开浏览器，访问v2rayA的地址<a href="http://localhost:2017/">http://localhost:2017/</a></p><p><img src="https://pic.sky350.cn/images/1210_2.png"></p><p>首次打开需要创建一个管理员账号，如果遗忘，使用下面的命令重置。</p><p><code>sudo v2raya --reset-password</code></p><p>以创建或导入的方式导入节点，导入支持节点链接、订阅链接、扫描二维码和批量导入等方式。</p><p><img src="https://pic.sky350.cn/images/1210_3.png"></p><p>导入成功后，节点将显示在 SERVER 中，先选择要连接的节点，再点击左上角的就绪按钮就能开启代理了。</p><p><img src="https://pic.sky350.cn/images/1210_4.png"></p><p>点击右边的设置，推荐像我一样设置，也是官方推荐的设置</p><p><img src="https://pic.sky350.cn/images/1210_5.png"></p><p>但是还没有结束，在某些不能自动配置代理的系统中，还需要手动进行代理，以Ubuntu为例（Ubuntu无需手动设置代理，仅为了演示），进入设置–&gt;网络–&gt;网络代理–&gt;手动代理，默认端口没有改动的话按照我的填写</p><p><img src="https://pic.sky350.cn/images/1210_6.png"></p><p>v2rayA的默认代理端口是</p><p><img src="https://pic.sky350.cn/images/1210_7.png"></p><p>到此就完成了整个安装与配置，本篇v2rayA安装配置在别的Linux中仍然适用，如果遇到什么问题推荐看一下官网的文档。</p><p>官网：<a href="https://v2raya.org/">点我直达</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 上网神器 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> v2ray </tag>
+            
+            <tag> xray </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Cloudcone超便宜VPS简单评测（黑五打折套餐）</title>
+      <link href="/1062.html"/>
+      <url>/1062.html</url>
+      
+        <content type="html"><![CDATA[<center>本文不含任何推广信息</center><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>不知道大家有没有留意过我发的VPS推荐，其中提到了搬瓦工，腾讯轻量应用服务器以及Cloudcone，没错，本次简单评测就是其中之一的Cloudcone。</p><p>为什么会有这个评测呢？主要是前几天黑五的时候官方发来邮件推广，刚好看了一眼优惠相当可以就忍不住入手一台玩玩了。<br><img src="https://pic.sky350.cn/images/1001_2.png"></p><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>黑五的活动不少，但你们看到的时候应该已经没有了，下面说说我买到的配置。</p><table><thead><tr><th align="center">核心</th><th align="center">2核</th></tr></thead><tbody><tr><td align="center">内存</td><td align="center">1G</td></tr><tr><td align="center">硬盘</td><td align="center">35G</td></tr><tr><td align="center">带宽</td><td align="center">1G</td></tr><tr><td align="center">流量</td><td align="center">4T&#x2F;月</td></tr><tr><td align="center">价格</td><td align="center">8.79刀&#x2F;年</td></tr></tbody></table><p>系统显示配置和I&#x2F;O性能测试</p><p><img src="https://pic.sky350.cn/images/1001_5.png"></p><h3 id="速度"><a href="#速度" class="headerlink" title="速度"></a>速度</h3><p>速度方面，大概十点多抢购到，当时就搭建了个测速站，叫我朋友也测了一次速度（我们所在的地方带宽有限制）</p><p><img src="https://pic.sky350.cn/images/1001_1.png"></p><center>山东电信100M宽带（限制上传）测速结果</center><p><img src="https://pic.sky350.cn/images/1001_15.png"></p><center>广西电信200M宽带（限制上传）测速结果</center><p>从结果上看基本上是跑满200M宽带的，但是不是在高峰期，所以不是很有参考价值，但是按这个价格来说，高峰期的速度应该也不太好看。</p><p>经过一个月之后，我们再来测速看看</p><p><img src="https://pic.sky350.cn/images/1001_6.png"></p><p>可以看到这个vps在不同地方速度有很大的差别，但总的来说还是可以的。</p><h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><p>路由是一个vps网络质量的关键因素，好的路由能让我们的体验大大提升！现在我就来测试一下的这个vps的回程路由。</p><p><img src="https://pic.sky350.cn/images/1001_7.png"></p><p><img src="https://pic.sky350.cn/images/1001_8.png"></p><p>广州、上海电信都是走的163网络</p><p><img src="https://pic.sky350.cn/images/1001_9.png"></p><p>厦门电信走cn2网络，这让我有点惊讶！</p><p><img src="https://pic.sky350.cn/images/1001_10.png"></p><p><img src="https://pic.sky350.cn/images/1001_11.png"></p><p>重庆、成都联通都是走的AS4837。</p><p><img src="https://pic.sky350.cn/images/1001_12.png"></p><p><img src="https://pic.sky350.cn/images/1001_13.png"></p><p>上海、成都移动都是走的AS58453。</p><h3 id="科学上网"><a href="#科学上网" class="headerlink" title="科学上网"></a>科学上网</h3><p><img src="https://pic.sky350.cn/images/1001_14.png"></p><p>在Vless下Youtube最高能到3.5W左右，当然跟我自己的宽带也有一定的关系，但是总体来说还是不错的。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>根据三网的回程路由，这个vps比较适合家里使用电信宽带的用户，移动的话就不太建议了。速度方面高峰期能保持基本的1080p Youtube视频播放（平时用时总结出来的，没有截图），非高峰期速度还是不错的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 闲扯文档 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vps </tag>
+            
+            <tag> 服务器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>《搭建一个合适自己的梯子》节点搭建篇</title>
+      <link href="/976.html"/>
+      <url>/976.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本篇仍旧是新手向，有Linux基础的同学可以看我之前写的那篇。</p><p><a href="https://www.sky350.com/576.html">科学上网服务器搭建 不再受限于人！（v2ray&#x2F;xray&#x2F;trojan）</a></p><p>另外，不出意外的话这也应该是最后一篇了，本篇我将仔细给大家讲讲梯子的原理以及实现方法，没有看前两篇的同学可以先去看看前两篇。</p><p><a href="https://www.sky350.com/884.html">《搭建一个合适自己的梯子》域名注册篇（新手基础）</a></p><p><a href="https://www.sky350.com/951.html">《搭建一个合适自己的梯子》服务器挑选篇</a></p><p>此外，我之前也说过的，<strong>出墙了也要遵守好法律法规，网络绝不是法外之地，出去看看油管看看ins没啥关系。</strong></p><h3 id="梯子原理"><a href="#梯子原理" class="headerlink" title="梯子原理"></a>梯子原理</h3><p>大家应该都知道的，我国对网民的信息安全非常看重，要求进入我国市场的企业需要将存放用户信息的服务器设在国内，苹果公司都乖乖的将服务器设在贵州了，但是有些企业是不愿意这么做的，比如谷歌。所以，它被隔离在长城防火墙之外了，我们普通用户也就无法正常去使用它的服务了。</p><p>既然明白了为什么不能正常访问，那就可以准对原因找方法了。首先，大陆不能正常访问，但是大陆之外的地区都可以正常访问，包括港澳台地区，那我们的思路就是在大陆和被ban掉的站点之间增加一个中转节点，这个问题就得以解决了，事实上也确实是这样的。大家不明白的话可以看看下面的图解。</p><p><img src="https://pic.sky350.cn/images/976_1.png"></p><center>受限制的网络</center><p><img src="https://pic.sky350.cn/images/976_2.png"></p><center>梯子实现的网络</center><h3 id="获取公网IP"><a href="#获取公网IP" class="headerlink" title="获取公网IP"></a>获取公网IP</h3><p>讲完原理了我们就可以着手去实现它了，首先我们需要能连接到提供中转服务的服务器，也就是我们所购买的vps，没有网络基础的同学，现在你可以知道，连接到一台服务器，可以通过IP地址来实现，前提它是公网IP，怎么区分呢，一般管理面板都会注明IPv4地址或者IPv6地址，如果它显示了两个地址，那10&#x2F;172&#x2F;192开头的是内网地址，此外，纯IPv6的服务器只能使用IPv6网络，需自身也接入IPv6网络，再者目前大多数服务是由IPv4提供的，所以限制比较大。</p><p><img src="https://pic.sky350.cn/images/976_3.png"></p><p>HOST地址就是IP</p><h3 id="ssh连接服务器"><a href="#ssh连接服务器" class="headerlink" title="ssh连接服务器"></a>ssh连接服务器</h3><p>当我们拿大vps服务器的IP地址后，就可以通过软件连接到我们的服务器（服务器安装Centos或者debian系统），推荐大家使用Finalshell来进行连接，首先打开，点击左上添加服务器，输入ip，用户名和密码，然后连接即可。</p><p><img src="https://pic.sky350.cn/images/976_4.png"></p><p><img src="https://pic.sky350.cn/images/976_5.png"></p><p>主机填写服务器IP，名称随意</p><h3 id="安装管理面板"><a href="#安装管理面板" class="headerlink" title="安装管理面板"></a>安装管理面板</h3><p>连接到我们的服务器后，软件给我们展现的是一个命令模式的面板，不要慌，操作依旧简单，复制下面的一键脚本，粘贴到软件面板里，回车</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)</span><br></pre></td></tr></table></figure><p>如果你的vps提示curl: command not found,先复制下面的代码安装curl，再执行上面的脚本。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install -y curl       #ubuntu/debian 系统安装 Curl </span><br><span class="line">yum install curl -y     #centos 系统安装 Curl</span><br></pre></td></tr></table></figure><p>安装过程很迅速，几乎一瞬之间你就能看到下面的提示，控制面板地址为：IP:54321，默认账号密码都是admin</p><p><img src="https://pic.sky350.cn/images/976_6.png"></p><p>完事基础安装就完成了。</p><h3 id="进阶配置"><a href="#进阶配置" class="headerlink" title="进阶配置"></a>进阶配置</h3><p>到了进阶的安全配置，大家的一域名终于能用得上了，我推荐首先将域名托管到Cloudflare平台，它不仅解析速度快，还提供免费的CDN加速，我们隐藏自己的真实IP就需要用到它。具体步骤如下</p><p>首先注册个Cloudflare账号，登陆点击添加站点，输入你注册的域名</p><p><img src="https://pic.sky350.cn/images/976_7.png"></p><p>选择计划时滑到页面底部选择免费即可，下一步，看到提示完成站点激活</p><p><img src="https://pic.sky350.cn/images/976_8.png"></p><p>很简单，登录到域名后台，以腾讯云为例，点击域名后面的更多–&gt;修改DNS</p><p><img src="https://pic.sky350.cn/images/976_9.png"></p><p>在弹出的窗口中输入Cloudflare需要你替换的DNS</p><p><img src="https://pic.sky350.cn/images/976_10.png"></p><p><img src="https://pic.sky350.cn/images/976_11.png"></p><p>修改完成后保存就好，修改域名DNS服务器生效时间一般情况下是24小时，所以大家不要频繁更换域名DNS，在Cloudflare检测到你的域名DNS指向它时，生效邮件就会发送到你的邮箱。</p><p>成功将域名托管到Cloudflare后，做域名解析需要到Cloudflare上进行。</p><h3 id="新建节点"><a href="#新建节点" class="headerlink" title="新建节点"></a>新建节点</h3><p>一台vps服务器我们一般推荐开启两个服务端口（节点），一个只用协议本身加密，它的速度较快，但是也更容易被长城防火墙扫到封禁；另一个是套用CDN，隐藏我们的真实IP，开启CDN对速度有影响，如果地理位置和使用的家庭宽带比较合适，那么节点的速度可能会更快，反之则会更慢，但不论快慢，它的安全性是非常高的。</p><p>首先登陆我们的管理面板（上面安装的，浏览器打开IP:54321），在入站列表里点击左边的加号，选一个协议，个人推荐vless，加密性好，速度也快，参数不需要懂，默认就好，可以填个备注，就这么简单就创建完一个节点了。</p><p><img src="https://pic.sky350.cn/images/976_12.png"></p><p>完事点击操作–二维码–复制，将节点信息导入科学上网软件 即可使用。</p><h3 id="开启CDN"><a href="#开启CDN" class="headerlink" title="开启CDN"></a>开启CDN</h3><p>我们先处理域名的部分，首先将域名解析到服务器，登陆Cloudflare，点击已添加的域名，点击DNS，添加记录，选择A记录，名称可以随便填，IPv4 地址为自己vps服务器的IP地址，代理状态开启，保存</p><p><img src="https://pic.sky350.cn/images/976_13.png"></p><p>解析完域名之后，点击ssl&#x2F;tls，将安全模式改为完全</p><p><img src="https://pic.sky350.cn/images/976_14.png"></p><p>之后点击客户端证书，创建一个证书，新建两个文件将生成的pem和key保存好，否则下次要使用只能再重新创建了</p><p><img src="https://pic.sky350.cn/images/976_15.png"></p><p>到此域名部分我们已经搞定了</p><p>接下来回到我们的管理面板，点击加号，协议仍旧选vless，端口改为443，传输选择ws，路径随便写，开启tls，域名填写自己解析的二级域名，将刚刚申请到的证书填入，pem对应公钥，key对应私钥</p><p><img src="https://pic.sky350.cn/images/976_16.png"></p><p>完事点击操作–二维码–复制，将节点信息导入科学上网软件，还没下载有的可以看本站<a href="https://www.sky350.com/category/app">上网神器</a></p><p>到此完成了所有步骤，如果你能耐心看到这一步，你应该已经成功了！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 系列教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vps </tag>
+            
+            <tag> Xray </tag>
+            
+            <tag> 科学上网 </tag>
+            
+            <tag> 域名 </tag>
+            
+            <tag> cdn </tag>
+            
+            <tag> Cloudflare </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>《高效使用你的VPS》Wordpress博客进阶优化 伪静态/缓存/邮件配置</title>
+      <link href="/1000.html"/>
+      <url>/1000.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在一个多月前，我给大家写了这样一篇博客</p><p><a href="https://www.sky350.com/827.html">《高效使用你的VPS》快速搭建个人博客 新手基础篇</a></p><p>也不知道有多少同学跟着做了，相信做过的同学应该能感觉到，Wordpress还是比较吃性能的，如果不进行一定的优化将有可能拖累我们的vps服务器，那今天这篇，我们就来讲讲Wordpress常见的优化手段，希望能给大家一定的帮助！</p><p>如果你也想大家一个个性的博客站点，想向同学们吹牛，想用来追女孩子…那就赶紧按照上面这篇搭建起来吧</p><p>本系列的宗旨还是不变的，教大家尽可能以最少的花费取得最优的体验！</p><h3 id="静态化"><a href="#静态化" class="headerlink" title="静态化"></a>静态化</h3><p>什么是静态化？在设置静态化之前，博文的链接默认是以&#x2F;?p&#x3D;123这种形式结尾的，博客的每一次访问，服务器都会动态的查找内容，这对服务器的消耗是非常大的。静态化之后，博文的链接默认是以&#x2F;123.html的形式结尾的，它是服务器模拟静态文件来的，但终究是伪静态，但这并不是说没有用，在完成下一步的缓存以及更下一步的CDN之后，它就能大大减小服务器的压力。</p><p>我们首先登陆到宝塔面板后台，点开网站–伪静态，然后选择Wordpress规则，保存</p><p><img src="https://pic.sky350.cn/images/1000_1.png"></p><p>下一步登录到我们博客的后台，点击设置–固定链接–自定义结构，填下面这段规则</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/%post_id%.html</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/1000_2.png"></p><p>这样我们就设置完成了，这时候打开一篇博文，我们就能发现它的链接已经变成html结尾了。</p><p><img src="https://pic.sky350.cn/images/1000_3.png"></p><h3 id="建立缓存"><a href="#建立缓存" class="headerlink" title="建立缓存"></a>建立缓存</h3><p>在完成静态化之后，建立缓存可以规避掉耗费资源的动态查询，因为静态html已经在缓存之中了，每一次访问都可以直接找到。</p><p>我们首先登录到宝塔面板，找到软件商店，搜索redis并安装， redis能对数据库高效缓存，大大提升网页加载速度</p><p><img src="https://pic.sky350.cn/images/1000_4.png"></p><p>安装完redis就要开始使用了，登陆博客后台，找到插件–安装插件，搜索w3 total cache，安装并启用，这个插件能提供多种类型的缓存，包括但不止于html缓存，对博客极为友好。</p><p><img src="https://pic.sky350.cn/images/1000_5.png"></p><p>启用插件之后找到博客后台Performance–Setup Guide，Accept接受，一次进行速度测试，选择速度较快的进行缓存</p><p><img src="https://pic.sky350.cn/images/1000_6.png"></p><p><img src="https://pic.sky350.cn/images/1000_7.png"></p><p><img src="https://pic.sky350.cn/images/1000_8.png"></p><p><img src="https://pic.sky350.cn/images/1000_9.png"></p><p><img src="https://pic.sky350.cn/images/1000_10.png"></p><p><img src="https://pic.sky350.cn/images/1000_11.png"></p><p>Lazy Load images不建议大家打开，可能和主题有兼容性问题</p><p>完事之后检验一下是不是成功开启缓存了，随便打开一个页面，邮件查看网页源代码，滑倒最底部，看看是否出现如下字样，出现了就成功了。</p><p><img src="https://pic.sky350.cn/images/1000_12.png"></p><h3 id="自动化邮件"><a href="#自动化邮件" class="headerlink" title="自动化邮件"></a>自动化邮件</h3><p>邮件服务需要用到25端口，实测腾讯云轻量香港开放了25端口，其他商家未知，可开启端口后连接SSH输入下面的命令进行测试</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install telnet -y</span><br><span class="line">telnet smtp.qq.com 25 </span><br></pre></td></tr></table></figure><p>如下返回220则表示可用</p><p><img src="https://pic.sky350.cn/images/1000_13.png"></p><p>在确定可以使用邮件服务之后，就可以安装邮局系统了，打开宝塔面板–软件商城搜索邮局管理器，安装</p><p><img src="https://pic.sky350.cn/images/1000_14.png"></p><p><img src="https://pic.sky350.cn/images/1000_15.png"></p><p>开启会进行检测环境，有可能会出下面的提示</p><p><img src="https://pic.sky350.cn/images/1000_16.png"></p><p>连接SSH键入下面的命令重命名主机，域名填写自己的，完事刷新回到面板刷新一下就好了</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname --static mail.example.com</span><br></pre></td></tr></table></figure><p>然后添加域名，域名写顶级域名，A记录可以随便解析一个IP指向服务器，再按照提示添加必须的解析，这样域名就添加完成了</p><p><img src="https://pic.sky350.cn/images/1000_17.png"></p><p><img src="https://pic.sky350.cn/images/1000_18.png"></p><p>为了我们的邮件安全，可以去申请个ssl证书，点击添加证书，按提示添加域名解析即可（不申请证书可能无法使用）</p><p><img src="https://pic.sky350.cn/images/1000_19.png"></p><p>之后点击用户管理，添加用户，邮局服务就建立完成了</p><p><img src="https://pic.sky350.cn/images/1000_20.png"></p><p>下一步时再博客开启邮件服务，回到博客后台，点击插件–安装插件，搜索SMTP Mailer安装并启用</p><p><img src="https://pic.sky350.cn/images/1000_21.png"></p><p>按照下面的方式填写配置信息，并保存，然后可以test一下看看是否能连通</p><p><img src="https://pic.sky350.cn/images/1000_22.png"></p><p><img src="https://pic.sky350.cn/images/1000_23.png"></p><p>末尾如下提示表示正常</p><p>最后我们来测试一下,博客开启注册功能，注册一个用户</p><p><img src="https://pic.sky350.cn/images/1000_24.png"></p><p>博主收到的邮件</p><p><img src="https://pic.sky350.cn/images/1000_25.png"></p><p>用户收到的邮件</p><p>博主和用户都会收到邮件提醒！</p><p>此外，还可以下载类似OUTLOOK之类的邮箱客户端，登陆刚刚建立的域名邮箱。</p><p>到此，暂时先结束了！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 系列教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 服务器 </tag>
+            
+            <tag> WordPress </tag>
+            
+            <tag> 域名 </tag>
+            
+            <tag> 域名邮箱 </tag>
+            
+            <tag> 腾讯云 </tag>
+            
+            <tag> 伪静态 </tag>
+            
+            <tag> 缓存 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>《搭建一个合适自己的梯子》服务器挑选篇</title>
+      <link href="/951.html"/>
+      <url>/951.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>距离本系列《搭建一个合适自己的梯子》上一篇</p><p><a href="https://www.sky350.com/884.html">《搭建一个合适自己的梯子》域名注册篇（新手基础）</a></p><p>发布已经过去挺久了，这么久一直没更新是我以为没人看，没想到居然有人看，那我就努力更新咯</p><p>接上次的内容，在拥有了一个域名后，我们该怎么去挑选合适自己的vps服务器？</p><p>本篇就根大家聊一聊购买服务器需要注意的一些点。</p><h3 id="核心-x2F-内存"><a href="#核心-x2F-内存" class="headerlink" title="核心&#x2F;内存"></a>核心&#x2F;内存</h3><p>在基础配置选择前我们首先要清楚我们我们的用途，如果你仅仅是想搭建个科学上网节点，那么1核512M都够用了，如果你顺便想搭建一个个人博客（方法如下）</p><p><a href="https://www.sky350.com/827.html">《高效使用你的VPS》快速搭建个人博客 新手基础篇</a></p><p>或者一个个人导航站点（方法如下）</p><p><a href="https://www.sky350.com/909.html">《高效使用你的VPS》搭建个人导航站点</a></p><p>那么就推荐至少1核1G，如果你认为你的站点能够吸引到更多的浏览量，那还需要继续网上升一升。另外，即便都是1核1G，不同商家的VPS服务器所使用的CPU内存也不尽相同，绝大多数便宜的VPS用的Intel老E5系列，它们可能已经在服务器上锻炼8年10年了，并且配备的是DDR3的内存，高端方面有intel的Xeon Gold系列，以及AMD的霄龙系列，所以性能还是会有差距，买之前可以先询问一下商家或者百度一下该商家的VPS服务器评测。</p><p>虚拟化：非常不推荐OpenVZ，KVM相对来说会好一些。</p><h3 id="硬盘-x2F-带宽"><a href="#硬盘-x2F-带宽" class="headerlink" title="硬盘&#x2F;带宽"></a>硬盘&#x2F;带宽</h3><p>除了CPU和内存，影响服务器速度的还有硬盘和带宽，硬盘主要影响服务器的I&#x2F;O性能，而带宽影响的是传输速度，I&#x2F;O性能是什么？</p><p>I&#x2F;O（input&#x2F;output）字面理解就是输入&#x2F;输出，输入指的是对磁盘写入数据，输出指的是从磁盘读出数据。</p><p>那如何去选择I&#x2F;O性能好的服务器呢？回归到硬盘，服务器用的硬盘性能越好，服务器I&#x2F;O就会越高，通常情况下，一般传统机械sata硬盘的顺序读写速度为 ：80<del>150M&#x2F;s，SAS硬盘为150</del>200M&#x2F;s，SSD固态硬盘为400~600M&#x2F;s。此外，硬盘的RAID形式也会影响服务器的I&#x2F;O性能，这个就不拓展来细说了，购买时尽量选择使用SSD固态硬盘的服务器。</p><p>带宽方面，应该很容易理解吧，其实跟我们家用宽带差不多，我们家用宽带越高，下载速度越快，服务器上的带宽一般是之服务器的上传速度，也就是说，服务器带宽越高，上传速度越快（我们的下载就是服务器的上传）。另外有一点需要注意，服务器带宽有共享带宽，也有独享带宽，1，2M的基本上都是独享，500M，1G这些基本上都是共享的（共享就是一台物理机上运行许多虚拟机，而我们使用的基本上都是虚拟机，企业才有用整台物理机的需求，而许多虚拟机共享物理机接入的带宽）。并不是说共享的不好，只要厂商不严重超开就行，而且我们科学上网也需要大带宽。</p><h3 id="地区-x2F-路由"><a href="#地区-x2F-路由" class="headerlink" title="地区&#x2F;路由"></a>地区&#x2F;路由</h3><p>两点之间，直线最短，这句话也同样用于vps服务器，不过，搭建科学上网节点必须选择中国大陆以外的地区，一般来说，我们选的服务器地区离我们越近，我们的延迟就会越低，网络就会更顺畅，但是并不是所有的vps都适用这个规则，曾经我买过一个小厂的香港vps，它的线路却是下面这样的。。。</p><p><img src="https://pic.sky350.cn/images/951_1.png"></p><p>绕了一圈的网络</p><p>所以更重要的是vps服务器所使用的路由，在资金允许的情况下，我们建议使用中国电信cn2线路优化的网络，或者移动CMI直连线路，通常来讲，这些线路的连通性更好，延迟更低。</p><p>在厂商没有说明的情况下，我们的建议是打开厂商给的测试IP，下载一个1G文件看速度，这个下载速度大致就是服务器到你所在地的链接速度，可以接受的话就能用。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>核心&#x2F;内存</p><p>1C 512M及以上</p><p>硬盘&#x2F;带宽</p><p>SSD固态硬盘&#x2F;500M以上共享网络</p><p>地区&#x2F;路由</p><p>地区越近越好（科学上网节点需要在大陆以外的地区）&#x2F;CN2&#x2F;CMI为推荐线路</p><p>完成服务器购买后可以先按下面这篇文章进项简单的配置，进阶配置教程在写了（新建文件夹）</p><p><a href="https://www.sky350.com/576.html">科学上网服务器搭建 不再受限于人！（v2ray&#x2F;xray&#x2F;trojan）</a></p><h3 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h3><p>本推荐不含广告，都是我自己使用过的，首先如果只是一两个人使用并且只是看看油管，ins，facebook等，使用腾讯云轻量应用服务器香港地区就可以，价格便宜，30M带宽测试测试发现50M的峰值速度，主要是延迟很低。如果不太在意延迟可以购买经典商家搬瓦工，只是最近这价格越来越贵了…如果跟我一样是穷逼也可以购买Cloudcone的十来美元一年，1G共享带宽测试发现大部分城市都能跑到300M，KVM虚拟化也不太用怕超售。</p><h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>感谢@<strong>小白</strong>同学评论区帮我补充了以下信息</p><ul><li>腾讯云轻量应用服务器最低套餐为288元&#x2F;年（可按月付款），配置为1核CPU&#x2F;1G内存&#x2F;25GB SSD，带宽峰值30Mbps，流量包1TB，主要面向长尾用户、个人开发者、小型企业等，性价比高。</li><li>搬瓦工是最稳定，性能最好国外的VPS商家，换ip需要付费；套餐：1核1G 20G SSD硬盘 CN2线路 1000G月流量， 洛杉矶机房大约$50&#x2F;年。</li><li>cloudcone主要是价格非常便宜，经常有按年的优惠方案放出来，$17.99&#x2F;年（经常有活动能做到15刀左右一年），换ip需要付费。</li></ul><p>2021.11.2</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 系列教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vps </tag>
+            
+            <tag> 服务器 </tag>
+            
+            <tag> 科学上网 </tag>
+            
+            <tag> 阿里云 </tag>
+            
+            <tag> 域名 </tag>
+            
+            <tag> 腾讯云 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>《高效使用你的VPS》搭建个人导航站点</title>
+      <link href="/909.html"/>
+      <url>/909.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>买了一台vps做科学上网，却仅仅只做了科学上网！这不符合我们勤俭节约的理念，所以《高效使用你的VPS》将会教大家如何高效地榨干vps，以获得最大的收益。《高效使用你的VPS》未来可能持续更新（我得自己先体验过才会看情况值不值得更新）。</p><p>上期我们介绍了如何利用vps搭建个人博客，不知道有没有同学搭建完了呢，本次我们继续折腾，让手里的vps发光发热！这次选择的是搭建一个属于自己的导航站点，把我们常用的站点编辑进去，浏览器默认打开我们的导航站点，可以很大程度提高我们的使用体验。</p><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul><li>vps一台</li><li>域名一个</li><li>Webstack（html+css+js）</li></ul><h3 id="本地个性化设置"><a href="#本地个性化设置" class="headerlink" title="本地个性化设置"></a>本地个性化设置</h3><p>本期继续使用开源高效的宝塔面板作为服务器管理软件，在搭建好博客之后继续来搭建我们的导航站点，宝塔面板不会安装的同学可以看看我的上一期《高效使用你的vps》</p><p><a href="https://www.sky350.com/827.html">《高效使用你的VPS》快速搭建个人博客 新手基础篇</a></p><h4 id="界面预览"><a href="#界面预览" class="headerlink" title="界面预览"></a>界面预览</h4><p><img src="https://pic.sky350.cn/images/909_1.gif"></p><h4 id="个性化站点"><a href="#个性化站点" class="headerlink" title="个性化站点"></a>个性化站点</h4><p>我们所使用的导航站点为开源的webstack，它不只有静态的，但为了尽可能减小服务器的负载，我们还是选择静态的，它是没有后台的，想配合后台来使用的同学可以看下webstack的GitHub页面，这里就不做过多演示。</p><p><a href="https://github.com/WebStackPage/WebStackPage.github.io">https://github.com/WebStackPage/WebStackPage.github.io</a></p><p>既然没有后台，修改导航站点内容就可能会有点麻烦，但是没关系，修改起来并不困难，还能学到一些简单的H5基础知识，下面我来为大家做个演示</p><p><img src="https://pic.sky350.cn/images/909_2.png"></p><p>webstack 目录文件</p><h4 id="使用单一语言"><a href="#使用单一语言" class="headerlink" title="使用单一语言"></a>使用单一语言</h4><p>webstack 目录文件并不多，index.html是首页的引导，默认为中文页面，但也有英文页面，所以，就修改来说，我们需要分别修改中英文页面，页面分别位于cn，en两个文件夹之中</p><p><img src="https://pic.sky350.cn/images/909_3.png"></p><p>cn&#x2F;en文件夹目录</p><p>如果我们只需要中午&#x2F;英文一个界面，只需要将根目录下的index.html删掉，将对应cn&#x2F;en文件夹中的index.html和about.html移到根目录再对页面稍作修改。</p><p><img src="https://pic.sky350.cn/images/909_4.gif"></p><p>将cn&#x2F;en中的内容移到首页后，我们双击index.html打开发现页面已经乱了，这是因为页面所调用的css文件，图片等相对页面的位置已经发生了改变</p><p><img src="https://pic.sky350.cn/images/909_5.png"></p><p>这时候我们可以使用记事本或者其他文本编辑器打开index.html，Ctrl+H进行内容替换，查询目标为两个英文点..替换为一个英文点.</p><p><img src="https://pic.sky350.cn/images/909_6.png"></p><p>完事之后保存，刷新页面可以发现页面已经变回正常，</p><p><img src="https://pic.sky350.cn/images/909_7.png"></p><p>接下来把语言选择给删掉，297行到313行内容全部删掉，就简简单单搞定了</p><p><img src="https://pic.sky350.cn/images/909_8.png"></p><p><img src="https://pic.sky350.cn/images/909_9.png"></p><h4 id="修改首页内容"><a href="#修改首页内容" class="headerlink" title="修改首页内容"></a>修改首页内容</h4><p>如果不使用单一语言可以直接进到cn&#x2F;en文件夹里对index.html就行修改，修改页面里的内容为自己常用的网站，我们可以用Ctrl+F搜索页面中现有的站点，将对应的内容就行修改，图片复制到assets&#x2F;images&#x2F;logos文件夹就行。</p><p><img src="https://pic.sky350.cn/images/909_10.png"></p><p><img src="https://pic.sky350.cn/images/909_11.png"></p><p>下面是修改例子以及保存后刷新的效果，可以看到站点已经完成了修改。</p><p><img src="https://pic.sky350.cn/images/909_12.png"></p><p><img src="https://pic.sky350.cn/images/909_13.png"></p><h4 id="添加首页内容"><a href="#添加首页内容" class="headerlink" title="添加首页内容"></a>添加首页内容</h4><p><img src="https://pic.sky350.cn/images/909_14.gif"></p><p><img src="https://pic.sky350.cn/images/909_15.gif"></p><h4 id="修改关于内容"><a href="#修改关于内容" class="headerlink" title="修改关于内容"></a>修改关于内容</h4><p>同样因为相对位置的原因，如果只用单一语言的话还是需要向上面一样，用一个点替换掉原来的两个点，页面上显示的文字也是可以随意修改的，按照个人想法来就好！</p><h3 id="搭建到VPS"><a href="#搭建到VPS" class="headerlink" title="搭建到VPS"></a>搭建到VPS</h3><p>我们上文修改都是在本地进行的，修改完之后打开办他面板，新建一个站点，纯静态就好，不需要MySQL数据库，点击站点的目录，将修改好的网页打包上传到网站根目录再解压，vps绑定相应的域名，域名需要解析到vps，同学们也可以申请个免费的ssl，这样在就不会提示不安全。</p><p><img src="https://pic.sky350.cn/images/909_16.png"></p><p><img src="https://pic.sky350.cn/images/909_17.png"></p><p><img src="https://pic.sky350.cn/images/909_18.png"></p><p>有什么不懂的评论区提问！</p><h3 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h3><p><a href="https://url73.ctfile.com/f/34081373-519357667-c659c1">城通网盘</a><br>密码：3190</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 系列教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vps </tag>
+            
+            <tag> 域名 </tag>
+            
+            <tag> 建站 </tag>
+            
+            <tag> 宝塔面板 </tag>
+            
+            <tag> 导航站点 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>《搭建一个合适自己的梯子》域名注册篇（新手基础）</title>
+      <link href="/884.html"/>
+      <url>/884.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>自从我发布了</p><p><a href="https://www.sky350.com/267.html">Qv2ray！强大的多端科学上网助手！</a></p><p><a href="https://www.sky350.com/374.html">新版v2rayN 配置使用教程 附全局设置</a></p><p>等科学上网软件使用教程之后，就有一直有一些新手同学问我服务器去哪里弄？去哪里买比较好？刚开始我会告诉他们可以自己搭建也可以上网买别人搭建好的，后来我就写了下面这篇搭建教程来做统一回复</p><p><a href="https://www.sky350.com/576.html">科学上网服务器搭建 不再受限于人！（v2ray&#x2F;xray&#x2F;trojan）</a></p><p>但是有些新手同学是真的小白中的小白，对Linux对网络几乎没有了解，所以《搭建一个合适自己的梯子》这个系列就出来了，我将会从各个方面一步一步来教新手同学们去自己搭建属于自己的梯子。</p><h3 id="域名是什么"><a href="#域名是什么" class="headerlink" title="域名是什么"></a>域名是什么</h3><p>域名（英语：Domain Name），又称网域，是由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名称，用于在数据传输时对计算机的定位标识（有时也指地理位置）。这是百度百科的解释</p><p>用人话来说</p><p><a href="http://www.baidu.com,baidu.com,www.google.com,www.google.com.hk这些都是域名，域名也就是我们常说的网址，那没搭建一台服务器就需要一个域名吗？非也，拿">www.baidu.com,baidu.com,www.google.com,www.google.com.hk这些都是域名，域名也就是我们常说的网址，那没搭建一台服务器就需要一个域名吗？非也，拿</a> <a href="http://www.baidu.com,baidu.com/">www.baidu.com,baidu.com</a> 来说，他们共同的部分是什么？是<strong>baidu.com</strong>，就是说，<strong>baidu.com</strong>是顶级域名，<a href="http://www.baidu.com是baidu.com的二级域名,而我们所注册的是顶级据名,而我们是设置许许多多的二级域名,像123.baidu.com,abc.baidu.com,www.baidu.com这些统统都可以.感觉有点啰嗦,看图!/">www.baidu.com是baidu.com的二级域名，而我们所注册的是顶级据名，而我们是设置许许多多的二级域名，像123.baidu.com,abc.baidu.com,www.baidu.com这些统统都可以。感觉有点啰嗦，看图！</a></p><p><img src="https://pic.sky350.cn/images/884_1.png"></p><h3 id="为什么需要域名"><a href="#为什么需要域名" class="headerlink" title="为什么需要域名"></a>为什么需要域名</h3><p>域名并不是必须的，首先要清楚我们的目的是搭建一个合适自己的梯子，更是搭建一个安全稳定的梯子，注册一个域名可以用来隐匿我们服务器的真实IP，以达到安全稳定的目的，所以我还是会推荐大家去注册一个域名，以此来部署我们安全稳定及梯子服务。</p><h3 id="去哪里注册域名"><a href="#去哪里注册域名" class="headerlink" title="去哪里注册域名"></a>去哪里注册域名</h3><p>域名作为一种资源，它是有价值的，如果你仅仅是想搭建一个梯子，或者仅仅想折腾一下，我推荐你注册一个免费的域名，如果你有建站的想法那就去注册一个便宜的域名，当然你资金充裕的话贵点好的也是可以的。为什么建站就需要花钱买的域名呢，因为搜索引擎是很难去收录免费域名的，得不到收录就很难获得曝光，访问量就很难提高，我想这不是各位准站长想看到的，再者我是在网上看到的一个消息，未经证实的大家听一听就好，就是说免费域名在有一定的流量后有可能会被回收，要想继续用的话需要支付较高的域名费用。有时候真的免费的才是最贵的，望各位三思而后行。</p><p>当然不论是免费域名还是收费域名我都会教大家去注册的</p><h4 id="注册免费域名"><a href="#注册免费域名" class="headerlink" title="注册免费域名"></a>注册免费域名</h4><p>这里推荐的是<a href="https://www.freenom.com/">freenom</a>，freenom也是最多人使用的免费域名平台，平台提供了.tk .ml .ga .cf .gq 5种免费顶级域名注册，只需要在首页输入你想注册的字母，点击检查可用性就能开始注册了。</p><p>首先我们需要处于科学上网的环境，而且地址需要在<strong>美国</strong>。</p><p><img src="https://pic.sky350.cn/images/884_2.png"></p><p>如果出现全都不可用的情况，可以添加后缀再查询一遍</p><p><img src="https://pic.sky350.cn/images/884_3.png"></p><p>点击右边的绿色勾勾，跳转到购物车，选择12个月免费</p><p><img src="https://pic.sky350.cn/images/884_4.png"></p><p>点击continue继续，跳转到订单确认界面，输入邮箱地址</p><p><img src="https://pic.sky350.cn/images/884_5.png"></p><p>点击Verify My Email Address，freenom会发送一封邮件到邮箱，点击邮件里的链接</p><p><img src="https://pic.sky350.cn/images/884_6.png"></p><p>之后就需要输入个人信息了，亲测输入中国的无法注册，所以我们需要输入美国的个人信息，大家可以打开下面这个链接获取</p><p><a href="http://www.shenfendaquan.com/">http://www.shenfendaquan.com/</a></p><p>完事勾选底下的框框然后Complete Order</p><p><img src="https://pic.sky350.cn/images/884_7.png"></p><p><img src="https://pic.sky350.cn/images/884_8.png"></p><p>之后可能会受到一封确认邮件，然后登陆到freenom就能看到已经完成注册了</p><p><img src="https://pic.sky350.cn/images/884_9.png"></p><h4 id="注册付费域名"><a href="#注册付费域名" class="headerlink" title="注册付费域名"></a>注册付费域名</h4><p>在注册付费域名过程中，注册流程大体还是和注册免费域名一致的，我会在下面以流程图的方式呈现给大家，这里主要推荐几个平台给大家，他们分别是</p><ul><li>腾讯云</li><li>阿里云</li><li>华为云</li><li>NameSilo</li><li>Godaddy</li></ul><p>国内的三个平台常年都会有新用户优惠，下面是我整理的一些活动链接</p><p>腾讯云：<a href="https://cloud.tencent.com/act/domainsales?from=15049">点我打开</a></p><p>阿里云：<a href="https://wanwang.aliyun.com/domain/yumingheji">点我打开</a></p><p>华为云：<a href="https://activity.huaweicloud.com/domain1.html?utm_source=baidu&utm_medium=se-cpc-op&utm_campaign=10045&utm_content=&utm_term=%E9%98%BF%E9%87%8C%E4%BA%91+%E5%9F%9F%E5%90%8D%E4%BC%98%E6%83%A0%E5%88%B8&utm_adplace=AdPlace041006">点我打开</a></p><p>另外两个国外平台也有相应的优缺点，但都是知名的平台，大家可以根据需求选择。</p><p>注册流程：</p><p><img src="https://pic.sky350.cn/images/884_10.png"></p><p>篇幅问题，本篇到此结束！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 系列教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 阿里云 </tag>
+            
+            <tag> 域名 </tag>
+            
+            <tag> 华为云 </tag>
+            
+            <tag> 域名注册 </tag>
+            
+            <tag> 腾讯云 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>《高效使用你的VPS》快速搭建个人博客 新手基础篇</title>
+      <link href="/827.html"/>
+      <url>/827.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>买了一台vps做科学上网，却仅仅只做了科学上网！这不符合我们勤俭节约的理念，所以《高效使用你的VPS》将会教大家如何高效地榨干vps，以获得最大的收益。《高效使用你的VPS》未来可能持续更新（我得自己先体验过才会看情况值不值得更新）。</p><p><a href="https://www.bilibili.com/video/BV1bT4y1f7mX?share_source=copy_web">视频教程</a></p><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>本期教程所需要的东西</p><ul><li>域名一个（推荐解析到CloudFlare，有免费的CDN）</li><li>vps云服务器一台，预装Linux系统</li><li>手</li></ul><h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>本期推荐开源高效的宝塔面板作为服务器管理软件，宝塔面板的图形化管理界面很符合新手去操作，不用懂什么命令就可以完成几乎所有配置，而且宝塔面板对vps的占用非常小，不过为了安装其他的HTTP软件，对服务器还是有一定的要求的，下面是宝塔官方给出的安装要求</p><h4 id="安装要求"><a href="#安装要求" class="headerlink" title="安装要求"></a>安装要求</h4><p>内存：512M以上，推荐768M以上（纯面板约占系统60M内存）<br>硬盘：300M以上可用硬盘空间（纯面板约占20M磁盘空间）<br>系统：CentOS 7.1+ (Ubuntu16.04+.、Debian9.0+)，<strong>确保是干净的操作系统</strong>，没有安装过其它环境带的Apache&#x2F;Nginx&#x2F;php&#x2F;MySQL&#x2F;pgsql&#x2F;gitlab&#x2F;java（<strong>已有环境不可安装</strong>）<br>架构：x86_64（主流服务器均是此架构），ARM不完整兼容（面板环境安装慢，部分软件可能安装不上）</p><h4 id="安装面板"><a href="#安装面板" class="headerlink" title="安装面板"></a>安装面板</h4><p>首先ssh连接到我们的服务器，推荐安装一个加速内核，BBR或者锐速都行，不会的可以看</p><p><a href="https://www.sky350.com/bbr">服务器加速脚本，含BBR Plus&#x2F;BBR原版&#x2F;BBR魔改版&#x2F;锐速，BBR四合一脚本</a></p><p><img src="https://pic.sky350.cn/images/827_2.png"></p><h5 id="一键脚本"><a href="#一键脚本" class="headerlink" title="一键脚本"></a>一键脚本</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#Centos</span><br><span class="line">yum install -y wget &amp;&amp; wget -O install.sh http://download.bt.cn/install/install_6.0.sh &amp;&amp; sh install.sh</span><br><span class="line"></span><br><span class="line">#Ubuntu/Deepin</span><br><span class="line">wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh &amp;&amp; sudo bash install.sh</span><br><span class="line"></span><br><span class="line">#Debian</span><br><span class="line">wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh &amp;&amp; bash install.sh</span><br></pre></td></tr></table></figure><p>执行脚本之后输入y确认安装，稍等两分钟即可完成安装。</p><p><img src="https://pic.sky350.cn/images/827_3.png"></p><p>默认面板路径以及用户名密码在安装完成后默认生成，登录面板后可以自行修改</p><p><img src="https://pic.sky350.cn/images/827_4.png"></p><h4 id="配置面板"><a href="#配置面板" class="headerlink" title="配置面板"></a>配置面板</h4><p>浏览器打开安装完成后给出的外网面板地址,依次输入username和password登录到面板，并同意协议进入面板</p><p><img src="https://pic.sky350.cn/images/827_5.png"></p><p><img src="https://pic.sky350.cn/images/827_6.png"></p><p>安装web环境，推荐像我下图左边一样安装,稍微等待一段时间安装完成，之后可以到面板设置里修改用户名密码和面板端口路径，这里就不演示了</p><p><img src="https://pic.sky350.cn/images/827_7.png"></p><h4 id="安装博客"><a href="#安装博客" class="headerlink" title="安装博客"></a>安装博客</h4><p>博客系统我们选择WordPress， WordPress作为全球第一大开源博客系统，拥有无数的主图和插件可供选择，是新手的不二之选！</p><p>宝塔面板可一键部署wordpress程序，按照步骤1234进行</p><p><img src="https://pic.sky350.cn/images/827_8.png"></p><p>输入要绑定的域名，并做好域名解析，然后提交即可</p><p><img src="https://pic.sky350.cn/images/827_9.png"></p><p><img src="https://pic.sky350.cn/images/827_10.png"></p><p><img src="https://pic.sky350.cn/images/827_11.png"></p><p>点击访问站点，选择语言，依次填入数据库名用户名和密码</p><p><img src="https://pic.sky350.cn/images/827_12.png"></p><p>提交，填写自己的基本信息就大功告成啦，之后可以进行自己的个性化设置，更换主题啊，安装插件啊之类的，安装博客就完成了</p><h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>安装完宝塔面板之后宝塔防火墙会管理所有的端口（vps防火墙放行所有端口），如果我们需要使用到其他端口（例如科学上网），则需要到宝塔面板首页–&gt;安全–&gt;放行端口进行端口的管理！</p><p>最后，谢谢大家观看！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 系列教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vps </tag>
+            
+            <tag> 服务器 </tag>
+            
+            <tag> 域名 </tag>
+            
+            <tag> 博客 </tag>
+            
+            <tag> 建站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>主流网盘添加到本地教程（Onedrive/阿里云盘/115网盘/天翼云盘/谷歌网盘）</title>
+      <link href="/672.html"/>
+      <url>/672.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>硬盘空间不够用了？想随时随地将文件存取到网盘？前段时间吾爱大神开发了一个能将阿里云盘直接添加到电脑硬盘的软件，在互联网上掀起了一股小热潮，在了解到这么多同学有这种需求后，我就在网上搜了一下，总结了各种网盘添加到本地的教程，现在分享给大家！</p><h3 id="阿里云盘-x2F-115网盘-x2F-沃家云盘-x2F-天翼云盘"><a href="#阿里云盘-x2F-115网盘-x2F-沃家云盘-x2F-天翼云盘" class="headerlink" title="阿里云盘&#x2F;115网盘&#x2F;沃家云盘&#x2F;天翼云盘"></a>阿里云盘&#x2F;115网盘&#x2F;沃家云盘&#x2F;天翼云盘</h3><p>阿里云盘主打不限速，自内测开始就呼声很高，一经发布就收获了大批用户，所以就先来说它，用的也是吾爱大神开发的CloudDrive，下载地址我会统一放到后面。</p><p>首先下载安装软件，这一步非常简单就不演示了，唯一需要注意的是安装完成后显示的查阅localhost:9798 需要勾选。</p><p><img src="https://pic.sky350.cn/images/672_11.png"></p><p>安装完成之后点击注册，只是在本地注册，并不会将数据发送到互联网，相当于给程序加哥启动键，完成之后选择要挂载的盘符然后登录</p><p><img src="https://pic.sky350.cn/images/672_12.png"></p><p>登录之后即可添加阿里云盘&#x2F;115网盘&#x2F;沃家云盘&#x2F;天翼云盘，手机扫一扫即可添加，非常地简单！</p><h3 id="Onedrive"><a href="#Onedrive" class="headerlink" title="Onedrive"></a>Onedrive</h3><p>Onedrive个人用户仅免费5G，所以一般人是用不到的，但是总有些小聪明会弄到5T的教育账户或者开发者账户，所以它在少部分人中还是有需求的。但有些朋友并不知道，Onedrive官方软件是可以可以直接将OneDrive网盘添加到计算机的，但我们还会分享点野路子。</p><h4 id="官方"><a href="#官方" class="headerlink" title="官方"></a>官方</h4><p>先下载OneDrive官方应用安装，链接就不放了百度一下就能找到</p><p><img src="https://pic.sky350.cn/images/672_1.png"></p><p><img src="https://pic.sky350.cn/images/672_2.png"></p><p>本地缓存文件夹建议更改位置，如果你C盘几个T当我没说</p><p><img src="https://pic.sky350.cn/images/672_3.png"></p><p>备份文件夹我就不建议备份了，如果后续需要备份的话也可以到设置里打开。</p><p>就这样，我们就可以直接在电脑中访问我们的OneDrive网盘了</p><p><img src="https://pic.sky350.cn/images/672_4.png"></p><h3 id="RaiDrive（谷歌网盘-x2F-OneDrive）"><a href="#RaiDrive（谷歌网盘-x2F-OneDrive）" class="headerlink" title="RaiDrive（谷歌网盘&#x2F;OneDrive）"></a>RaiDrive（谷歌网盘&#x2F;OneDrive）</h3><p>先下载安装raidrive，官方下载地址：<a href="https://www.raidrive.com/">点我下载</a></p><p><img src="https://pic.sky350.cn/images/672_5.png"></p><p>下安装过程简单，按着合适自己的来</p><p><img src="https://pic.sky350.cn/images/672_6.png"></p><p>安装完成后可以进行简单的设置，点击右上角的Settings，最好临时缓存目录也改一改，不然容易挤爆C盘</p><p><img src="https://pic.sky350.cn/images/672_7.png"></p><p>之后点击顶部的Add即可选择要添加的硬盘，有多种，看自己需求</p><p><img src="https://pic.sky350.cn/images/672_8.png"></p><p>之后弹出网页登录自己的谷歌账户，允许权限就好</p><p><img src="https://pic.sky350.cn/images/672_9.png"></p><p><img src="https://pic.sky350.cn/images/672_10.png"></p><p>下载地址：<a href="https://file.sky350.com/%E8%BD%AF%E4%BB%B6%E5%BA%94%E7%94%A8/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/">点我下载</a></p><p>更多功能可以自行探索，本期到此结束！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Onedrive </tag>
+            
+            <tag> 网盘 </tag>
+            
+            <tag> 谷歌网盘 </tag>
+            
+            <tag> 阿里云盘 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>porkbun白嫖一年域名免费搭建WordPress博客（送域名邮箱）</title>
+      <link href="/621.html"/>
+      <url>/621.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>gay域名在去年开放注册了有人知道吗？我想应该没有多少吧，国内有运营资质的厂商也没几个，这意味着什么？就是注册量少之又少，为了推广gay域名，porkbun推出了gay域名首年免费的活动，同时，porkbun又可以免费搭建WordPress博客，这一下，直接免费一套了！ 再者，注册量小，意味着可能注册到好域名短域名，未来可能有升值的空间。 截止北京时间2021年9月2日21:16，我测试了很多三位数的都可以注册，像121，233，770等都是可以免费注册的，所以感兴趣的小伙伴需要赶紧的！<br><img src="https://pic.sky350.cn/images/621_1.png"><br><img src="https://pic.sky350.cn/images/621_2.png"><br><img src="https://pic.sky350.cn/images/621_3.png"></p><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul><li>信用卡</li><li>google  pay</li><li>apple pay</li></ul><p>上面三者选一个就好，虽然说是免费，但还是有一点门槛的，信用卡大家不一定有，但是google pay或者apple pay应该都能弄到，这里并不需要收费，只是用作账户的验证。（扣1美元很快就退还了）</p><h3 id="注册域名"><a href="#注册域名" class="headerlink" title="注册域名"></a>注册域名</h3><p>活动链接：<a href="https://porkbun.com/tld/gay?coupon=CANIPLAYTHAT&utm_source=CanIPlayThat_Socials&utm_medium=freedotgayoffer">点我打开</a> 打开活动链接，在输入框输入自己想要注册的域名，FREE的话点击+然后Checkout<br><img src="https://pic.sky350.cn/images/621_4.png"><br>检查是否是免费的，是就Continue<br><img src="https://pic.sky350.cn/images/621_5.png"><br>如果你之前注册过的话可以直接Log in to an Existing Account登录，否则就看Create a New Account，填入相应的信息，建议填真的<br><img src="https://pic.sky350.cn/images/621_6.png"><br>之后就会弹出提示添加支付方式，很遗憾当时忘记截图了，可以使用信用卡，Google Pay，Apple Pay，扣费1美元验证，一会儿就会原路退还。<br><img src="https://pic.sky350.cn/images/621_7.png"><br>然后就注册成功了，中间好像还发了封验证邮箱的邮件，还是挺简单的。</p><h3 id="安装WordPress"><a href="#安装WordPress" class="headerlink" title="安装WordPress"></a>安装WordPress</h3><p>更简单了，点击顶部导航栏的Free WordPress<br><img src="https://pic.sky350.cn/images/621_8.png"><br>划到网页底部，有个Free WordPress<br><img src="https://pic.sky350.cn/images/621_9.png"><br>点击Add to Existing Domain就能全自动安装完了。</p><h3 id="完成测试"><a href="#完成测试" class="headerlink" title="完成测试"></a>完成测试</h3><p>网址：<a href="http://112.gay/">112.gay</a><br>此外porkbun还提供了免费的域名邮箱，不过还是有些限制的，毕竟免费的东西，要啥自行车呢，想自己搭建域名邮箱的可以看我往期<br><a href="https://www.sky350.com/531.html">还在用QQ邮箱？手把手教你搭建属于自己的域名邮箱（EwoMail）！</a><br>本期到此结束，感谢观看！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> porkbun </tag>
+            
+            <tag> WordPress </tag>
+            
+            <tag> 免费 </tag>
+            
+            <tag> 域名 </tag>
+            
+            <tag> 域名邮箱 </tag>
+            
+            <tag> 白嫖 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>还在闲置服务器？手把手教你搭建私人网盘！（Cloudreve）</title>
+      <link href="/603.html"/>
+      <url>/603.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>不知道有没有一些同学向我一样，喜欢买各种服务器来玩，但是往往耍了几天之后就闲置了，往期我们介绍过如何用闲置的服务器来搭建MC(基岩版)服务器，感兴趣的同学可以去看一下。</p><h4 id="保姆级MC基岩版开服教程，附带控制面板（腾讯云服务器演示）"><a href="#保姆级MC基岩版开服教程，附带控制面板（腾讯云服务器演示）" class="headerlink" title="保姆级MC基岩版开服教程，附带控制面板（腾讯云服务器演示）"></a><a href="https://www.sky350.com/294.html">保姆级MC基岩版开服教程，附带控制面板（腾讯云服务器演示）</a></h4><p>除此之外，我也在想一些更有意思的玩法，希望能给大家一些折腾的快乐，所以本期我们将利用闲置服务器搭建个人网盘系统。</p><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul><li>大带宽vps云服务器一台</li><li>域名一个（套CDN使用）</li></ul><p>为什么强调大带宽呢？既然是用作网盘，下载速度就很重要了，所以就推荐大家拿美区便宜大带宽的vps来搭建，因为网盘系统并不需要很低的延迟，并且套上免费的CDN之后延迟也不会很离谱， 域名可以注册免费域名或者购买几块钱首年的域名来使用（阿里云，腾讯云等）。</p><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>本次采用Cloudreve系统，它是开源强大的公有云文件系统，界面与谷歌网盘还挺像，支持的功能也不少，下面是Cloudreve的部分特性。</p><ul><li>☁️ 支持本机、从机、七牛、阿里云 OSS、腾讯云 COS、又拍云、OneDrive (包括世纪互联版) 作为存储端</li><li>📤 上传&#x2F;下载 支持客户端直传，支持下载限速</li><li>💾 可对接 Aria2 离线下载</li><li>📚 在线 压缩&#x2F;解压缩、多文件打包下载</li><li>💻 覆盖全部存储策略的 WebDAV 协议支持</li><li>⚡ 拖拽上传、目录上传、流式上传处理</li><li>🗃️ 文件拖拽管理</li><li>👩‍👧‍👦 多用户、用户组</li><li>🔗 创建文件、目录的分享链接，可设定自动过期</li><li>👁️‍🗨️ 视频、图像、音频、文本、Office 文档在线预览</li><li>🎨 自定义配色、黑暗模式、PWA 应用、全站单页应用</li><li>🚀 All-In-One 打包，开箱即用</li><li>🌈 … …</li></ul><p>下载地址：<a href="https://github.com/cloudreve/Cloudreve/releases">点我下载</a></p><p><img src="https://pic.sky350.cn/images//603_1.png"> </p><p>大家选择合适的版本进行下载，推荐最新版本，AMD和ARM对应服务器CPU架构。</p><h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>vps系统为centos或者debian系统，以root登录ssh，把文件下载的文件上传的root目录下，在这里推荐使用Finalshell软件，方便快捷。 </p><p><img src="https://pic.sky350.cn/images//603_2.png"> </p><p>文件上传完毕之后，在ssh依次输入下面的命令 ，即可完成部署。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf cloudreve_VERSION_OS_ARCH.tar.gz     # 解压程序包，文件名更改为你下载的版本</span><br><span class="line"></span><br><span class="line">chmod +x ./cloudreve      # 赋予执行权限</span><br><span class="line"></span><br><span class="line">./cloudreve        # 启动 Cloudreve</span><br></pre></td></tr></table></figure><p>Cloudreve 在首次启动时，会创建初始管理员账号，请注意保管管理员密码，此密码只会在首次启动时出现。如果您忘记初始管理员密码，需要删除同级目录下的cloudreve.db，重新启动主程序以初始化新的管理员账户。 Cloudreve 默认会监听5212端口。你可以在浏览器中访问http:&#x2F;&#x2F;服务器IP:5212进入 Cloudreve。</p><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>安装完成之后已经可以进行使用了，虽然功能还不是很全，配置篇幅可能会有点长，所以打算另起一篇博客来进行讲解，敬请期待！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vps </tag>
+            
+            <tag> 阿里云 </tag>
+            
+            <tag> 腾讯云 </tag>
+            
+            <tag> 网盘 </tag>
+            
+            <tag> finalshell </tag>
+            
+            <tag> 云盘 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>科学上网服务器搭建 不再受限于人！（v2ray/xray/trojan）</title>
+      <link href="/576.html"/>
+      <url>/576.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>一直以来，对于新手朋友我都会去推荐一些简单且安全的开源应用程序，科学上网服务端程序也不例外。你不需要懂得太多东西，只需要一点点基础知识，跟着我来操作就好了。</p><p>在众多科学上网程序中，我选择了原sprov大神开发的x-ui一键脚本推荐给大家，x-ui拥有集成度高，兼容性好，功能强大，交互简单等优点！</p><h3 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h3><p><a href="https://youtu.be/wI5t5DPZIaQ">点我打开（Youtube）</a></p><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>x-ui脱胎于v2-ui，x-ui是作者按照v2-ui用GO语言重新开发了一套面板，相比原来的 v2-ui，x-ui兼容性更强，也便于维护，GO 语言的性能更好，对服务器的内存占用也会低一些。</p><h4 id="支持的功能"><a href="#支持的功能" class="headerlink" title="支持的功能"></a>支持的功能</h4><ul><li>系统状态监控</li><li>支持多用户多协议，网页可视化操作</li><li>支持的协议：vmess、vless、trojan、shadowsocks、dokodemo-door、socks、http</li><li>支持配置更多传输配置</li><li>流量统计，限制流量，限制到期时间</li><li>可自定义 xray 配置模板</li><li>支持 https 访问面板（自备域名 + ssl 证书）</li><li>更多高级配置项，详见面板</li></ul><h3 id="准备-amp-安装"><a href="#准备-amp-安装" class="headerlink" title="准备&amp;安装"></a>准备&amp;安装</h3><h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><ul><li>vps服务器一台（CentOS 7+&#x2F;Ubuntu 16+&#x2F;Debian 8+）</li><li>域名一个（套用CDN需要使用）</li></ul><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>首先给我们的vps重置系统，推荐安装bbr加速内核</p><p><img src="https://pic.sky350.cn/images/576_2.png"></p><p><img src="https://pic.sky350.cn/images/576_3.png"></p><p>一键脚本</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)</span><br></pre></td></tr></table></figure><p>如果你的vps提示curl: command not found,先复制下面的代码安装curl，再执行上面的脚本。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install -y curl       #ubuntu/debian 系统安装 Curl </span><br><span class="line">yum install curl -y     #centos 系统安装 Curl</span><br></pre></td></tr></table></figure><p>安装过程很迅速，几乎一瞬之间你就能看到下面的提示</p><p><img src="https://pic.sky350.cn/images/576_4.png"></p><p>控制面板地址为：IP:54321，默认账号密码都是admin</p><p><img src="https://pic.sky350.cn/images/576_5.png"></p><p><img src="https://pic.sky350.cn/images/576_6.png"></p><h3 id="节点添加"><a href="#节点添加" class="headerlink" title="节点添加"></a>节点添加</h3><p>点击入站列表里的加号即可添加节点，协议等各种参数均可自行设置（不太懂的话就默认）。</p><p><img src="https://pic.sky350.cn/images/576_7.png"></p><p>添加完成后点击操作&gt;&gt;二维码即可复制节点链接或者直接扫描二维码添加节点。</p><p><img src="https://pic.sky350.cn/images/576_8.png"></p><p>之后将节点导入软路由或者科学上网软件就可以美滋滋的科学上网了。</p><p>若你没有科学上网软件，可在本站首页&gt;&gt;<a href="https://www.sky350.com/category/app">上网神器</a>中选择合适的进行下载。</p><h3 id="管理命令"><a href="#管理命令" class="headerlink" title="管理命令"></a>管理命令</h3><p>x-ui - 显示管理菜单 (功能更多)<br>x-ui start - 启动 x-ui 面板<br>x-ui stop - 停止 x-ui 面板<br>x-ui restart - 重启 x-ui 面板<br>x-ui status - 查看 x-ui 状态<br>x-ui enable - 设置 x-ui 开机自启<br>x-ui disable - 取消 x-ui 开机自启<br>x-ui log - 查看 x-ui 日志<br>x-ui v2-ui - 迁移本机器的 v2-ui 账号数据至 x-ui<br>x-ui update - 更新 x-ui 面板<br>x-ui install - 安装 x-ui 面板<br>x-ui uninstall - 卸载 x-ui 面板</p><p>连接ssh输入x-ui也可查看命令。</p><p>本期到此结束，祝各位马到功成！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 服务器 </tag>
+            
+            <tag> v2ray </tag>
+            
+            <tag> Qv2ray </tag>
+            
+            <tag> Trojan </tag>
+            
+            <tag> Xray </tag>
+            
+            <tag> 科学上网 </tag>
+            
+            <tag> cdn </tag>
+            
+            <tag> v2rayN </tag>
+            
+            <tag> bbr </tag>
+            
+            <tag> ssr </tag>
+            
+            <tag> v2-ui </tag>
+            
+            <tag> x-ui </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>还在用QQ邮箱？手把手教你搭建属于自己的域名邮箱（EwoMail）！</title>
+      <link href="/531.html"/>
+      <url>/531.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如果你是个站长，手头上有一台服务器，又有自己的域名，或者你为了科学上网，购置了域名和服务器，那你就可以物尽其用，在不影响主要需求的同时，提升自己的装逼技能。</p><p>本期，我将教大家如何去搭建自己的域名邮箱系统，好不说废话了直接开始。</p><h3 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h3><p><a href="https://www.bilibili.com/video/BV1WQ4y1h7TD">点我观看详细视频  </a></p><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>本期教程需要准备两样东西</p><ul><li>vps云服务器一台（1C1G或以上，系统要求centos7&#x2F;8）</li><li>可自由解析的域名一个</li></ul><h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><h4 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h4><p>登录到云服务器控制面板找到防火墙，如安装了宝塔面板需登录宝塔面板，找到安全放行相应端口</p><p>TCP类型<br>8000，8010，8020，25，143，993，995，587，110，465</p><p>必须打开的端口8000，8010，25，143</p><h4 id="测试端口连通性"><a href="#测试端口连通性" class="headerlink" title="测试端口连通性"></a>测试端口连通性</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install telnet -y</span><br><span class="line">telnet smtp.qq.com 25 </span><br></pre></td></tr></table></figure><p>如下出现220字样才是正常的，25端口打开才能进行发信。</p><p><img src="https://pic.sky350.cn/images/531_1.png"></p><h4 id="关闭selinux"><a href="#关闭selinux" class="headerlink" title="关闭selinux"></a>关闭selinux</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/selinux</span><br></pre></td></tr></table></figure><p>将SELINUX&#x3D;enforcing 改为 SELINUX&#x3D;disabled</p><p><img src="https://pic.sky350.cn/images/531_2.png"></p><h4 id="创建swap分区"><a href="#创建swap分区" class="headerlink" title="创建swap分区"></a>创建swap分区</h4><p>EwoMail的防病毒组件需要启用swap，而且也会占用大量内存，在安装完成后再教大家关闭邮件杀毒软件，关闭邮件杀毒软件不影响防垃圾邮件检测。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">free -m #查看swap</span><br></pre></td></tr></table></figure><p>如果swap位置都显示是0，那么系统还没创建swap</p><p><img src="https://pic.sky350.cn/images/531_3.png"></p><p>创建swap分区</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dd if=/dev/zero of=/mnt/swap bs=1M count=1024</span><br><span class="line">mkswap /mnt/swap</span><br><span class="line">swapon /mnt/swap</span><br></pre></td></tr></table></figure><p>设置开机时自启用 swap 分区</p><p>需要修改文件 &#x2F;etc&#x2F;fstab 中的 swap 行，添加</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/mnt/swap swap swap defaults 0 0</span><br></pre></td></tr></table></figure><p> <img src="https://pic.sky350.cn/images/531_4.png"></p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>官网文档有git安装和在线安装两种安装方式，经过我的测试，在线安装有可能不能正常安装，所以在这里就推荐git安装</p><p>gitee安装（国内推荐）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum -y install git</span><br><span class="line">cd /root</span><br><span class="line">git clone https://gitee.com/laowu5/EwoMail.git</span><br><span class="line">cd /root/EwoMail/install</span><br><span class="line">#需要输入一个邮箱域名，不需要前缀，列如下面的sky350.com</span><br><span class="line">#国外网络 请在安装域名后面加空格加en，例如 sh ./start.sh sky350.com en</span><br><span class="line">sh ./start.sh sky350.com</span><br></pre></td></tr></table></figure><p>github安装（国外推荐）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum -y install git</span><br><span class="line">cd /root</span><br><span class="line">git clone https://github.com/gyxuehu/EwoMail.git</span><br><span class="line">cd /root/EwoMail/install</span><br><span class="line">#需要输入一个邮箱域名，不需要前缀，列如下面的sky350.com，域名后面要加空格加en</span><br><span class="line">sh ./start.sh sky350.com en</span><br></pre></td></tr></table></figure><p>安装过程中出现提示需要安装软件，键入y继续安装</p><p><img src="https://pic.sky350.cn/images/531_5.png"></p><p>完成这一步就成功了一半了，接下来可以对系统进行一定的设置了<br>访问地址（将IP更换成你服务器IP即可）<br>邮箱管理后台：<a href="http://ip:8010/">http://IP:8010</a> （默认账号admin，密码ewomail123）<br>web邮件系统：<a href="http://ip:8000/">http://IP:8000</a></p><h3 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h3><p>这一步非常重要，而且需要解析的内容不少，但是关乎邮局系统能否正常通信，所以大家认真慢慢看。</p><table><thead><tr><th align="center">记录类型</th><th align="center">主机记录</th><th align="center">解析线路</th><th align="center">记录值</th><th align="center">MX优先级</th></tr></thead><tbody><tr><td align="center">TXT</td><td align="center">@</td><td align="center">默认</td><td align="center">v&#x3D;spf1 ip4:127.0.0.1 -all</td><td align="center"></td></tr><tr><td align="center">TXT</td><td align="center">dkim._domainkey</td><td align="center">默认</td><td align="center">这是存放DKIM的值</td><td align="center"></td></tr><tr><td align="center">A</td><td align="center">mail</td><td align="center">默认</td><td align="center">127.0.0.1</td><td align="center"></td></tr><tr><td align="center">CNAME</td><td align="center">smtp</td><td align="center">默认</td><td align="center">mail.***.***</td><td align="center"></td></tr><tr><td align="center">CNAME</td><td align="center">pop</td><td align="center">默认</td><td align="center">mail.***.***</td><td align="center"></td></tr><tr><td align="center">CNAME</td><td align="center">imap</td><td align="center">默认</td><td align="center">mail.***.***</td><td align="center"></td></tr><tr><td align="center">MX</td><td align="center">@</td><td align="center">默认</td><td align="center">mail.***.***</td><td align="center">1</td></tr></tbody></table><p><strong>请将127.0.0.1 替换成你的公网IP，***.***替换成你的域名</strong> </p><h3 id="获取dkim-key"><a href="#获取dkim-key" class="headerlink" title="获取dkim key"></a>获取dkim key</h3><p>ssh登录到服务器，输入下面的命令获取相应的dkim值</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">amavisd -c /etc/amavisd/amavisd.conf showkeys</span><br></pre></td></tr></table></figure><p>复制输出的信息，打开<a href="http://www.ewomail.com/list-20.html">http://www.ewomail.com/list-20.html</a> 整理dkim信息。</p><p>做完域名解析这一步，简单配置一下web端就能使用啦！</p><h3 id="降低内存占用"><a href="#降低内存占用" class="headerlink" title="降低内存占用"></a>降低内存占用</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#安装vim</span><br><span class="line">yum install vim -y</span><br><span class="line">#修改文件（修改前请备份文件）</span><br><span class="line">vim /etc/amavisd/amavisd.conf</span><br><span class="line"></span><br><span class="line">#在文件尾部加上该行参数</span><br><span class="line">@bypass_virus_checks_maps = (1);</span><br><span class="line">#最后按下esc键，输入:wq保存</span><br><span class="line">#修改文件（参考上面的例子操作命令修改）</span><br><span class="line"></span><br><span class="line">vim /usr/lib/systemd/system/amavisd.service</span><br><span class="line"></span><br><span class="line">在 Wants=clamd@amavisd.service 前面加上#符号</span><br><span class="line">#保存文件</span><br><span class="line"></span><br><span class="line">#输入以下命令即可完成杀毒软件的关闭</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl stop clamd@amavisd</span><br><span class="line">systemctl disable clamd@amavisd</span><br><span class="line">systemctl restart amavisd</span><br></pre></td></tr></table></figure><p>至此，本篇结束，祝各位看到这的顺顺利利！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 服务器 </tag>
+            
+            <tag> 域名 </tag>
+            
+            <tag> 域名邮箱 </tag>
+            
+            <tag> 企业邮箱 </tag>
+            
+            <tag> 端口 </tag>
+            
+            <tag> 邮箱 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Frp内网穿透 简单而强大的内网穿透软件！</title>
+      <link href="/455.html"/>
+      <url>/455.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在这个资源金贵的时代，如何能拥有一台性能强大的大带宽私人服务器呢？大陆的服务器带宽1M之差却能相差几十块，显然，购买普通的云服务器并不是一个好的选择，那又该如何去选择呢，不急，且听我慢慢道来！</p><p>要实现性能强大+大带宽，我推荐的方案是本地服务器+云服务器的搭配。</p><p>本地服务器，可以是MC服务器，也可以是Nas文件服务器，主流的4核CPU+8G内存+SSD完全可以胜任这个工作，别看它在我们平常民用中性能一般，相对普通Vps云服务器那是很强大了，为什么要用本地的服务器呢？既然我们是要打造私人服务器，那我们数据存在我们的地盘那不是很香吗？</p><p>那如果你刚好又有一个公网IP的话，你就可以关掉页面去吃瓜啥的了因为你根本就不要需要用到云服务器（除非你需要使用常用端口）。</p><p>前面说到不推荐购买普通云服务器，这句话当然还是算术的，我们的本地服务器+云服务器的方案中，云服务器所担任一个中间人的角色，所以它并不需要多高的配置 ，比较推荐那种国外几美元一年的服务器，通常它们都是低配置大带宽按流量计费，并且每个月能有1T或以上的免费流量供给用户使用，所以，当我们对私人服务器延迟要求不高时，我们可以选择这种方案，而本篇文章就是来告诉大家如何实现这一方案。</p><h3 id="FRP内网穿透（服务端）"><a href="#FRP内网穿透（服务端）" class="headerlink" title="FRP内网穿透（服务端）"></a>FRP内网穿透（服务端）</h3><p>frp 是一个专注于内网穿透的高性能的反向代理应用，支持 TCP、UDP、HTTP、HTTPS 等多种协议。</p><p>原作者：<a href="https://github.com/fatedier/frp">https://github.com/fatedier/frp</a></p><p>一键脚本：<a href="https://github.com/MvsCode/frps-onekey">https://github.com/MvsCode/frps-onekey</a></p><p>如果对Linux比较了解的同学推荐去看原作者的文档，那新手的同学就不用理会那么多了，跟我一步一步来就好了。</p><p>首先，SSH连接上我们购买的服务器（CentOS&#x2F;Debian&#x2F;Ubuntu&#x2F;Fedora）。</p><p>然后最好安装一下加速软件，<a href="https://www.sky350.com/bbr.html">服务器加速脚本，含BBR PLUS&#x2F;BBR原版&#x2F;BBR魔改版&#x2F;锐速，BBR四合一脚本</a></p><p>完成之后我们在服务器运行下面的一键脚本代码</p><h4 id="通过阿里云安装"><a href="#通过阿里云安装" class="headerlink" title="通过阿里云安装"></a>通过阿里云安装</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://code.aliyun.com/MvsCode/frps-onekey/raw/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line">chmod 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure><h4 id="通过GitHub安装"><a href="#通过GitHub安装" class="headerlink" title="通过GitHub安装"></a>通过GitHub安装</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/MvsCode/frps-onekey/master/install-frps.sh -O ./install-frps.sh</span><br><span class="line">chmod 700 ./install-frps.sh</span><br><span class="line">./install-frps.sh install</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/455_1.png"></p><p>之后服务器会询问你通过哪种方式安装，这里推荐国内使用阿里云，国外使用GitHub</p><p><img src="https://pic.sky350.cn/images/455_2.png"></p><p><img src="https://pic.sky350.cn/images/455_3.png"></p><p>接下来会提示进行相关配置，端口如无特殊需求建议不用更改</p><p>用户名和密码和token自行设置，token类似令牌的作用，要记住，本地配置时需要用到</p><p><img src="https://pic.sky350.cn/images/455_4.png"></p><p>之后的提示均可回车使用默认配置， 等待一小会儿就安装完成</p><p><img src="https://pic.sky350.cn/images/455_5.png"></p><p>然后我们打开浏览器，访问 IP:6443即可打开Frp的面板，输入之前设置的账户和密码即可访问</p><p><img src="https://pic.sky350.cn/images/455_6.png"></p><p><img src="https://pic.sky350.cn/images/455_7.png"></p><p>至此，Frp的服务端已经完成安装！</p><blockquote><h3 id="Frp配置（客户端）"><a href="#Frp配置（客户端）" class="headerlink" title="Frp配置（客户端）"></a>Frp配置（客户端）</h3></blockquote><p>打开我们的软路由，或者其他平台Frp客户端，服务器填入你的服务器IP，端口为5443令牌为token，选择启用</p><p><img src="https://pic.sky350.cn/images/455_8.png"></p><p>启用之后默认是没有进行穿透设置的，我们可以点击添加按钮进行添加</p><p><img src="https://pic.sky350.cn/images/455_9.png"></p><p>选择合适的协议，填好相应的服务器信息开启即可（做本地服务器需要将内网主机地址指向本地服务器的地址，本地服务器配置为静态IP上网）。</p><p><img src="https://pic.sky350.cn/images/455_10.png"></p><p>至此，Frp内网穿透设置完成！</p><p>可在面板Proxies里查看是否成功设置穿透！</p><p><img src="https://pic.sky350.cn/images/455_11.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 服务器 </tag>
+            
+            <tag> Frp </tag>
+            
+            <tag> GitHub </tag>
+            
+            <tag> 内网穿透 </tag>
+            
+            <tag> 本地服务器 </tag>
+            
+            <tag> 端口转发 </tag>
+            
+            <tag> 阿里云 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>通过公网访问OpenWrt或其他内网设备的两种方法（一）</title>
+      <link href="/416.html"/>
+      <url>/416.html</url>
+      
+        <content type="html"><![CDATA[<p>其实这个教程有视频，但是，啊B不给通过，所以我就发到YouTube了，懒得看文字的小伙伴可以点击下方的视频，听着学。</p><p><a href="https://youtu.be/QUjyv-6rMas">视频（Youtube）</a></p><p>好言归正传，接下来我将像大家介绍两种情况下的公网访问内网设备方法，这两种情况分别是：</p><ol><li>有公网IP地址</li><li>无公网IP地址</li></ol><p>至于如何判断自己的IP是否是公网IP，我在这就给大家简单的讲解一下，如果有不懂的可以在评论区进行提问，首先打开浏览器登录自己的路由器，看我们的Wan口IP是，并记住它，然后再打开百度，输入IP进行搜索，然后将搜索出来的与自己路由器上的IP进行对比，假如一致，那么恭喜你，这是个公网IP，反之则不是。如果不是公网IP的小伙伴也想要公网IP该怎么办？很简单的，电信或联通用户拨打你们的宽带报障电话，转人工跟客服说你要装一大堆监控（如果是一两个，电信可能会给你推销他们的摄像头，这个不需要用到公网），需要用到公网IP进行管理，一般情况下都会通过的，至于移动的小伙伴们就别浪费时间去打电话了，全网试过得出结论没可能通过，毕竟移动入局宽带业务晚，分到的公网IP就那么点。好这就开始逐一向大家演示！</p><h3 id="有公网IP地址"><a href="#有公网IP地址" class="headerlink" title="有公网IP地址"></a>有公网IP地址</h3><p>在拥有一个公网IP的情况下要想在公网上找到自己就非常容易了，国家为了维护好网络安全，下令在没有备案的情况下不得开展网络服务，所以运营商纷纷响应号召，关闭了家庭用户公网IP的常用端口（80,8080,443),也就是说，我们的公网IP实际上是一个残缺的公网IP。 就算它是残缺的，那也实打实是一个公网IP呀，所以我们只需要把常用的网络服务转向不常用的端口就好了，下面以公网访问OpenWrt（OpenWrt拨号）为例。</p><p><img src="https://pic.sky350.cn/images/416_1.png"></p><p>OpenWrt系统默认是不允许从公网访问的，所以我们首先要解除这个限制，登录OpenWrt系统，进入系统-web管理，将只允许内网访问的对勾取消，保存&amp;应用。 解除公网访问限制之后，我们还需要建立一个端口转发服务，以便将我们的网络服务转发到不常用的端口上。 </p><p><img src="https://pic.sky350.cn/images/416_2.png"> </p><p>点击网络-防火墙，在屏幕上方就能看到端口转发了，名称和协议可以不用管，转发的外部区域是wan口，因为我们的目的是从公网进行访问，外部端口自己看着喜欢设置，内部区域为lan口，内部IP地址就是我们OpenWrt的管理地址，内部端口为常用端口80. </p><p><img src="https://pic.sky350.cn/images/416_3.png"> </p><p>填写完成之后添加，并保存&amp;应用，完成这一步你其实已经完成了在公网访问内网设备的设置了，你只需要在浏览器输入<code>IP:外部端口</code>就能实现内部IP的访问了。 但是呀，别着急，这还不能一劳永逸！我们运营商所分配的IP是随机IP，也就是说每过一段时间我们的IP就会发生改变，假如你刚好不在家，刚好IP改变了，刚好需要管理OpenWrt，那你即便设置好了端口转发你也无法管理，因为你根本不知道自己的IP。所以，我现在来教大家使用DDNS（动态域名解析），从而一劳永逸！</p><p><img src="https://pic.sky350.cn/images/416_4.png"> </p><p>我们来到网络-腾讯云DDNS（用的esir固件，其他固件可能是服务-腾讯云DDNS），要想进行动态域名解析，我们首先得有个域名，腾讯云阿里云都有几块钱一年的域名，实在不愿意花钱的可以上<a href="https://www.freenom.com/">freenom</a>注册一个免费域名，注册完成之后将域名添加到DNSPOD，也就是把域名的dns改为腾讯云的（这一步通常需要24小时才能生效）</p><p><img src="https://pic.sky350.cn/images/416_5.png"> </p><p>回到腾讯云DDNS这里，密钥ID和密钥token均来自以下操作</p><p><img src="https://pic.sky350.cn/images/416_6.png"> </p><p>打开DNSPOD官网，登录控制台，如图进行操作即可获得ID和token，回到腾讯云DDNS这里，WAN-IP来源选择wan，主域名为你添加到DNSPOD的域名，子域名为要解析的二级域名，检查时间可自行设定。 填完所有信息，保存&amp;应用之后，我们就实现了对我们的IP进行DDNS，这时候想从公网对OpenWrt进行管理，不再需要记住我们的公网IP ，管理地址变为<strong>子域名.主域名:外部端口</strong>（之前设置的转发端口）真正实现了一劳永逸！ 由于篇幅过长，第二种方法另写一篇博客！</p><h3 id="无公网IP地址"><a href="#无公网IP地址" class="headerlink" title="无公网IP地址"></a>无公网IP地址</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 端口转发 </tag>
+            
+            <tag> ddns </tag>
+            
+            <tag> OPENWRT </tag>
+            
+            <tag> 公网 </tag>
+            
+            <tag> 内网 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>v2rayNG——安卓上的科学上网神器</title>
+      <link href="/396.html"/>
+      <url>/396.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前我们做过三期科学上网神器推荐，但三个软件全都是桌面平台的，没有合适的移动客户端，按照我宠粉的性格，当然是有求必应啦。</p><p>所以，我又来啦，这次推荐的是安卓平台的客户端——v2rayNG</p><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>下载地址：见文章末尾，聪(心)明(急)伶(得)俐(很)的同学可以关掉网页去下载啦！</p><p><img src="https://pic.sky350.cn/images/396_1.png"></p><p>友情提示：请选择合适的版本！如果你不懂，但你用的是手机，请选择arm64版本。</p><h3 id="软件页面"><a href="#软件页面" class="headerlink" title="软件页面"></a>软件页面</h3><p><img src="https://pic.sky350.cn/images/396_2.png"></p><p>软件整个页面还是非常干净整洁的，貌似挺符合理工男的审美？</p><p><img src="https://pic.sky350.cn/images/396_3.png"></p><p>支持的协议也是非常齐全的，非常适合自建党</p><p><img src="https://pic.sky350.cn/images/396_4.png"></p><p>导入你喜欢的节点，将快捷按钮添加到快捷开关栏，不再需要打开软件，直接点一下就能起飞！</p><p>下载地址：<a href="https://github.com/2dust/v2rayNG/releases">https://github.com/2dust/v2rayNG/releases</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 上网神器 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> v2ray </tag>
+            
+            <tag> Xray </tag>
+            
+            <tag> 科学上网 </tag>
+            
+            <tag> v2rayNG </tag>
+            
+            <tag> 安卓 </tag>
+            
+            <tag> 移动 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>新版v2rayN 配置使用教程 附全局设置</title>
+      <link href="/374.html"/>
+      <url>/374.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>随着技术不断的革新，传统的SS,SSR技术已经不能能让我们安全愉快的科学上网了，在技术更新的同时，软件也不能落下，虽然之前发过Qv2Ray的和Clash.Net配置教程，但是仍然有些同学向我提问新版v2rayN怎么使用，所以，我来了！</p><p>废话也不多说了，直接开启保姆式教学！</p><h3 id="软件下载"><a href="#软件下载" class="headerlink" title="软件下载"></a>软件下载</h3><p>v2rayN下载也是分为两个部分，软件和内核，不过好在作者都打包在一起了，也不用麻烦去寻找！</p><p>点开下载地址，选择最新版本，和我的不一样也没关系</p><p>下载地址：见文章末尾</p><p><img src="https://pic.sky350.cn/images/374_1.png"></p><p>在下载的时候，我们选择一下要下载的程序，带Core的压缩包是自带内核的，另一个则是没有内核的，新手操作推荐下载带内核的版本，如在遇到下面这种情况</p><p><img src="https://pic.sky350.cn/images/374_2.png"></p><p>需要暂时关闭Windows的系统防护，软件是没有问题的，大家可以放心，</p><p><img src="https://pic.sky350.cn/images/374_3.png"></p><h3 id="软件安装配置"><a href="#软件安装配置" class="headerlink" title="软件安装配置"></a>软件安装配置</h3><p>首先将程序解压出来，</p><p><img src="https://pic.sky350.cn/images/374_4.png"></p><p>在文件夹中找到v2rayN.exe打开就能启动程序了，如果嫌麻烦可以右键发送快捷方式到桌面，</p><p><img src="https://pic.sky350.cn/images/374_5.png"></p><p><img src="https://pic.sky350.cn/images/374_6.png"></p><p>大体界面上和旧版本是一样的，但我们右键任务栏的时候会发现。。。HTTP代理没了。。。</p><p><img src="https://pic.sky350.cn/images/374_7.png"></p><p>新版本将HTTP代理改成了系统代理，这三个选项可以简单理解为</p><p>清除系统代理——不开启代理</p><p>自动配置系统代理——开启代理</p><p>不改变系统设置——不改变现有代理状态</p><p>另外有一个值得注意的地方，这里没法直接调全局代理或者其他规则了，想要开启这个功能就需要点击路由设置</p><p><img src="https://pic.sky350.cn/images/374_8.png"></p><p>将启用路由高级功能勾上，系统自带全局和绕过中国大陆两种规则，想要自建规则可以点击高级功能设置，最后确定即可</p><p><img src="https://pic.sky350.cn/images/374_9.png"></p><p>如果没有自带全局配置的话可以参考下面的配置自行添加</p><p><img src="https://pic.sky350.cn/images/374_10.png"></p><p>点击高级功能</p><p><img src="https://pic.sky350.cn/images/374_11.png"></p><p>规则功能–&gt;添加规则</p><p><img src="https://pic.sky350.cn/images/374_12.png"></p><p>全局路由规则</p><p>完成后我们再右键任务栏图标，就会发现多出来了一个路由功能，这时候就能自由选择代理规则了。</p><p><img src="https://pic.sky350.cn/images/374_13.png"></p><h3 id="添加服务器"><a href="#添加服务器" class="headerlink" title="添加服务器"></a>添加服务器</h3><p>点击服务器就可以通过各种方式添加各种服务器了。</p><p><img src="https://pic.sky350.cn/images/374_14.png"></p><p><img src="https://pic.sky350.cn/images/374_15.png"></p><p>教程就到这里了，还有什么疑问可以在评论区提问。</p><p>下载地址：<a href="https://github.com/2dust/v2rayN/releases">https://github.com/2dust/v2rayN/releases</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 上网神器 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Clash </tag>
+            
+            <tag> Trojan </tag>
+            
+            <tag> Xray </tag>
+            
+            <tag> 科学上网 </tag>
+            
+            <tag> v2rayN </tag>
+            
+            <tag> 全局模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Clash.Net简约强大的科学上网客户端</title>
+      <link href="/353.html"/>
+      <url>/353.html</url>
+      
+        <content type="html"><![CDATA[<p>之前给大家推荐过Qv2Ray这款强大而成熟的软件，有些小伙伴私信我说内核和插件安装的过程有些搞不明白的问题，这软件对新手小伙伴不是很友好，我也想过给推荐其他的软件像v2rayN之类的，但是觉得跟Qv2Ray差不多也就没推荐，这两天一直想推荐什么软件好，直到看到了Clash.Net的V1.04更新，我才决定将它推荐给大家。</p><p>本次推荐的软件为Clash.Net，这个名字呢也是很简单粗暴，Clash是它的内核，.Net是他的运行环境，所以这个软件目前还没有Linux版本，这也算是Windows的一个独享了。下面是Clash.Net项目的一些信息，之后就是安装流程了。</p><h3 id="Clash-Net项目："><a href="#Clash-Net项目：" class="headerlink" title="Clash.Net项目："></a>Clash.Net项目：</h3><p>下载地址：<a href="https://github.com/ClashDotNetFramework/ClashDotNetFramework/releases">点我下载</a></p><p>最近更新：V1.0.4-山有木兮卿有意，昨夜星辰恰似你</p><ul><li>添加更多徽标</li><li>支持打开主目录</li><li>支持通过Yaml编辑NetFilter内容</li><li>支持隐藏无法选择的组</li><li>允许单击控制器端口</li><li>允许更改日志级别</li><li>更新冲突核心</li><li>更新Country.mmdb</li><li>支持热键</li><li>异步更新配置文件</li><li>支持查询配置文件更新间隔</li><li>更新Pcap驱动程序</li><li>更新翻译</li><li>添加不和谐和电报组链接</li><li>添加字体后备</li><li>支持Vless Clash Core</li><li>支持更新提供者</li></ul><h3 id="Clash-Net安装教程"><a href="#Clash-Net安装教程" class="headerlink" title="Clash.Net安装教程"></a>Clash.Net安装教程</h3><p>点击下载地址选择合适的版本下载，这里用的x64的exe版本</p><p><img src="https://pic.sky350.cn/images/353_1.png"></p><p>下载完成打开，如果win10提示拦截请放行，之后选择合适的语言以及位置进行安装</p><p><img src="https://pic.sky350.cn/images/353_2.png"></p><p>安装完成直接打开，如果你电脑没有相应的.Net环境，则会遇到下面这个提示</p><p><img src="https://pic.sky350.cn/images/353_3.png"></p><p>没有关系。点击 是 即可跳转到下载连接</p><p><img src="https://pic.sky350.cn/images/353_4.png"></p><p>选择合适的下载安装，之后重启程序即可，打开默认是英文界面，但是问题不大，点击Settings</p><p><img src="https://pic.sky350.cn/images/353_5.png"></p><p>点击Display即可看到Language标签，点击倒三角就能切换到中文界面了</p><p><img src="https://pic.sky350.cn/images/353_6.png"></p><p>点击主页的大加号输入机场的订阅链接或者自己转换的链接，再点击代理就可以选择自己的的节点开始美滋滋的上网了。</p><p><img src="https://pic.sky350.cn/images/353_7.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 上网神器 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Clash </tag>
+            
+            <tag> Qv2ray </tag>
+            
+            <tag> Trojan </tag>
+            
+            <tag> Xray </tag>
+            
+            <tag> 科学上网 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>比notepad++好用！Sublime Text在Linux下的安装与配置</title>
+      <link href="/323.html"/>
+      <url>/323.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://s2.loli.net/2022/01/21/GkhMS84W2OX19Zq.png"></p><p>在转到Ubuntu平台之后，许多环境重新进行了配置，回过头来想写篇稿子却发现自带的文本编辑器太简单了，功能不够丰富。于是乎，准备给我心爱的电脑安装上我在win上常用的文本编辑其notepad++，刚准备百度其官网，就发现了这样一件事</p><p>好奇心驱使下，我点开了这个关键词，之后找到了CSDN上的一篇帖子，**_<a href="https://blog.csdn.net/weixin_39876856/article/details/111278427?utm_medium=distribute.pc_feed_404.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.nonecase&depth_1-utm_source=distribute.pc_feed_404.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.nonecas">notepad++事件_卸载、抵制Notepad++</a>_**，了解了这件事的真相。</p><p><img src="https://s2.loli.net/2022/01/21/KvXUpR7mM426Fe5.png"></p><p>原文链接：**_<a href="https://notepad-plus-plus.org/news/v781-free-uyghur-edition/">点我</a>_**</p><p>大家点开就能看到了，真搞不明白，一个文本编辑其而以，这么普通却有那么自信！敢作出分裂我国的事情，反正我是不会再用这个软件了，CSDN作者也给我们推荐了其他可替代的软件，我省的大家麻烦就直接贴出来了。</p><ul><li>VSCode  <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></li><li>EditPlus  <a href="https://www.editplus.com/">https://www.editplus.com/</a></li><li>UltraEdit-32 <a href="https://www.ultraedit.com/">https://www.ultraedit.com/</a></li><li>Sublime Text <a href="https://www.sublimetext.com/">https://www.sublimetext.com/</a></li><li>Source Insight  <a href="https://www.sourceinsight.com/">https://www.sourceinsight.com/</a></li></ul><p>这些软件我大致看了一下，选取了一个比较适合为习惯和审美的，也就是这篇文章的主角<strong>Sublime Text</strong>，接下来就一步一步安装</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg  sudo apt-key add -</span><br><span class="line">sudo apt-get install apt-transport-https</span><br><span class="line">echo &quot;deb https://download.sublimetext.com/ apt/stable/&quot;  sudo tee /etc/apt/sources.list.d/sublime-text.list</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install sublime-text</span><br></pre></td></tr></table></figure><p>Ubuntu打开终端，从上往下逐条输入执行就可完成安装，打开一看，居然是英文的，Emmm…</p><p>好吧，那就设置一下中文吧，百度一下发现，要切换成中文需要下载中文包。</p><p>然而网上都说第一步先在Preferences里面找到Package Control，但是当时我的Preferences里面并没有这一项，顿时人傻了。</p><p>再查找一番后发现，Package Control是需要自己手动安装的（为什么网上的教程没有呢，难道是新版本需要手动安装旧版本不需要？），算了无所谓了，能安装就行了，下面就是我整理的安装方法。</p><p>打开Sublime Text,使用快捷键<strong>Shift+Ctrl+P</strong>,弹出查找栏，在搜索框中输入关键字 install ,点击选择其中的：Package Control: Install Package</p><p><img src="https://s2.loli.net/2022/01/21/g4VNQzRp1vSF2lU.png"></p><p>点击之后稍微等一小会儿，安装完成会弹出如下界面</p><p><img src="https://s2.loli.net/2022/01/21/21FWhXpqc5KHTYr.png"></p><p>在搜索框中输入chinese，选择下拉框中的ChineseLocalizations</p><p>点击之后，中文包就安装完成了，之后关闭软件重新打开，点击任务栏中的<strong>Help-&gt;Language-&gt;简体中文</strong> ，中文切换就完成了！</p><p>之后的个性化设置就自己去摸索吧！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> notepad++ </tag>
+            
+            <tag> Sublime Text </tag>
+            
+            <tag> Ubuntu </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>保姆级MC基岩版开服教程，附带控制面板（腾讯云服务器演示）</title>
+      <link href="/294.html"/>
+      <url>/294.html</url>
+      
+        <content type="html"><![CDATA[<p>作为一个mc爱好者（假的），一直希望能实现和好兄弟（女同志）在一起愉快地造房子。然而…mc中国的官方网易租一个小服务器收费还死贵，贵也就罢了，能和好兄弟（女同志）一起造房子也值得。拔特（But）！网易的小服务器资料不能备份到本地，而有时候造几个星期的房子就腻了，然后就放着一两个月不玩，只能一直续费一直续费一直续费。。。这就造成了极大的资源浪费（终究还是因为钱？）。除了网易之外就只有零零散散的个人服务器，其中也不乏是免费的，拔特！同样的问题，甚至你都不知道这些服务器什么时候会莫名其妙被关掉。</p><p>所以，需求就很明显了，我仅仅需要实现以下的功能：</p><ul><li>能够多人联机</li><li>能实时掌握所有数据</li><li>能够选择性开或者关</li><li>花费相对较少</li></ul><p>阿看完这些需求，很明显指向一件事，我需要搭建一台个人服务器，掌握游戏的所有，而且刚刚刚好，我有一台闲置的腾讯云学生机（19年买，续费了两年，之后轻量应用服务器就推出了，学生版轻量应用服务器和古老的学生机一样，配置却好了不少，真是让老用户蛋疼，新购建议选择轻量应用服务器）。所以！所以！所以！就有了下面这些破事。</p><h3 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h3><p>演示机：远古腾讯云学生机</p><ul><li>1 CORE</li><li>2G</li><li>1Mbps</li><li>50G SSD</li></ul><p>推荐：阿里云或者腾讯云轻量应用服务器学生机（请开放相关端口）</p><ul><li>1 CORE</li><li>2G</li><li>5 Mbps 1000G流量&#x2F;月</li><li>60G SSD</li></ul><h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><p>视频：<a href="https://www.bilibili.com/video/BV1eB4y1c7fC">点我</a></p><h3 id="重装系统为Ubuntu20-04"><a href="#重装系统为Ubuntu20-04" class="headerlink" title="重装系统为Ubuntu20.04"></a>重装系统为Ubuntu20.04</h3><p><img src="https://pic.sky350.cn/images/294_1.png"></p><h3 id="设定root密码-amp-开启root登陆"><a href="#设定root密码-amp-开启root登陆" class="headerlink" title="设定root密码&amp;开启root登陆"></a>设定root密码&amp;开启root登陆</h3><ol><li>使用<code>ubuntu</code>用户连接到服务器</li><li>输入 <code>sudo passwd root</code> 设置密码（输入过程不会显示，回车确认）</li><li>输入 <code>sudo -i</code>切换到root用户</li><li>输入 <code>vim /etc/ssh/sshd_config</code>进行配置编辑</li><li>将 #PermitRootLogin prohibit-password一行改为 PermitRootLogin yes</li><li>输入 <code>sudo systemctl restart sshd</code>重启SSH</li></ol><h3 id="安装控制面板"><a href="#安装控制面板" class="headerlink" title="安装控制面板"></a>安装控制面板</h3><h4 id="一行命令快速安装（适用于-Ubuntu-x2F-Centos-x2F-Debian-x2F-Archlinux）"><a href="#一行命令快速安装（适用于-Ubuntu-x2F-Centos-x2F-Debian-x2F-Archlinux）" class="headerlink" title="一行命令快速安装（适用于 Ubuntu&#x2F;Centos&#x2F;Debian&#x2F;Archlinux）"></a>一行命令快速安装（适用于 Ubuntu&#x2F;Centos&#x2F;Debian&#x2F;Archlinux）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -qO- https://gitee.com/Suwingser/MCSManager-installer/raw/master/install.sh  bash</span><br></pre></td></tr></table></figure><p>执行完成后，使用 systemctl start mcsm 即可启动面板服务。</p><p>默认账号#master密码123456 面板地址IP:23333</p><p>面板代码与运行环境自动安装在 &#x2F;opt&#x2F; 目录下</p><p>启动命令: systemctl start mcsm<br>停止命令: systemctl stop mcsm</p><h4 id="手动安装（一键安装失败下进行）"><a href="#手动安装（一键安装失败下进行）" class="headerlink" title="手动安装（一键安装失败下进行）"></a>手动安装（一键安装失败下进行）</h4><p>创建安装目录，并进入该目录</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir opt</span><br><span class="line">cd opt</span><br></pre></td></tr></table></figure><p>下载运行环境</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://npm.taobao.org/mirrors/node/v12.16.1/node-v12.16.1-linux-x64.tar.gz</span><br></pre></td></tr></table></figure><p>解压文件</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf node-v12.16.1-linux-x64.tar.gz</span><br></pre></td></tr></table></figure><p>链接程序到环境变量中</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ln -s /opt/node-v12.16.1-linux-x64/bin/node /usr/bin/node</span><br><span class="line">ln -s /opt/node-v12.16.1-linux-x64/bin/npm /usr/bin/npm</span><br></pre></td></tr></table></figure><p>克隆仓库(若没有 git，请安装它，如 apt install -y git)</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/suwings/mcsmanager.git</span><br></pre></td></tr></table></figure><p>进入目录，安装依赖库</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd mcsmanager/</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure><p>启动面板</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure><p>建议通过screen保持面板持续运行！</p><p>该面板由<a href="https://github.com/Suwings">Suwings</a> 提供，特此感谢！</p><h3 id="安装mc服务端"><a href="#安装mc服务端" class="headerlink" title="安装mc服务端"></a>安装mc服务端</h3><p>mc基岩版官方下载地址：<a href="https://www.minecraft.net/en-us/download/server/bedrock/">https://www.minecraft.net/en-us/download/server/bedrock/</a></p><p>打开网页控制面板，点击服务端管理然后创建新实例 再选择 自定义启动命令 方案</p><p>随意起一个名字（为了后续方便，建议和我起同样的名字 MCS）项目位置推荐默认，下一步，点击上传下载的压缩包，可先完成配置再进行打包上传，打包格式Zip</p><p>启动命令写成 sh start.sh，稍后我们上传这个文件</p><p>在自己的本地电脑创建一个脚本文件叫做 start.sh，写入开服指令:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LD_LIBRARY_PATH=. ./bedrock_server</span><br></pre></td></tr></table></figure><p>在服务端管理界面中点击 管理，进入文件在线管理，解压上传的压缩包，解压后文件夹名字改为mcserver，然后打开这个文件夹，上传start.sh</p><p>回到管理面板，点击服务端管理，点击参数，在服务器根目录后加上&#x2F;mcserver 保存配置。</p><p>再回到SSH，以root登陆，执行下面对命令修改bedrock_server的权限</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 /opt/MCSManager/server/server_core/MCS/mcserver/bedrock_server</span><br></pre></td></tr></table></figure><p>最后回到控制面板服务端管理，点击终端，打开即可开启mc服务器，具体界面如下</p><h3 id="个性化设置"><a href="#个性化设置" class="headerlink" title="个性化设置"></a>个性化设置</h3><p>在管理面板 服务端管理 中点击管理，点开 Server.properties 配置文件 即可进行自定义配置。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 阿里云 </tag>
+            
+            <tag> 腾讯云 </tag>
+            
+            <tag> MC </tag>
+            
+            <tag> MineCraft </tag>
+            
+            <tag> 基岩版 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Qv2ray！强大的多端科学上网助手！</title>
+      <link href="/267.html"/>
+      <url>/267.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>相信应该不止我一个人用Windows太久会感到腻吧，总喜欢折腾折腾啥黑苹果啊Linux啊啥的。</p><p>这时候问题就出现啦，当我换了一个平台后，科学上网总需要再找过客户端，这对有某些要求对小伙伴就不太友好啦，不过好像除了我这种闲人之外就只有兼顾开发和游戏对开发者了吧哈哈，Linux配置软件方法与Windows基本一致。</p><p>在我们常用的PC系统上，比如Windows&#x2F;Mac&#x2F;Linux等系统平台，V2ray官方并没有发布图形化的桌面客户端，所以操作使用起来会很麻烦。</p><p>V2rayN和Qv2ray等一些第三方工具，在V2ray官方内核的基础上，为我们提供了图形化界面支持，使用起来会更加方便。</p><p>其中Qv2ray 1.40以上的内核除了支持V2ray的vmess协议外，还支持1.40+以上内核的Xray  Vless协议，还可以通过安装插件的方式，额外增加对SS&#x2F;SSR&#x2F;Trojan等代理协议的支持，可作为V2ray&#x2F;SS&#x2F;SSR&#x2F;Trojan&#x2F;XRay客户端使用。</p><h3 id="Qv2ray支持的代理协议："><a href="#Qv2ray支持的代理协议：" class="headerlink" title="Qv2ray支持的代理协议："></a>Qv2ray支持的代理协议：</h3><ul><li>Vmess（V2ray）</li><li>SS（Shadowsocks）</li><li>SSR（ShadowsocksR)</li><li>Trojan</li><li>Trojan-go</li><li>NaiveProxy</li><li>Vless</li></ul><h3 id="Qv2ray-其它特点："><a href="#Qv2ray-其它特点：" class="headerlink" title="Qv2ray 其它特点："></a>Qv2ray 其它特点：</h3><ul><li>图形化界面，方便操作</li><li>多系统平台支持</li><li>支持国内外流量分流</li><li>支持流量统计&#x2F;重置</li><li>支持多种方式添加代理服务器</li></ul><h3 id="Qv2ray-程序下载"><a href="#Qv2ray-程序下载" class="headerlink" title="Qv2ray 程序下载"></a>Qv2ray 程序下载</h3><p>版本建议选择较新版本：<a href="https://github.com/Qv2ray/Qv2ray/tags">https://github.com/Qv2ray/Qv2ray/tags</a></p><h3 id="Qv2ray-内核下载"><a href="#Qv2ray-内核下载" class="headerlink" title="Qv2ray 内核下载"></a>Qv2ray 内核下载</h3><p>V2ray内核请到官网根据自己的系统选择下载最新版（建议挂代理）：<a href="https://github.com/v2ray/v2ray-core/releases">https://github.com/v2ray/v2ray-core/releases</a></p><h3 id="Qv2ray-插件下载（可选）"><a href="#Qv2ray-插件下载（可选）" class="headerlink" title="Qv2ray 插件下载（可选）"></a>Qv2ray 插件下载（可选）</h3><p>Qv2ray Shadowsocks插件下载：<a href="https://github.com/Qv2ray/QvPlugin-SS/releases/">https://github.com/Qv2ray/QvPlugin-SS/releases/</a></p><p>Qv2ray SSR插件下载：<a href="https://github.com/Qv2ray/QvPlugin-SSR/releases/">https://github.com/Qv2ray/QvPlugin-SSR/releases/</a></p><p>Qv2ray Trojan插件下载：<a href="https://github.com/Qv2ray/QvPlugin-Trojan/releases">https://github.com/Qv2ray/QvPlugin-Trojan/releases</a></p><p>Qv2ray Trojan-go插件下载：<a href="https://github.com/Qv2ray/QvPlugin-Trojan-Go/releases/">https://github.com/Qv2ray/QvPlugin-Trojan-Go/releases/</a></p><p>Qv2ray NaiveProxy插件下载：：<a href="https://github.com/Qv2ray/QvPlugin-NaiveProxy/releases/">https://github.com/Qv2ray/QvPlugin-NaiveProxy/releases/</a></p><h3 id="Qv2ray-使用教程"><a href="#Qv2ray-使用教程" class="headerlink" title="Qv2ray 使用教程"></a>Qv2ray 使用教程</h3><p>Qv2ray下载完成后进行安装</p><p><img src="https://pic.sky350.cn/images/267_1.png"></p><p>安装位置任意，完成后打开</p><p><img src="https://pic.sky350.cn/images/267_2.png"></p><p>默认是没有任何连接的，我们需要先进行内核配置，内核下载地址在上边，点击首选项</p><p><img src="https://pic.sky350.cn/images/267_3.png"></p><p>点击内核设置，解压我们下载的内核，推荐在Qv2Ray安装目录下创建core文件夹用于放置内核。内核配置并不难，只需要选择两个路径地址，V2Ray核心可执行文件选中解压出来的v2ray.exe文件，资源目录选中v2ray.exe所在目录即可，完成后可点击下方检查V2Ray核心设置检查一下是否完成配置。（在不同系统下可执行文件名称不一样，自行选择）</p><p><img src="https://pic.sky350.cn/images/267_4.png"></p><p>另外有一点需要注意的是，在连接设置里取消勾选绕过中国大陆就是全局代理模式。</p><p><img src="https://pic.sky350.cn/images/267_5.png"></p><p>到这里你已经完成最重要的一步了，不难吧，接下来就是安装插件了，在主界面点击插件即可看到已经安装的插件，如需安装新插件则将下载的新插件解压到Qv2Ray安装目录下的plugins文件夹，然后重启程序即可。</p><p><img src="https://pic.sky350.cn/images/267_6.png"></p><p><img src="https://pic.sky350.cn/images/267_7.png"></p><p>点击新建按照类型输入相应信息即可连接，嫌麻烦也有导入连接功能，支持链接，例如vmess开头的链接，二维码。</p><p><img src="https://pic.sky350.cn/images/267_8.png"></p><p><img src="https://pic.sky350.cn/images/267_9.png"></p><p>此外，右键点击系统托盘的Qv2ray图标，可以设置Qv2ray的系统代理模式。</p><p><strong>注意</strong>：在添加V2ray以外的代理服务器前，需要确保Qv2ray已经安装相应插件。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 上网神器 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Qv2ray </tag>
+            
+            <tag> Trojan </tag>
+            
+            <tag> Xray </tag>
+            
+            <tag> 科学上网 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Adobe2019文件分享及破解试用方法</title>
+      <link href="/34.html"/>
+      <url>/34.html</url>
+      
+        <content type="html"><![CDATA[<p>好我们即将要聊的是Adobe2019的安装以及破解的方法，<strong>但是各位注意，此法仅供尝试体验，如有需求，请购买正版。</strong></p><p><img src="https://pic.sky350.cn/images/34_1.png"></p><p><img src="https://pic.sky350.cn/images/34_2.png"></p><p>PhotoShop主界面</p><p>每次看到这些界面总觉得自己很牛逼（实际上自己还是个菜鸡）。</p><p>废话少说，现在我就拿AE的安装来演示一下破解的教程。</p><p>第一步下载好文件，解压，断开主机网络。</p><p><img src="https://pic.sky350.cn/images/34_3.png"></p><p>双击Set-up应用程序开始安装，选择需要安装的应用</p><p><img src="https://pic.sky350.cn/images/34_4.png"></p><p>语言，位置随意，但要记住，建议不要安装在C盘</p><p><img src="https://pic.sky350.cn/images/34_5.png"></p><p>双击RunMe打开破解程序，界面是下面的样子。</p><p><img src="https://pic.sky350.cn/images/34_6.png"></p><p>选中要破解的程序，点击下面的放大镜按钮。</p><p>在弹出的窗口中进入自己选择的位置</p><p><img src="https://pic.sky350.cn/images/34_7.png"></p><p><img src="https://pic.sky350.cn/images/34_8.png"></p><p>这时会发现界面中间出现选中的程序，单击它，这时我们就完成破解了。</p><p><img src="https://pic.sky350.cn/images/34_9.png"></p><p><img src="https://pic.sky350.cn/images/34_10.png"></p><p>再次说明，请支持正版软件。</p><p>链接: <a href="https://pan.baidu.com/s/1DMwHRWtvo_NALp-2fWEdkQ">https://pan.baidu.com/s/1DMwHRWtvo_NALp-2fWEdkQ</a> 提取码: yrkw</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Adobe </tag>
+            
+            <tag> AE </tag>
+            
+            <tag> PR </tag>
+            
+            <tag> PS </tag>
+            
+            <tag> 破解 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>

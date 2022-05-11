@@ -1,0 +1,399 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>通过公网访问OpenWrt或其他内网设备的两种方法（一） | SKY博客</title><meta name="keywords" content="端口转发,ddns,OPENWRT,公网,内网"><meta name="author" content="阿宝哥呀"><meta name="copyright" content="阿宝哥呀"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="其实这个教程有视频，但是，啊B不给通过，所以我就发到YouTube了，懒得看文字的小伙伴可以点击下方的视频，听着学。 视频（Youtube） 好言归正传，接下来我将像大家介绍两种情况下的公网访问内网设备方法，这两种情况分别是：  有公网IP地址 无公网IP地址  至于如何判断自己的IP是否是公网IP，我在这就给大家简单的讲解一下，如果有不懂的可以在评论区进行提问，首先打开浏览器登录自己的路由器，看">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过公网访问OpenWrt或其他内网设备的两种方法（一）">
+<meta property="og:url" content="https://www.sky350.com/416.html">
+<meta property="og:site_name" content="SKY博客">
+<meta property="og:description" content="其实这个教程有视频，但是，啊B不给通过，所以我就发到YouTube了，懒得看文字的小伙伴可以点击下方的视频，听着学。 视频（Youtube） 好言归正传，接下来我将像大家介绍两种情况下的公网访问内网设备方法，这两种情况分别是：  有公网IP地址 无公网IP地址  至于如何判断自己的IP是否是公网IP，我在这就给大家简单的讲解一下，如果有不懂的可以在评论区进行提问，首先打开浏览器登录自己的路由器，看">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.sky350.cn/images/416.jpg">
+<meta property="article:published_time" content="2021-07-26T18:54:51.000Z">
+<meta property="article:modified_time" content="2022-05-09T21:04:31.705Z">
+<meta property="article:author" content="阿宝哥呀">
+<meta property="article:tag" content="端口转发">
+<meta property="article:tag" content="ddns">
+<meta property="article:tag" content="OPENWRT">
+<meta property="article:tag" content="公网">
+<meta property="article:tag" content="内网">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.sky350.cn/images/416.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.sky350.com/416"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: 'ca-pub-5201315122723978',
+  enable_page_level_ads: 'true'
+});</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-VWC1BXX7W2"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-VWC1BXX7W2');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '通过公网访问OpenWrt或其他内网设备的两种方法（一）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-10 05:04:31'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/Circle_Logo.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tag/"><div class="headline">标签</div><div class="length-num">65</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/category/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/category/app/"><i class="fa-fw fab fa-github"></i><span> 上网神器</span></a></div><div class="menus_item"><a class="site-page" href="/category/technical/"><i class="fa-fw fab fa-chrome"></i><span> 玩法开启</span></a></div><div class="menus_item"><a class="site-page" href="/category/course/"><i class="fa-fw fas fa-book"></i><span> 系列教程</span></a></div><div class="menus_item"><a class="site-page" href="/category/ordinary/"><i class="fa-fw fas fa-file-alt"></i><span> 闲扯文档</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.sky350.cn/images/416.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">SKY博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/category/app/"><i class="fa-fw fab fa-github"></i><span> 上网神器</span></a></div><div class="menus_item"><a class="site-page" href="/category/technical/"><i class="fa-fw fab fa-chrome"></i><span> 玩法开启</span></a></div><div class="menus_item"><a class="site-page" href="/category/course/"><i class="fa-fw fas fa-book"></i><span> 系列教程</span></a></div><div class="menus_item"><a class="site-page" href="/category/ordinary/"><i class="fa-fw fas fa-file-alt"></i><span> 闲扯文档</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">通过公网访问OpenWrt或其他内网设备的两种方法（一）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-07-26T18:54:51.000Z" title="发表于 2021-07-27 02:54:51">2021-07-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-09T21:04:31.705Z" title="更新于 2022-05-10 05:04:31">2022-05-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/category/technical/">玩法开启</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="8080086871" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div><article class="post-content" id="article-container"><p>其实这个教程有视频，但是，啊B不给通过，所以我就发到YouTube了，懒得看文字的小伙伴可以点击下方的视频，听着学。</p>
+<p><a target="_blank" rel="noopener" href="https://youtu.be/QUjyv-6rMas">视频（Youtube）</a></p>
+<p>好言归正传，接下来我将像大家介绍两种情况下的公网访问内网设备方法，这两种情况分别是：</p>
+<ol>
+<li>有公网IP地址</li>
+<li>无公网IP地址</li>
+</ol>
+<p>至于如何判断自己的IP是否是公网IP，我在这就给大家简单的讲解一下，如果有不懂的可以在评论区进行提问，首先打开浏览器登录自己的路由器，看我们的Wan口IP是，并记住它，然后再打开百度，输入IP进行搜索，然后将搜索出来的与自己路由器上的IP进行对比，假如一致，那么恭喜你，这是个公网IP，反之则不是。如果不是公网IP的小伙伴也想要公网IP该怎么办？很简单的，电信或联通用户拨打你们的宽带报障电话，转人工跟客服说你要装一大堆监控（如果是一两个，电信可能会给你推销他们的摄像头，这个不需要用到公网），需要用到公网IP进行管理，一般情况下都会通过的，至于移动的小伙伴们就别浪费时间去打电话了，全网试过得出结论没可能通过，毕竟移动入局宽带业务晚，分到的公网IP就那么点。好这就开始逐一向大家演示！</p>
+<h3 id="有公网IP地址"><a href="#有公网IP地址" class="headerlink" title="有公网IP地址"></a>有公网IP地址</h3><p>在拥有一个公网IP的情况下要想在公网上找到自己就非常容易了，国家为了维护好网络安全，下令在没有备案的情况下不得开展网络服务，所以运营商纷纷响应号召，关闭了家庭用户公网IP的常用端口（80,8080,443),也就是说，我们的公网IP实际上是一个残缺的公网IP。 就算它是残缺的，那也实打实是一个公网IP呀，所以我们只需要把常用的网络服务转向不常用的端口就好了，下面以公网访问OpenWrt（OpenWrt拨号）为例。</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/416_1.png"></p>
+<p>OpenWrt系统默认是不允许从公网访问的，所以我们首先要解除这个限制，登录OpenWrt系统，进入系统-web管理，将只允许内网访问的对勾取消，保存&amp;应用。 解除公网访问限制之后，我们还需要建立一个端口转发服务，以便将我们的网络服务转发到不常用的端口上。 </p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/416_2.png"> </p>
+<p>点击网络-防火墙，在屏幕上方就能看到端口转发了，名称和协议可以不用管，转发的外部区域是wan口，因为我们的目的是从公网进行访问，外部端口自己看着喜欢设置，内部区域为lan口，内部IP地址就是我们OpenWrt的管理地址，内部端口为常用端口80. </p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/416_3.png"> </p>
+<p>填写完成之后添加，并保存&amp;应用，完成这一步你其实已经完成了在公网访问内网设备的设置了，你只需要在浏览器输入<code>IP:外部端口</code>就能实现内部IP的访问了。 但是呀，别着急，这还不能一劳永逸！我们运营商所分配的IP是随机IP，也就是说每过一段时间我们的IP就会发生改变，假如你刚好不在家，刚好IP改变了，刚好需要管理OpenWrt，那你即便设置好了端口转发你也无法管理，因为你根本不知道自己的IP。所以，我现在来教大家使用DDNS（动态域名解析），从而一劳永逸！</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/416_4.png"> </p>
+<p>我们来到网络-腾讯云DDNS（用的esir固件，其他固件可能是服务-腾讯云DDNS），要想进行动态域名解析，我们首先得有个域名，腾讯云阿里云都有几块钱一年的域名，实在不愿意花钱的可以上<a target="_blank" rel="noopener" href="https://www.freenom.com/">freenom</a>注册一个免费域名，注册完成之后将域名添加到DNSPOD，也就是把域名的dns改为腾讯云的（这一步通常需要24小时才能生效）</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/416_5.png"> </p>
+<p>回到腾讯云DDNS这里，密钥ID和密钥token均来自以下操作</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/416_6.png"> </p>
+<p>打开DNSPOD官网，登录控制台，如图进行操作即可获得ID和token，回到腾讯云DDNS这里，WAN-IP来源选择wan，主域名为你添加到DNSPOD的域名，子域名为要解析的二级域名，检查时间可自行设定。 填完所有信息，保存&amp;应用之后，我们就实现了对我们的IP进行DDNS，这时候想从公网对OpenWrt进行管理，不再需要记住我们的公网IP ，管理地址变为<strong>子域名.主域名:外部端口</strong>（之前设置的转发端口）真正实现了一劳永逸！ 由于篇幅过长，第二种方法另写一篇博客！</p>
+<h3 id="无公网IP地址"><a href="#无公网IP地址" class="headerlink" title="无公网IP地址"></a>无公网IP地址</h3></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">阿宝哥呀</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.sky350.com/416.html">https://www.sky350.com/416.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.sky350.com" target="_blank">SKY博客</a>！</span></div></div><div class="ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="8080086871" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tag/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/">端口转发</a><a class="post-meta__tags" href="/tag/ddns/">ddns</a><a class="post-meta__tags" href="/tag/openwrt/">OPENWRT</a><a class="post-meta__tags" href="/tag/%E5%85%AC%E7%BD%91/">公网</a><a class="post-meta__tags" href="/tag/%E5%86%85%E7%BD%91/">内网</a></div><div class="post_share"><div class="social-share" data-image="https://pic.sky350.cn/images/416.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/455.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/455.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Frp内网穿透 简单而强大的内网穿透软件！</div></div></a></div><div class="next-post pull-right"><a href="/396.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/27.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">v2rayNG——安卓上的科学上网神器</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/455.html" title="Frp内网穿透 简单而强大的内网穿透软件！"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/455.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-08-15</div><div class="title">Frp内网穿透 简单而强大的内网穿透软件！</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/Circle_Logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">阿宝哥呀</div><div class="author-info__description">Linux技术,网络技术,宝塔面板,邮局配置,域名设置,脚本运行,CentOS,Debian,Nginx</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div><div class="card-info-data-item is-center"><a href="/tag/"><div class="headline">标签</div><div class="length-num">65</div></a></div><div class="card-info-data-item is-center"><a href="/category/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCECSuDUCVYdpBVF-0YlZAig"><i class="fab fa-youtube"></i><span>订阅我吧</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:support@sky350.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">经过认真思考，还是决定将博客部署到HEXO框架上，希望能给大家个不错的体验。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%85%AC%E7%BD%91IP%E5%9C%B0%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">有公网IP地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E5%85%AC%E7%BD%91IP%E5%9C%B0%E5%9D%80"><span class="toc-number">2.</span> <span class="toc-text">无公网IP地址</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/1211.html" title="《高效使用你的VPS》搭建私人多端音乐平台"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1211_7.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《高效使用你的VPS》搭建私人多端音乐平台"/></a><div class="content"><a class="title" href="/1211.html" title="《高效使用你的VPS》搭建私人多端音乐平台">《高效使用你的VPS》搭建私人多端音乐平台</a><time datetime="2022-04-14T09:44:57.000Z" title="发表于 2022-04-14 17:44:57">2022-04-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/871.html" title="《高效使用你的VPS》搭建私人多平台笔记系统"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1439137513.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《高效使用你的VPS》搭建私人多平台笔记系统"/></a><div class="content"><a class="title" href="/871.html" title="《高效使用你的VPS》搭建私人多平台笔记系统">《高效使用你的VPS》搭建私人多平台笔记系统</a><time datetime="2022-02-20T06:46:34.000Z" title="发表于 2022-02-20 14:46:34">2022-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1210.html" title="V2RayA——新一代Linux客户端安装配置教程"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2715638954.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="V2RayA——新一代Linux客户端安装配置教程"/></a><div class="content"><a class="title" href="/1210.html" title="V2RayA——新一代Linux客户端安装配置教程">V2RayA——新一代Linux客户端安装配置教程</a><time datetime="2022-01-25T16:20:00.000Z" title="发表于 2022-01-26 00:20:00">2022-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1062.html" title="Cloudcone超便宜VPS简单评测（黑五打折套餐）"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1001_2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cloudcone超便宜VPS简单评测（黑五打折套餐）"/></a><div class="content"><a class="title" href="/1062.html" title="Cloudcone超便宜VPS简单评测（黑五打折套餐）">Cloudcone超便宜VPS简单评测（黑五打折套餐）</a><time datetime="2021-12-22T07:16:55.000Z" title="发表于 2021-12-22 15:16:55">2021-12-22</time></div></div></div></div><div class="card-widget ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="7779019761" data-ad-format="auto" data-full-width-responsive="true"></ins><script> (adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By 阿宝哥呀</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">联系邮箱：service@sky350.com<br/><a target="_blank" href="http://www.freecdn.pw/?zzwz" title="免费云加速（FreeCDN），为您免费提供网站加速和网站防御（DDOS、CC攻击）" alt="免费云加速（FreeCDN），为您免费提供网站加速和网站防御（DDOS、CC攻击）">本站由免费云加速（FreeCDN）提供网站加速和攻击防御服务</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo-eight-green.vercel.app/',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-eight-green.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://twikoo-eight-green.vercel.app/',
+        region: '',
+        pageSize: 5,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-lista')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-lista')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-lista')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-VWC1BXX7W2', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>

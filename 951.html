@@ -1,0 +1,415 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>《搭建一个合适自己的梯子》服务器挑选篇 | SKY博客</title><meta name="keywords" content="vps,服务器,科学上网,阿里云,域名,腾讯云"><meta name="author" content="阿宝哥呀"><meta name="copyright" content="阿宝哥呀"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言距离本系列《搭建一个合适自己的梯子》上一篇 《搭建一个合适自己的梯子》域名注册篇（新手基础） 发布已经过去挺久了，这么久一直没更新是我以为没人看，没想到居然有人看，那我就努力更新咯 接上次的内容，在拥有了一个域名后，我们该怎么去挑选合适自己的vps服务器？ 本篇就根大家聊一聊购买服务器需要注意的一些点。 核心&#x2F;内存在基础配置选择前我们首先要清楚我们我们的用途，如果你仅仅是想搭建个科学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《搭建一个合适自己的梯子》服务器挑选篇">
+<meta property="og:url" content="https://www.sky350.com/951.html">
+<meta property="og:site_name" content="SKY博客">
+<meta property="og:description" content="前言距离本系列《搭建一个合适自己的梯子》上一篇 《搭建一个合适自己的梯子》域名注册篇（新手基础） 发布已经过去挺久了，这么久一直没更新是我以为没人看，没想到居然有人看，那我就努力更新咯 接上次的内容，在拥有了一个域名后，我们该怎么去挑选合适自己的vps服务器？ 本篇就根大家聊一聊购买服务器需要注意的一些点。 核心&#x2F;内存在基础配置选择前我们首先要清楚我们我们的用途，如果你仅仅是想搭建个科学">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.sky350.cn/images/21.jpg">
+<meta property="article:published_time" content="2021-10-30T16:05:50.000Z">
+<meta property="article:modified_time" content="2022-05-14T13:50:16.623Z">
+<meta property="article:author" content="阿宝哥呀">
+<meta property="article:tag" content="vps">
+<meta property="article:tag" content="服务器">
+<meta property="article:tag" content="科学上网">
+<meta property="article:tag" content="阿里云">
+<meta property="article:tag" content="域名">
+<meta property="article:tag" content="腾讯云">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.sky350.cn/images/21.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.sky350.com/951"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: 'ca-pub-5201315122723978',
+  enable_page_level_ads: 'true'
+});</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-VWC1BXX7W2"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-VWC1BXX7W2');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '《搭建一个合适自己的梯子》服务器挑选篇',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-14 21:50:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/Circle_Logo.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tag/"><div class="headline">标签</div><div class="length-num">65</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/category/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/category/app/"><i class="fa-fw fab fa-github"></i><span> 上网神器</span></a></div><div class="menus_item"><a class="site-page" href="/category/technical/"><i class="fa-fw fab fa-chrome"></i><span> 玩法开启</span></a></div><div class="menus_item"><a class="site-page" href="/category/course/"><i class="fa-fw fas fa-book"></i><span> 系列教程</span></a></div><div class="menus_item"><a class="site-page" href="/category/ordinary/"><i class="fa-fw fas fa-file-alt"></i><span> 闲扯文档</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.sky350.cn/images/21.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">SKY博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/category/app/"><i class="fa-fw fab fa-github"></i><span> 上网神器</span></a></div><div class="menus_item"><a class="site-page" href="/category/technical/"><i class="fa-fw fab fa-chrome"></i><span> 玩法开启</span></a></div><div class="menus_item"><a class="site-page" href="/category/course/"><i class="fa-fw fas fa-book"></i><span> 系列教程</span></a></div><div class="menus_item"><a class="site-page" href="/category/ordinary/"><i class="fa-fw fas fa-file-alt"></i><span> 闲扯文档</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">《搭建一个合适自己的梯子》服务器挑选篇</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-10-30T16:05:50.000Z" title="发表于 2021-10-31 00:05:50">2021-10-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-14T13:50:16.623Z" title="更新于 2022-05-14 21:50:16">2022-05-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/category/course/">系列教程</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="8080086871" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div><article class="post-content" id="article-container"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>距离本系列《搭建一个合适自己的梯子》上一篇</p>
+<p><a href="https://www.sky350.com/884.html">《搭建一个合适自己的梯子》域名注册篇（新手基础）</a></p>
+<p>发布已经过去挺久了，这么久一直没更新是我以为没人看，没想到居然有人看，那我就努力更新咯</p>
+<p>接上次的内容，在拥有了一个域名后，我们该怎么去挑选合适自己的vps服务器？</p>
+<p>本篇就根大家聊一聊购买服务器需要注意的一些点。</p>
+<h3 id="核心-x2F-内存"><a href="#核心-x2F-内存" class="headerlink" title="核心&#x2F;内存"></a>核心&#x2F;内存</h3><p>在基础配置选择前我们首先要清楚我们我们的用途，如果你仅仅是想搭建个科学上网节点，那么1核512M都够用了，如果你顺便想搭建一个个人博客（方法如下）</p>
+<p><a href="https://www.sky350.com/827.html">《高效使用你的VPS》快速搭建个人博客 新手基础篇</a></p>
+<p>或者一个个人导航站点（方法如下）</p>
+<p><a href="https://www.sky350.com/909.html">《高效使用你的VPS》搭建个人导航站点</a></p>
+<p>那么就推荐至少1核1G，如果你认为你的站点能够吸引到更多的浏览量，那还需要继续网上升一升。另外，即便都是1核1G，不同商家的VPS服务器所使用的CPU内存也不尽相同，绝大多数便宜的VPS用的Intel老E5系列，它们可能已经在服务器上锻炼8年10年了，并且配备的是DDR3的内存，高端方面有intel的Xeon Gold系列，以及AMD的霄龙系列，所以性能还是会有差距，买之前可以先询问一下商家或者百度一下该商家的VPS服务器评测。</p>
+<p>虚拟化：非常不推荐OpenVZ，KVM相对来说会好一些。</p>
+<h3 id="硬盘-x2F-带宽"><a href="#硬盘-x2F-带宽" class="headerlink" title="硬盘&#x2F;带宽"></a>硬盘&#x2F;带宽</h3><p>除了CPU和内存，影响服务器速度的还有硬盘和带宽，硬盘主要影响服务器的I&#x2F;O性能，而带宽影响的是传输速度，I&#x2F;O性能是什么？</p>
+<p>I&#x2F;O（input&#x2F;output）字面理解就是输入&#x2F;输出，输入指的是对磁盘写入数据，输出指的是从磁盘读出数据。</p>
+<p>那如何去选择I&#x2F;O性能好的服务器呢？回归到硬盘，服务器用的硬盘性能越好，服务器I&#x2F;O就会越高，通常情况下，一般传统机械sata硬盘的顺序读写速度为 ：80<del>150M&#x2F;s，SAS硬盘为150</del>200M&#x2F;s，SSD固态硬盘为400~600M&#x2F;s。此外，硬盘的RAID形式也会影响服务器的I&#x2F;O性能，这个就不拓展来细说了，购买时尽量选择使用SSD固态硬盘的服务器。</p>
+<p>带宽方面，应该很容易理解吧，其实跟我们家用宽带差不多，我们家用宽带越高，下载速度越快，服务器上的带宽一般是之服务器的上传速度，也就是说，服务器带宽越高，上传速度越快（我们的下载就是服务器的上传）。另外有一点需要注意，服务器带宽有共享带宽，也有独享带宽，1，2M的基本上都是独享，500M，1G这些基本上都是共享的（共享就是一台物理机上运行许多虚拟机，而我们使用的基本上都是虚拟机，企业才有用整台物理机的需求，而许多虚拟机共享物理机接入的带宽）。并不是说共享的不好，只要厂商不严重超开就行，而且我们科学上网也需要大带宽。</p>
+<h3 id="地区-x2F-路由"><a href="#地区-x2F-路由" class="headerlink" title="地区&#x2F;路由"></a>地区&#x2F;路由</h3><p>两点之间，直线最短，这句话也同样用于vps服务器，不过，搭建科学上网节点必须选择中国大陆以外的地区，一般来说，我们选的服务器地区离我们越近，我们的延迟就会越低，网络就会更顺畅，但是并不是所有的vps都适用这个规则，曾经我买过一个小厂的香港vps，它的线路却是下面这样的。。。</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/951_1.png"></p>
+<p>绕了一圈的网络</p>
+<p>所以更重要的是vps服务器所使用的路由，在资金允许的情况下，我们建议使用中国电信cn2线路优化的网络，或者移动CMI直连线路，通常来讲，这些线路的连通性更好，延迟更低。</p>
+<p>在厂商没有说明的情况下，我们的建议是打开厂商给的测试IP，下载一个1G文件看速度，这个下载速度大致就是服务器到你所在地的链接速度，可以接受的话就能用。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>核心&#x2F;内存</p>
+<p>1C 512M及以上</p>
+<p>硬盘&#x2F;带宽</p>
+<p>SSD固态硬盘&#x2F;500M以上共享网络</p>
+<p>地区&#x2F;路由</p>
+<p>地区越近越好（科学上网节点需要在大陆以外的地区）&#x2F;CN2&#x2F;CMI为推荐线路</p>
+<p>完成服务器购买后可以先按下面这篇文章进项简单的配置，进阶配置教程在写了（新建文件夹）</p>
+<p><a href="https://www.sky350.com/576.html">科学上网服务器搭建 不再受限于人！（v2ray&#x2F;xray&#x2F;trojan）</a></p>
+<h3 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h3><p>本推荐不含广告，都是我自己使用过的，首先如果只是一两个人使用并且只是看看油管，ins，facebook等，使用腾讯云轻量应用服务器香港地区就可以，价格便宜，30M带宽测试测试发现50M的峰值速度，主要是延迟很低。如果不太在意延迟可以购买经典商家搬瓦工，只是最近这价格越来越贵了…如果跟我一样是穷逼也可以购买Cloudcone的十来美元一年，1G共享带宽测试发现大部分城市都能跑到300M，KVM虚拟化也不太用怕超售。</p>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>感谢@<strong>小白</strong>同学评论区帮我补充了以下信息</p>
+<ul>
+<li>腾讯云轻量应用服务器最低套餐为288元&#x2F;年（可按月付款），配置为1核CPU&#x2F;1G内存&#x2F;25GB SSD，带宽峰值30Mbps，流量包1TB，主要面向长尾用户、个人开发者、小型企业等，性价比高。</li>
+<li>搬瓦工是最稳定，性能最好国外的VPS商家，换ip需要付费；套餐：1核1G 20G SSD硬盘 CN2线路 1000G月流量， 洛杉矶机房大约$50&#x2F;年。</li>
+<li>cloudcone主要是价格非常便宜，经常有按年的优惠方案放出来，$17.99&#x2F;年（经常有活动能做到15刀左右一年），换ip需要付费。</li>
+</ul>
+<p>2021.11.2</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">阿宝哥呀</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.sky350.com/951.html">https://www.sky350.com/951.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.sky350.com" target="_blank">SKY博客</a>！</span></div></div><div class="ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="8080086871" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tag/vps/">vps</a><a class="post-meta__tags" href="/tag/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a><a class="post-meta__tags" href="/tag/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/">科学上网</a><a class="post-meta__tags" href="/tag/%E9%98%BF%E9%87%8C%E4%BA%91/">阿里云</a><a class="post-meta__tags" href="/tag/%E5%9F%9F%E5%90%8D/">域名</a><a class="post-meta__tags" href="/tag/%E8%85%BE%E8%AE%AF%E4%BA%91/">腾讯云</a></div><div class="post_share"><div class="social-share" data-image="https://pic.sky350.cn/images/21.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/1000.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/33.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">《高效使用你的VPS》Wordpress博客进阶优化 伪静态/缓存/邮件配置</div></div></a></div><div class="next-post pull-right"><a href="/909.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/30.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">《高效使用你的VPS》搭建个人导航站点</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/976.html" title="《搭建一个合适自己的梯子》节点搭建篇"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/21.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-15</div><div class="title">《搭建一个合适自己的梯子》节点搭建篇</div></div></a></div><div><a href="/1211.html" title="《高效使用你的VPS》搭建私人多端音乐平台"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1211_7.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-14</div><div class="title">《高效使用你的VPS》搭建私人多端音乐平台</div></div></a></div><div><a href="/871.html" title="《高效使用你的VPS》搭建私人多平台笔记系统"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1439137513.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-20</div><div class="title">《高效使用你的VPS》搭建私人多平台笔记系统</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/Circle_Logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">阿宝哥呀</div><div class="author-info__description">Linux技术,网络技术,宝塔面板,邮局配置,域名设置,脚本运行,CentOS,Debian,Nginx</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div><div class="card-info-data-item is-center"><a href="/tag/"><div class="headline">标签</div><div class="length-num">65</div></a></div><div class="card-info-data-item is-center"><a href="/category/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCECSuDUCVYdpBVF-0YlZAig"><i class="fab fa-youtube"></i><span>订阅我吧</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:support@sky350.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">经过认真思考，还是决定将博客部署到HEXO框架上，希望能给大家个不错的体验。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83-x2F-%E5%86%85%E5%AD%98"><span class="toc-number">2.</span> <span class="toc-text">核心&#x2F;内存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E7%9B%98-x2F-%E5%B8%A6%E5%AE%BD"><span class="toc-number">3.</span> <span class="toc-text">硬盘&#x2F;带宽</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%8C%BA-x2F-%E8%B7%AF%E7%94%B1"><span class="toc-number">4.</span> <span class="toc-text">地区&#x2F;路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90"><span class="toc-number">6.</span> <span class="toc-text">推荐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-number">7.</span> <span class="toc-text">补充</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/1211.html" title="《高效使用你的VPS》搭建私人多端音乐平台"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1211_7.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《高效使用你的VPS》搭建私人多端音乐平台"/></a><div class="content"><a class="title" href="/1211.html" title="《高效使用你的VPS》搭建私人多端音乐平台">《高效使用你的VPS》搭建私人多端音乐平台</a><time datetime="2022-04-14T09:44:57.000Z" title="发表于 2022-04-14 17:44:57">2022-04-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/871.html" title="《高效使用你的VPS》搭建私人多平台笔记系统"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1439137513.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《高效使用你的VPS》搭建私人多平台笔记系统"/></a><div class="content"><a class="title" href="/871.html" title="《高效使用你的VPS》搭建私人多平台笔记系统">《高效使用你的VPS》搭建私人多平台笔记系统</a><time datetime="2022-02-20T06:46:34.000Z" title="发表于 2022-02-20 14:46:34">2022-02-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1210.html" title="V2RayA——新一代Linux客户端安装配置教程"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2715638954.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="V2RayA——新一代Linux客户端安装配置教程"/></a><div class="content"><a class="title" href="/1210.html" title="V2RayA——新一代Linux客户端安装配置教程">V2RayA——新一代Linux客户端安装配置教程</a><time datetime="2022-01-25T16:20:00.000Z" title="发表于 2022-01-26 00:20:00">2022-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1062.html" title="Cloudcone超便宜VPS简单评测（黑五打折套餐）"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1001_2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cloudcone超便宜VPS简单评测（黑五打折套餐）"/></a><div class="content"><a class="title" href="/1062.html" title="Cloudcone超便宜VPS简单评测（黑五打折套餐）">Cloudcone超便宜VPS简单评测（黑五打折套餐）</a><time datetime="2021-12-22T07:16:55.000Z" title="发表于 2021-12-22 15:16:55">2021-12-22</time></div></div></div></div><div class="card-widget ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="7779019761" data-ad-format="auto" data-full-width-responsive="true"></ins><script> (adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By 阿宝哥呀</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">联系邮箱：service@sky350.com<br/><a target="_blank" href="http://www.freecdn.pw/?zzwz" title="免费云加速（FreeCDN），为您免费提供网站加速和网站防御（DDOS、CC攻击）" alt="免费云加速（FreeCDN），为您免费提供网站加速和网站防御（DDOS、CC攻击）">本站由免费云加速（FreeCDN）提供网站加速和攻击防御服务</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo-eight-green.vercel.app/',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-eight-green.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://twikoo-eight-green.vercel.app/',
+        region: '',
+        pageSize: 5,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-lista')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-lista')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-lista')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-VWC1BXX7W2', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>

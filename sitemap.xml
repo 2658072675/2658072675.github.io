@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.sky350.com/976.html</loc>
+    
+    <lastmod>2022-06-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.sky350.com/871.html</loc>
     
     <lastmod>2022-06-28</lastmod>
@@ -57,6 +66,15 @@
   
   <url>
     <loc>https://www.sky350.com/294.html</loc>
+    
+    <lastmod>2022-06-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/1213.html</loc>
     
     <lastmod>2022-06-28</lastmod>
     
@@ -273,15 +291,6 @@
   
   <url>
     <loc>https://www.sky350.com/951.html</loc>
-    
-    <lastmod>2022-06-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/976.html</loc>
     
     <lastmod>2022-06-28</lastmod>
     
@@ -650,6 +659,13 @@
   
   <url>
     <loc>https://www.sky350.com/tag/%E5%9F%BA%E5%B2%A9%E7%89%88/</loc>
+    <lastmod>2022-06-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/tag/Azue/</loc>
     <lastmod>2022-06-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

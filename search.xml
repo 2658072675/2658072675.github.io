@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>Asiayun国庆特价cera网络VPS简单测试</title>
+      <link href="/f7bc61cb.html"/>
+      <url>/f7bc61cb.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>亚洲云AsiaYun是一个比较年轻的商家，经常在节假日看到有不少的活动，大家可以尝尝鲜，不过需要注意一点，年轻的商家千万不要选择年付，避免商家卷款跑路造成巨大损失。</p><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><table><thead><tr><th>商家</th><th>Asiayun</th></tr></thead><tbody><tr><td>CPU</td><td>4cpu</td></tr><tr><td>内存</td><td>4G</td></tr><tr><td>硬盘</td><td>40G+60G</td></tr><tr><td>带宽</td><td>200Mbps</td></tr><tr><td>流量</td><td>500G(可加)</td></tr><tr><td>线路</td><td>三网CUPM&#x2F;AS9929</td></tr><tr><td>位置</td><td>California</td></tr><tr><td>价格</td><td>首月10.1 续费29    CNY</td></tr></tbody></table><h3 id="网速"><a href="#网速" class="headerlink" title="网速"></a>网速</h3><p>测试时间为晚上十一点，属于晚高峰时期，各地网速差别还是比较大的</p><p><img src="https://pic.sky350.cn/images/1665032020.9951687.png" alt="https://pic.sky350.cn/images"></p><p>但cera网络我们一般拿来建站，Ping一下看卡丢包率(当时忘了测了，这是第二天中午的，后续会补上晚高峰的)</p><p><img src="https://pic.sky350.cn/images/1665032717.9210515.png" alt="https://pic.sky350.cn/images"></p><p>晚上九点持续ping测试<br><img src="https://pic.sky350.cn/images/81eac0b745d3e6eb.png"></p><h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>老e5处理器，GB5单核才380，四核才顶的上5950x单核的分数，说实话还是比较弱鸡的</p><p><img src="https://pic.sky350.cn/images/1665032093.3834903.png" alt="https://pic.sky350.cn/images"></p><h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><p>广州电信</p><p><img src="https://pic.sky350.cn/images/1665032980.7070136.png" alt="https://pic.sky350.cn/images"></p><p>上海电信</p><p><img src="https://pic.sky350.cn/images/1665057753.8035262.png" alt="https://pic.sky350.cn/images"></p><p>厦门电信</p><p><img src="https://pic.sky350.cn/images/1665057843.171269.png" alt="https://pic.sky350.cn/images"></p><p>成都联通</p><p><img src="https://pic.sky350.cn/images/1665057984.6374798.png" alt="https://pic.sky350.cn/images"></p><p>重庆联通</p><p><img src="https://pic.sky350.cn/images/5f1555d936f4b86b.png"></p><p>上海移动</p><p><img src="https://pic.sky350.cn/images/ec3ac739a4f5e517.png"></p><p>成都移动</p><p><img src="https://pic.sky350.cn/images/08187c443eaab587.png"></p><p>成都教育网</p><p><img src="https://pic.sky350.cn/images/48fc04d58af6b008.png"></p><p>从结果上看，跟描述一致，走9929线路，还是不错的.</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>综合来看，这台机子的硬件性能一般，路由线路出色，网络稳定性应该会不错，带宽给到200M但是流量却不多只有500G，所以，确实比较适合建站。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 闲扯文档 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vps </tag>
+            
+            <tag> 服务器 </tag>
+            
+            <tag> 美国vps </tag>
+            
+            <tag> Asiayun </tag>
+            
+            <tag> 9929 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SagerNet-支持协议超多的安卓科学上网客户端</title>
       <link href="/1219.html"/>
       <url>/1219.html</url>
@@ -63,9 +96,9 @@
       
         <tags>
             
-            <tag> 域名 </tag>
-            
             <tag> 免费 </tag>
+            
+            <tag> 域名 </tag>
             
             <tag> GMO </tag>
             
@@ -333,15 +366,15 @@
             
             <tag> 服务器 </tag>
             
+            <tag> WordPress </tag>
+            
             <tag> 域名 </tag>
+            
+            <tag> 域名邮箱 </tag>
             
             <tag> 腾讯云 </tag>
             
-            <tag> WordPress </tag>
-            
             <tag> 伪静态 </tag>
-            
-            <tag> 域名邮箱 </tag>
             
             <tag> 缓存 </tag>
             
@@ -438,9 +471,9 @@
             
             <tag> 阿里云 </tag>
             
-            <tag> 华为云 </tag>
-            
             <tag> 域名 </tag>
+            
+            <tag> 华为云 </tag>
             
             <tag> 域名注册 </tag>
             
@@ -533,15 +566,15 @@
       
         <tags>
             
-            <tag> 域名 </tag>
+            <tag> porkbun </tag>
             
             <tag> WordPress </tag>
             
-            <tag> 域名邮箱 </tag>
-            
             <tag> 免费 </tag>
             
-            <tag> porkbun </tag>
+            <tag> 域名 </tag>
+            
+            <tag> 域名邮箱 </tag>
             
             <tag> 白嫖 </tag>
             

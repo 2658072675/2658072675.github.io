@@ -92,13 +92,15 @@
             
             <tag> 科学上网 </tag>
             
-            <tag> 翻墙 </tag>
+            <tag> v2rayn </tag>
             
-            <tag> v2ray </tag>
+            <tag> ss </tag>
             
             <tag> ssr </tag>
             
-            <tag> ss </tag>
+            <tag> 翻墙 </tag>
+            
+            <tag> v2ray </tag>
             
             <tag> vless </tag>
             
@@ -107,8 +109,6 @@
             <tag> SagerNet </tag>
             
             <tag> v2rayng </tag>
-            
-            <tag> v2rayn </tag>
             
         </tags>
       
@@ -166,17 +166,17 @@
       
         <tags>
             
+            <tag> 科学上网 </tag>
+            
             <tag> vps </tag>
+            
+            <tag> ssr </tag>
             
             <tag> 服务器 </tag>
             
             <tag> ipv6 </tag>
             
-            <tag> 科学上网 </tag>
-            
             <tag> v2ray </tag>
-            
-            <tag> ssr </tag>
             
             <tag> vless </tag>
             
@@ -366,9 +366,9 @@
       
         <tags>
             
-            <tag> vps </tag>
-            
             <tag> 科学上网 </tag>
+            
+            <tag> vps </tag>
             
             <tag> Xray </tag>
             
@@ -438,11 +438,11 @@
       
         <tags>
             
+            <tag> 科学上网 </tag>
+            
             <tag> vps </tag>
             
             <tag> 服务器 </tag>
-            
-            <tag> 科学上网 </tag>
             
             <tag> 阿里云 </tag>
             
@@ -673,13 +673,13 @@
       
         <tags>
             
-            <tag> 服务器 </tag>
-            
             <tag> 科学上网 </tag>
             
-            <tag> v2ray </tag>
-            
             <tag> ssr </tag>
+            
+            <tag> 服务器 </tag>
+            
+            <tag> v2ray </tag>
             
             <tag> Qv2ray </tag>
             

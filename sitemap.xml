@@ -254,6 +254,15 @@
   </url>
   
   <url>
+    <loc>https://www.sky350.com/categories/index.html</loc>
+    
+    <lastmod>2022-10-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.sky350.com/course/index.html</loc>
     
     <lastmod>2022-10-28</lastmod>
@@ -264,15 +273,6 @@
   
   <url>
     <loc>https://www.sky350.com/link/index.html</loc>
-    
-    <lastmod>2022-10-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/categories/index.html</loc>
     
     <lastmod>2022-10-28</lastmod>
     
@@ -300,6 +300,15 @@
   
   <url>
     <loc>https://www.sky350.com/technical/index.html</loc>
+    
+    <lastmod>2022-10-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/1232.html</loc>
     
     <lastmod>2022-10-28</lastmod>
     
@@ -353,35 +362,7 @@
 
   
   <url>
-    <loc>https://www.sky350.com/tag/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
-    <lastmod>2022-10-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.sky350.com/tag/vps/</loc>
-    <lastmod>2022-10-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/tag/v2rayn/</loc>
-    <lastmod>2022-10-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/tag/ss/</loc>
-    <lastmod>2022-10-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/tag/ssr/</loc>
     <lastmod>2022-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -396,6 +377,76 @@
   
   <url>
     <loc>https://www.sky350.com/tag/ipv6/</loc>
+    <lastmod>2022-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/tag/Hysteria/</loc>
+    <lastmod>2022-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/tag/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
+    <lastmod>2022-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/tag/vpn/</loc>
+    <lastmod>2022-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/tag/%E9%AD%94%E6%B3%95%E4%B8%8A%E7%BD%91/</loc>
+    <lastmod>2022-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/tag/v2rayn/</loc>
+    <lastmod>2022-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/tag/%E6%A2%AF%E5%AD%90/</loc>
+    <lastmod>2022-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/tag/%E8%8A%82%E7%82%B9/</loc>
+    <lastmod>2022-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/tag/passwall/</loc>
+    <lastmod>2022-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/tag/ss/</loc>
+    <lastmod>2022-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/tag/ssr/</loc>
     <lastmod>2022-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -971,13 +1022,6 @@
 
   
   <url>
-    <loc>https://www.sky350.com/category/technical/</loc>
-    <lastmod>2022-10-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.sky350.com/category/ordinary/</loc>
     <lastmod>2022-10-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -986,6 +1030,13 @@
   
   <url>
     <loc>https://www.sky350.com/category/course/</loc>
+    <lastmod>2022-10-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/category/technical/</loc>
     <lastmod>2022-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>免费版cloudflare如何防CC攻击？不需要动手写规则！</title>
+      <link href="/1237.html"/>
+      <url>/1237.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Cloudflare是一个全球性的内容分发网络（CDN）服务提供商，用于加速网络，并改善网络性能和安全服务。Cloudflare使用一组分散的节点为网络提供快速，安全的网络服务。它的服务延伸至200多个国家和地区，支持多达20万个网站。 Cloudflare提供了许多优秀的服务，包括威胁保护，内容优化，反缓存，负载均衡等。它还提供安全拦截，阻止恶意访问和攻击，以保护用户的内容和数据安全。</p><p>以下操作均为傻瓜式的操作，非常简单，随便点点鼠标就行了。但是防御效果不错，哪怕超过千万&#x2F;亿次攻击，普通vps也能防得住！</p><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>首先域名接入Cloudflare，做好DNS解析，开启代理状态（也就是解析时点亮橙色小云朵），若您之前有按照别的教程设置WAF（防火墙规则&#x2F;速率限制规则&#x2F;托管规则&#x2F;工具，以及包含安全性的页面规则），请关闭它，否则有可能影响到下面设置的规则优先级！</p><p>确保以上都没有问题那么我们可以开始了。</p><p>一、</p><p>打开Cloudflare官网登陆，点击进入要设置保护的网站，找到安全性。</p><p><img src="https://pic.sky350.cn/images/2023/02/15/t0ko8f.png" alt="1"></p><p>在安全性栏目中点击设置，按照下图设置，这里主要的目的就是拦截那些IP黑名单。</p><p>CF→安全性→设置→安全级别设置为：高（这里不要打开打开I’m Under Attack!，因为这样就是任何请求会做人机验证，等待5秒钟。）<br>质询通过期设置成：15分钟或者30分钟，严重可以设置5分钟<br>浏览器完整性检查：打开</p><p><img src="https://pic.sky350.cn/images/2023/02/15/yvrbm2.png" alt="2"></p><p>二、</p><p>打开安全性→DDOS→HTTP DDoS 攻击防护，点右边的配置进入</p><p><img src="https://pic.sky350.cn/images/2023/02/15/yw901v.png" alt="3"></p><p>替代名称（必填）设置为：名称随意</p><p>规则集操作（必填）设置为：托管质询或者直接阻止（在受到攻击的时候选择阻止）</p><p>规则集敏感度（必填）设置为：高</p><p><img src="https://pic.sky350.cn/images/2023/02/15/yx2omc.png" alt="4"></p><p>三、</p><p>打开安全性→自动程序：打开自动程序攻击模式</p><p><img src="https://pic.sky350.cn/images/2023/02/15/yyqx9g.png" alt="5"></p><p>四、</p><p>打开安全性→WAF→速率限制规则，创建一条速率限制规则。</p><p><img src="https://pic.sky350.cn/images/2023/02/15/yz9hxk.png" alt="6"></p><p>规则如下：</p><p><img src="https://pic.sky350.cn/images/2023/02/15/yzd4y0.png" alt="7"></p><p>五、</p><p>打开网络→洋葱路由，将之关掉</p><p><img src="https://pic.sky350.cn/images/2023/02/15/yzfl3g.png" alt="8"></p><p>最后，设置完Cloudflare规则之后等待一两分钟，再将服务器重启一下，让服务器断开已经存在的连接。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Cloudflare是一家优秀的厂商，免费提供防御还不限制用户使用的流量，但我们必须好好利用，有太多免费好用的产品经不住滥用被取消掉了，希望Cloudflare不要成为下一个取消的！</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 网站 </tag>
+            
+            <tag> 域名 </tag>
+            
+            <tag> cdn </tag>
+            
+            <tag> cloudflare </tag>
+            
+            <tag> DDos </tag>
+            
+            <tag> CC </tag>
+            
+            <tag> 攻击 </tag>
+            
+            <tag> 防御 </tag>
+            
+            <tag> Wordpress </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2023年免费国内CDN有哪些?国内免费CDN小结</title>
       <link href="/1235.html"/>
       <url>/1235.html</url>

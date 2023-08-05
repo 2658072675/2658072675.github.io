@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>【白嫖域名】免费将Google Domains域名迁移到WordPress.com！</title>
+      <link href="/1249.html"/>
+      <url>/1249.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>WordPress.com和WordPress.org是两个不同的实体。WordPress.org是一个备受欢迎且广泛使用的内容管理系统（CMS）。</p><p>WordPress.com则是一个提供托管服务的在线平台，可以让你创建和管理个人网站，无需购买和配置服务器设备。</p><p>然而，今年6月中旬，Google却突然传来消息：Google Domains将在过渡期后关闭，Squarespace将接管其业务和资产。</p><p>因此，在这个情况发生之前，我建议大家考虑续费土耳其区域名，以确保以后不会受到任何影响。</p><p>需要注意的是，一个域名的最长有效期为10年。如果你计划转移域名，最好不要将域名续费满10年，因为域名转移通常需要再续费一年。</p><p>此次活动转入的域名目前没有转出限制，并且每个账户转入域名数量也没有限制。前100万个从Google Domains转入的域名将免费进行转移。然而，如果你担心出现问题，我建议不要折腾，以免出现意外情况。</p><p>我的建议是，在Google Domains中将域名续费满7年，然后转移到WordPress后，让它自动续费1年。在60天后，如果你仍然担心，可以将域名转回Google Domains并再续费1年。</p><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ol><li>一张信用卡（支持VISA&#x2F;万事达&#x2F;美国运通等，虚拟信用卡也可以使用），因为可能会有一笔0美元的扣费用于验证。</li><li>一个WordPress账号，由于某些原因，国内可能无法正常访问WordPress，所以请准备好科学上网工具，如果不会可以看往期：[科学上网服务器搭建 不再受限于人！（v2ray&#x2F;xray&#x2F;trojan）](<a href="https://www.sky350.com/576.html">科学上网服务器搭建 不再受限于人！（v2ray&#x2F;xray&#x2F;trojan） | SKY博客</a>)，如果没有vps，可以看往期：<a href="https://www.sky350.com/1243.html">国内低价注册ChatGPT账号以及使用官方服务 | SKY博客</a>，里面有推荐的vps。</li><li>需要转出的域名必须在Google Domains托管，其他服务商暂不支持此次活动。</li></ol><h3 id="域名转移"><a href="#域名转移" class="headerlink" title="域名转移"></a>域名转移</h3><p>登录Google Domains，选择你要转出的域名，然后进入域名管理界面，在底部点击“更改续期设置”。</p><p><img src="https://pic.sky350.cn/images/2023/08/05/zanf45.png" alt="2"></p><p>在转出域名管理界面，获取域名转出授权代码。如果域名被锁定，你需要先解除锁定状态。</p><p><img src="https://pic.sky350.cn/images/2023/08/05/za4lpo.png" alt="3"></p><p><img src="https://pic.sky350.cn/images/2023/08/05/zbeaj0.png" alt="4"></p><p>访问<a href="https://wordpress.com/setup/google-transfer/domains%EF%BC%8C%E5%A1%AB%E5%86%99%E4%BD%A0%E8%A6%81%E8%BD%AC%E5%85%A5%E7%9A%84%E5%9F%9F%E5%90%8D%E5%92%8C%E6%8E%88%E6%9D%83%E7%A0%81%EF%BC%8C%E7%84%B6%E5%90%8E%E8%BF%9B%E8%A1%8C%E7%BB%93%E7%AE%97%E3%80%82">https://wordpress.com/setup/google-transfer/domains</a>，填写你要转入的域名和授权码，然后进行结算。</p><p><img src="https://pic.sky350.cn/images/2023/08/05/zbygmh.png" alt="5"></p><p><img src="https://pic.sky350.cn/images/2023/08/05/zcku51.png" alt="6"></p><p>你需要提供账单地址和信用卡信息，系统将扣除0美元进行验证。</p><p><img src="https://pic.sky350.cn/images/2023/08/05/zcy2p7.png" alt="7"></p><p>在完成以上步骤后，你可以登录WordPress来管理你转入的域名。整个转移过程大约需要5天时间，或者在您收到谷歌发送的转移确认邮件后手动进行授权转移，此过程大约30分钟完成转移。</p><p><img src="https://pic.sky350.cn/images/2023/08/05/ze8f30.png" alt="8"></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>有条件的同学可以白嫖一下，不满意wordpress.com的续费价格可以几个月后转出。</p><p>官方详细说明可参考：<a href="https://wordpress.com/blog/2023/08/01/transfer-unlimited-google-domains-to-wordpresscom-for-free/">Transfer Your Google Domains to WordPress.com—On Us &amp;#8211; WordPress.com News</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 闲扯文档 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 免费 </tag>
+            
+            <tag> 域名 </tag>
+            
+            <tag> 白嫖 </tag>
+            
+            <tag> 谷歌域名 </tag>
+            
+            <tag> Google Domains </tag>
+            
+            <tag> wordpress </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>超好看轻量版ChatGPT网站搭建 可商用！</title>
       <link href="/1247.html"/>
       <url>/1247.html</url>

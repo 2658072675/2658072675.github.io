@@ -4,6 +4,45 @@
   
     
     <entry>
+      <title>独角数卡 搭建个人发卡平台保姆级教程</title>
+      <link href="/1251.html"/>
+      <url>/1251.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>独角数卡是一个自动化售货网站源码，支持多种支付方式，包括支付宝、微信、QQ 钱包等，并且可以通过 USDT 进行收款。它的特点是简单易用、高效稳定，能够帮助站长快速搭建自己的售货系统。</p><p>经过这么多年网上冲浪，我发现独角数卡是使用得最多的发卡程序，可能因为它是开源的？</p><p>回归正题，开源不代表简单易用，搭建独角数卡平台对小白来说还是有点麻烦的，接下来我们一步一步操作，小白也能轻松搭建。</p><p>官方开源地址：<a href="https://github.com/assimon/dujiaoka">GitHub - assimon&#x2F;dujiaoka: 🦄独角数卡(自动售货系统)-开源站长自动化售货解决方案、高效、稳定、快速！🚀🚀🎉🎉</a></p><p>支付简介：</p><ul><li>支付宝当面付</li><li>支付宝PC支付</li><li>支付宝手机支付</li><li>payjs微信扫码支付</li><li>Paysapi(支持支付宝&#x2F;微信)</li><li>码支付(QQ&#x2F;支付宝&#x2F;微信)</li><li>微信企业扫码支付</li><li>Paypal支付(默认使用美元)</li><li>V免签支付</li><li>全网易支付支持(通用彩虹版)</li><li>stripe</li></ul><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul><li>域名</li><li>VPS（推荐2C 2G以上）</li><li>手</li></ul><p>如果你还没有一个域名，推荐华为云、腾讯云、阿里云、百度云等注册一个，新用户一般有券，注册完建议等待60天转到国外的平台，再使用该域名做发卡网，或者直接在国外平台注册。</p><p>如果你还没有VPS，那么下面这些套餐你可以尽情挑选，便宜稳定。</p><table><thead><tr><th>配置</th><th>CPU</th><th>内存</th><th>流量</th><th>价格</th><th>链接</th></tr></thead><tbody><tr><td>1G</td><td>1核</td><td>16G</td><td>3T&#x2F;月</td><td>$14.98&#x2F;年</td><td><a href="https://my.racknerd.com/aff.php?aff=7490&pid=680">购买链接</a></td></tr><tr><td>1.2G</td><td>1核</td><td>18G</td><td>2T&#x2F;月</td><td>$14.88&#x2F;年</td><td><a href="https://my.racknerd.com/aff.php?aff=7490&pid=670">购买链接</a></td></tr><tr><td>1.5G</td><td>1核</td><td>30G</td><td>3T&#x2F;月</td><td>$16.88&#x2F;年</td><td><a href="https://my.racknerd.com/aff.php?aff=7490&pid=696">购买链接</a></td></tr><tr><td>2G</td><td>2核</td><td>25G</td><td>4T&#x2F;月</td><td>$20.98&#x2F;年</td><td><a href="https://my.racknerd.com/aff.php?aff=7490&pid=681">购买链接</a></td></tr><tr><td>2.5G</td><td>2核</td><td>45G</td><td>6T&#x2F;月</td><td>$24.88&#x2F;年</td><td><a href="https://my.racknerd.com/aff.php?aff=7490&pid=736">购买链接</a></td></tr></tbody></table><h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>首先我们链接ssh，安装宝塔面板，当然稍微会点英文或者对宝塔面板比较熟悉的同学建议安装海外版宝塔面板，也就是aapanel，我将使用aapanel进行演示，一键脚本贴在下面给大家，请根据自己的系统选择。</p><p>Centos：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y wget &amp;&amp; wget -O install.sh http://www.aapanel.com/script/install_6.0_en.sh &amp;&amp; bash install.sh aapanel</span><br></pre></td></tr></table></figure><p>Ubuntu&#x2F;Deepin:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O install.sh http://www.aapanel.com/script/install-ubuntu_6.0_en.sh &amp;&amp; sudo bash install.sh aapanel</span><br></pre></td></tr></table></figure><p>Debian:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O install.sh http://www.aapanel.com/script/install-ubuntu_6.0_en.sh &amp;&amp; bash install.sh aapanel</span><br></pre></td></tr></table></figure><p>然后我们根据官方的要求安装以下软件，建议编译安装哦</p><p><img src="https://pic.sky350.cn/images/2023/08/13/3drat1.png" alt="1"></p><p>配置PHP环境，点击【软件商店】-&gt;【PHP设置】-&gt;【禁用函数列表】 将以下函数删除！！<br><code>putenv</code>，<code>proc_open</code>，<code>pcntl_signal</code>，<code>pcntl_alarm</code></p><p>再点击【软件商店】-&gt;【PHP设置】-&gt;【安装扩展】<br>安装以下三个扩展：<br><code>fileinfo</code>、<code>redis</code>、<code>opcache</code></p><p>完事之后我们新建一个网站，填好自己的域名，选择创建数据库，PHP版本选择7.4</p><p><img src="https://pic.sky350.cn/images/2023/08/13/3e3wmk.png" alt="2"></p><p>接下来我们点击进入网站目录，并删掉默认网页文件</p><p><img src="https://pic.sky350.cn/images/2023/08/13/3e7ofc.png" alt="3"></p><p>打开官方releases地址：<a href="https://github.com/assimon/dujiaoka/releases">Releases · assimon&#x2F;dujiaoka · GitHub</a>，找到最新版本，右键-复制链接地址</p><p><img src="https://pic.sky350.cn/images/2023/08/13/3ebsha.png" alt="4"></p><p>回到网站目录，点击远程下载，将链接粘贴进去，确认</p><p><img src="https://pic.sky350.cn/images/2023/08/13/3eoj7l.png" alt="5"></p><p>将文件解压，进入dujiaoka文件夹，全选文件，移动到网站根目录</p><p><img src="https://pic.sky350.cn/images/2023/08/13/3escpz.png" alt="6">点击宝塔面板左侧网站，点击我们创建的网站，点击网站目录，设置运行目录为public</p><p><img src="https://pic.sky350.cn/images/2023/08/13/3ewbys.png" alt="7"></p><p>再点击伪静态，选择laravel5，保存</p><p><img src="https://pic.sky350.cn/images/2023/08/13/3fbpg3.png" alt="8"></p><p>然后就可以打开域名，根据我们创建的数据库进行配置，默认redis是没有密码的，网站URL填写自己的域名，如果使用HTTPS请将后台的HTTPS也打开，即打开根目录的<code>.evn</code>文件，将ADMIN-HTTPS&#x3D;false改为ADMIN-HTTPS&#x3D;true</p><p><img src="https://pic.sky350.cn/images/2023/08/13/3ff8qf.png" alt="9"></p><p><img src="https://pic.sky350.cn/images/2023/08/13/3fip99.png" alt="10"></p><p>然后我们就能打开网站了，后台为<code>域名/admin</code>，默认账号密码都是admin</p><p><img src="https://pic.sky350.cn/images/2023/08/13/3fuqqu.png" alt="11"><img src="https://pic.sky350.cn/images/2023/08/13/3fv2a6.png" alt="12"></p><p>网站搭建方面已经完成，接下来要配置守护进程，步骤：【软件商店】-&gt;【Supervisor设置】-&gt;【添加守护进程】 如图</p><p><img src="https://pic.sky350.cn/images/2023/08/13/3g0kk7.png" alt="13"></p><p>名称：随意填写<br>启动用户：选择www<br>运行目录：选择程序根目录<br>启动命令：&#x2F;www&#x2F;server&#x2F;php&#x2F;你的php版本&#x2F;bin&#x2F;php &#x2F;www&#x2F;wwwroot&#x2F;你的网站根目录&#x2F;artisan queue:work</p><p><strong>注意：</strong></p><ul><li>正式上线后一定要将.env配置里面的APP_DEBUG设置为false</li><li>配置邮件需要重启supervisor所添加的进程</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>度角数卡是一款不错的程序，好多人用它赚得盆满钵满，希望大家也能好好利用，关于支付的问题，个人小站推荐自己去支付宝申请个当面付，不需要营业执照也能用。</p><p>最后，加油！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> VPS </tag>
+            
+            <tag> 域名 </tag>
+            
+            <tag> 搭建 </tag>
+            
+            <tag> 发卡 </tag>
+            
+            <tag> 独角数卡 </tag>
+            
+            <tag> 自动 </tag>
+            
+            <tag> 发卡网 </tag>
+            
+            <tag> rn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【白嫖域名】免费将Google Domains域名迁移到WordPress.com！</title>
       <link href="/1249.html"/>
       <url>/1249.html</url>

@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>搭建一个优雅的Markdown在线编辑器 随时随地记录你的灵感</title>
+      <link href="/1253.html"/>
+      <url>/1253.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>网站好久没有更新了，懒自然是一个最主要的原因，这个不得不承认。</p><p>但我发现，在我有想法，想更新的时候，时常因为没有合适的编辑器供我使用而作罢，因为我懒嘛。我一般使用Markdown来写博客的，所以记事本，备忘录我并不喜欢。也曾在网上寻找过在线Markdown编辑器的项目，但总有一些我不太满意的地方，庆幸的是，终于遇到了心中那个她。</p><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><code>MrDoc</code> 是基于<code>Python</code>开发的在线文档系统。</p><p>MrDoc 适合作为个人和中小型团队的私有云文档、云笔记和知识管理工具，致力于成为优秀的私有化在线文档部署方案。</p><p>你可以简单粗暴地将 MrDoc 视为「可私有部署的语雀」和「可在线编辑文档的GitBook」。</p><p>MrDoc 全系产品目前涵盖以下终端：</p><ul><li>🌐Web端：开源版、专业版，<a href="https://doc.mrdoc.pro/doc/3441/">版本对比</a></li><li>💻浏览器扩展：支持 Chromium 系列浏览器、Firefox 浏览器，<a href="https://gitee.com/zmister/mrdoc-webclipper">下载地址</a></li><li>🗔桌面客户端：支持 Windows、macOS、Linux，<a href="https://gitee.com/zmister/mrdoc-desktop-release/releases/">下载地址</a></li><li>📱移动客户端：支持 Android，<a href="https://gitee.com/zmister/mrdoc-app-release">下载地址</a></li><li>微信小程序（开发中）</li></ul><h4 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h4><p><a href="https://mrdoc.pro/">MrDoc 觅思文档 - 自托管、私有部署的在线文档管理系统和知识库</a></p><h4 id="官方介绍"><a href="#官方介绍" class="headerlink" title="官方介绍"></a>官方介绍</h4><p><img src="https://pic.sky350.cn/images/2023/11/07/qiir2.png" alt="1"></p><p><img src="https://pic.sky350.cn/images/2023/11/07/qx01m.png" alt="2"></p><h4 id="界面展示"><a href="#界面展示" class="headerlink" title="界面展示"></a>界面展示</h4><p>首页</p><p><img src="https://mrdoc.pro/mrdoc-home/assets/img/preview/mrdoc-index.png" alt="1"></p><p>文集页</p><p><img src="https://mrdoc.pro/mrdoc-home/assets/img/preview/mrdoc-project.png" alt="2"></p><p>文档页</p><p><img src="https://mrdoc.pro/mrdoc-home/assets/img/preview/mrdoc-doc.png" alt="3"></p><p>文本编辑器</p><p><img src="https://mrdoc.pro/mrdoc-home/assets/img/preview/mrdoc-write.png" alt="4"></p><p>用户中心</p><p><img src="https://mrdoc.pro/mrdoc-home/assets/img/preview/mrdoc-user-center.png" alt="5"></p><p>后台页面</p><p><img src="https://mrdoc.pro/mrdoc-home/assets/img/preview/mrdoc-admin.png" alt="6"></p><p>开源版demo：<a href="http://mrdoc.zmister.com/">http://mrdoc.zmister.com/</a></p><p>专业版demo：<a href="https://doc.mrdoc.pro/">https://doc.mrdoc.pro/</a></p><h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><h4 id="Docker安装-已安装可忽略"><a href="#Docker安装-已安装可忽略" class="headerlink" title="Docker安装(已安装可忽略)"></a>Docker安装(已安装可忽略)</h4><p>首先需要Docker环境，没安装Docker的同学可以先安装docker。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://get.docker.com -o get-docker.sh</span><br><span class="line">sudo sh get-docker.sh</span><br><span class="line"># 设置开机启动,并启动 docker </span><br><span class="line">systemctl enable docker</span><br><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure><h4 id="挂载本地目录"><a href="#挂载本地目录" class="headerlink" title="挂载本地目录"></a>挂载本地目录</h4><p>进入服务器，在你喜欢的目录创建一个你喜欢的文件夹，然后</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/mrdoc/media</span><br></pre></td></tr></table></figure><p>运行容器</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name mrdoc -p 10086:10086 -v ~/mrdoc:/app/MrDoc/config -v ~/mrdoc/media:/app/MrDoc/media jonnyan404/为mrdoc-nginx</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/2023/11/07/r2332.png" alt="3"></p><p>打开浏览器，访问IP:10086即可打开我们的在线文本平台</p><p>默认用户名：admin</p><p>默认密码：ssh执行 <strong>docker logs mrdoc 2&gt;&amp;1|grep pwd</strong> 获取</p><p><img src="https://pic.sky350.cn/images/2023/11/07/rliek.png" alt="4"></p><h4 id="自定义映射端口"><a href="#自定义映射端口" class="headerlink" title="自定义映射端口"></a>自定义映射端口</h4><p>提供变量 <code>LISTEN_PORT</code> 用来自定义容器内端口.<br>如有需要,自行设置即可.</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>好的工具能够让人事半功倍，保持创作激情，推荐！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vps </tag>
+            
+            <tag> Markdown </tag>
+            
+            <tag> 在线编辑器 </tag>
+            
+            <tag> 文本编辑器 </tag>
+            
+            <tag> Docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>独角数卡 搭建个人发卡平台保姆级教程</title>
       <link href="/1251.html"/>
       <url>/1251.html</url>

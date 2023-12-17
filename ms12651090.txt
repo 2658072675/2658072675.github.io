@@ -1,0 +1,5 @@
+﻿{
+  "Description": "Domain ownership verification file for Microsoft 365 - place in the website root",
+  "Domain": "sky350.com",
+  "Id": "1948c162-2009-473f-94c5-c28cb5b485c8"
+}

@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>今日热榜源码（后端+前端）附保姆级部署教程</title>
+      <link href="/1261.html"/>
+      <url>/1261.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>信息爆炸的时代，哪能不来一个今日热榜呢，内涵多个API接口，一榜在手，天下我有。</p><h3 id="界面"><a href="#界面" class="headerlink" title="界面"></a>界面</h3><p><img src="https://pic.sky350.cn/images/2024/05/17/y22m4r.jpg" alt="1"></p><h3 id="后端部署"><a href="#后端部署" class="headerlink" title="后端部署"></a>后端部署</h3><h4 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h4><p>安装必要工具Node.js、npm、pnpm</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -</span><br><span class="line">sudo apt update -y</span><br><span class="line">sudo apt install nodejs npm -y</span><br><span class="line">npm install -g pnpm</span><br></pre></td></tr></table></figure><h4 id="部署后端"><a href="#部署后端" class="headerlink" title="部署后端"></a>部署后端</h4><p>首先连接ssh，clone项目，并安装依赖</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/imsyy/DailyHotApi.git</span><br><span class="line">cd DailyHotApi</span><br><span class="line">pnpm install</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/2024/05/17/yqb0zn.jpeg" alt="2"></p><p>运行测试</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm start</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/2024/05/17/yqhioa.jpeg" alt="3"></p><p>打开IP:6688，看到如下页面就是正常部署了，如果打不开请检查是否开放了6688端口<br><img src="https://pic.sky350.cn/images/2024/05/17/yqwxx2.jpeg" alt="4"></p><p>但此时如果我们关闭ssh程序就不再运行，所以配置后台运行，先Ctrl+C结束运行，再运行如下代码创建一个myapp.service</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/systemd/system/myapp.service</span><br></pre></td></tr></table></figure><p>将下面的代码粘贴进去</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=MyApp Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/pnpm start</span><br><span class="line">WorkingDirectory=/PATH/DailyHotApi</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line">Environment=PATH=/usr/bin:/usr/local/bin</span><br><span class="line">Environment=NODE_ENV=production</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure><p>如果pnpm位置不一样，可以输入<code>which pnpm</code>获取位置，并修改上面<code>ExecStart</code>和<code>Environment</code>路径，<code>WorkingDirectory</code>填写clone的<code>DailyHotApi</code>文件夹路径。</p><p>按下Ctrl+X，Y保存文件。</p><p>运行下面命令完成部署</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl enable myapp.service</span><br><span class="line">sudo systemctl start myapp.service</span><br></pre></td></tr></table></figure><p>完事，新建一个网站，绑定域名并申请ssl，然后反代本机:6688端口。后端api就成了咱绑定的域名。</p><p>此时后端部署完成。</p><h3 id="前端部署"><a href="#前端部署" class="headerlink" title="前端部署"></a>前端部署</h3><p>前端就非常简单了，我们直接使用vercel，先fork前端代码，并修改api接口为自己的api域名，完事登录vercel，添加一个项目，导入我们fork的前端代码，点击部署，完事绑定自己的前端域名即可。</p><p><img src="https://pic.sky350.cn/images/2024/05/17/yt0pwj.jpeg" alt="5"><br><img src="https://pic.sky350.cn/images/2024/05/17/yt9htg.jpeg" alt="6"><br><img src="https://pic.sky350.cn/images/2024/05/17/yt9k7z.jpeg" alt="7"><br><img src="https://pic.sky350.cn/images/2024/05/17/yt9r4a.jpeg" alt="8"></p><p>后端开源地址：<a href="https://github.com/imsyy/DailyHotApi">https://github.com/imsyy/DailyHotApi</a></p><p>前端开源地址：<a href="https://github.com/imsyy/DailyHot">https://github.com/imsyy/DailyHot</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 今日热榜 </tag>
+            
+            <tag> DailyHot </tag>
+            
+            <tag> DailyHotApi </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>使用Umami自建网站统计 Vercel部署0成本</title>
       <link href="/1259.html"/>
       <url>/1259.html</url>

@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>谷歌云GCP开通VPS并配置ssh连接教程 GCP玩机指南</title>
+      <link href="/1267.html"/>
+      <url>/1267.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这几日人手一堆谷歌云，没有的朋友可以看一下这篇文章：<a href="https://www.sky350.com/1265.html">https://www.sky350.com/1265.html</a><br>但也有些朋友开通完之后不会配置使用，诸如如何开小鸡？为什吗443端口不通？为什么其他端口不通等问题，这里我给大家解答一下。</p><h3 id="配置防火墙"><a href="#配置防火墙" class="headerlink" title="配置防火墙"></a>配置防火墙</h3><p>我们先配置好防火墙再去开通小鸡，首先我们登录上谷歌云，在上方搜索框输入VPC，点击进入VPC网络。<br><img src="https://pic.sky350.cn/images/2024/06/01/114aob2.png" alt="iShot_2024-06-01_21.34.36"></p><p>在左侧的导航栏里点击防火墙，点击页面上蓝色的创建防火墙规则，我们需要创建两条规则，两条规则名字自取，流量方向分别选入站出站，对匹配项执行的操作微允许，目标为网络中的所有实例，目标 IPv4 范围填写0.0.0.0&#x2F;0，协议和端口可以允许全部或者自己想要的，其他可以默认，这样就完成了防火墙的配置。<br><img src="https://pic.sky350.cn/images/2024/06/01/114amat.png" alt="iShot_2024-06-01_21.35.36"><br><img src="https://pic.sky350.cn/images/2024/06/01/114alub.png" alt="iShot_2024-06-01_21.39.13"><br><img src="https://pic.sky350.cn/images/2024/06/01/114arhh.png" alt="iShot_2024-06-01_21.39.43"></p><h3 id="开通VPS"><a href="#开通VPS" class="headerlink" title="开通VPS"></a>开通VPS</h3><p>在上方输入框输入Compute Engine，点击进去，此时如果你没有激活这个api会自动跳转到激活api页面，大胆激活即可。<br><img src="https://pic.sky350.cn/images/2024/06/01/114ahy5.png" alt="iShot_2024-06-01_21.31.30"><br><img src="https://pic.sky350.cn/images/2024/06/01/114ahe8.png" alt="iShot_2024-06-01_21.32.33"><br>如果激活了就可以点击蓝色的创建实例按钮，名字自取，地区配置自选，下滑还可以选择磁盘大小和操作系统，如果有建站的需求可以勾许允许http和https流量，最后点击创建即可。<br><img src="https://pic.sky350.cn/images/2024/06/01/114ap3g.png" alt="iShot_2024-06-01_21.43.18"><br><img src="https://pic.sky350.cn/images/2024/06/01/115wefh.png" alt="iShot_2024-06-01_21.45.08"><br><img src="https://pic.sky350.cn/images/2024/06/01/115whaq.png" alt="iShot_2024-06-01_21.46.13"></p><h3 id="配置ssh连接"><a href="#配置ssh连接" class="headerlink" title="配置ssh连接"></a>配置ssh连接</h3><p>我们开通完小鸡，右边有个连接到ssh，点击它先链接到网页ssh，在弹出的页面中认证一下，这样我们就连接到网页ssh了。<br><img src="https://pic.sky350.cn/images/2024/06/01/116fvo8.png" alt="iShot_2024-06-01_21.57.56"><br><img src="https://pic.sky350.cn/images/2024/06/01/116ftsw.png" alt="iShot_2024-06-01_22.01.38"></p><p>连接上ssh，先输入一下命令切换到root用户</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -i</span><br></pre></td></tr></table></figure><p>输入下面的命令修改root密码</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/2024/06/01/116o7jt.png" alt="iShot_2024-06-01_22.27.56"><br>修改完root密码我们来配置一下ssh，输入一下命令编辑ssh配置文件，将 <code>PermitRootLogin no</code>改为 <code>PermitRootLogin yes</code>，将 <code>PasswordAuthentication no</code>改为 <code>PasswordAuthentication yes</code>。改完按Ctrl+X，输入y回车保存。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/2024/06/01/117m9it.png" alt="iShot_2024-06-01_22.30.52"><br>修改完ssh配置文件，我们输入下面的命令重启一下ssh。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart ssh</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/2024/06/01/117mcio.png" alt="iShot_2024-06-01_22.35.07"><br>这时我们就可以从ssh工具连接到小鸡了，后续该怎么玩就自由发挥了。<br><img src="https://pic.sky350.cn/images/2024/06/01/117m8xd.png" alt="iShot_2024-06-01_22.36.27"></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>有什么不懂的可以评论区提问，拜拜。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> VPS </tag>
+            
+            <tag> 谷歌云 </tag>
+            
+            <tag> GCP </tag>
+            
+            <tag> 教程 </tag>
+            
+            <tag> 谷歌云教程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>最新谷歌云免信用卡获得150刀赠金方法</title>
       <link href="/1265.html"/>
       <url>/1265.html</url>

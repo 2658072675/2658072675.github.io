@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>99AI多功能可商用的AI网站搭建教程 基于NineAI二开</title>
+      <link href="/1269.html"/>
+      <url>/1269.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>99ai是一个免费可商业化的 AI Web 应用，旨在提供一个易部署、低门槛的集成化人工智能服务站点。已编译为整合包，支持多种方式快速部署。</p><p>体验地址：<a href="https://aifusu.com/">https://aifusu.com</a></p><p>GitHub地址：<a href="https://github.com/vastxie/99AI">https://github.com/vastxie/99AI</a></p><p>对于无法访问GitHub的朋友，我也准备好了国内友好的下载地址：<a href="https://www.123pan.com/s/rVi7Vv-PBZY3">https://www.123pan.com/s/rVi7Vv-PBZY3?</a>提取码:<code>MnY5</code></p><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul><li>一台VPS</li><li>可用的API_KEY</li><li>手</li></ul><h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>首先我们安装基本的环境，Nginx，MySql，Redis，Node.js，pnpm，pm2<br>为了方便我们可以安装宝塔面板国际版，也就是aapanel，通过宝塔面板可以一键快捷安装Nginx，MySql，Redis。<br><img src="https://pic.sky350.cn/images/2024/08/30/114pqn6.jpg" alt="2"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O install.sh http://www.aapanel.com/script/install-ubuntu_6.0_en.sh &amp;&amp; bash install.sh aapanel</span><br></pre></td></tr></table></figure><p>然后我们继续安装Node.js，pnpm以及PM2，根据安装的系统来。</p><p>Node.js v21.x:</p><p>Using Ubuntu：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://deb.nodesource.com/setup_21.x | sudo -E bash - &amp;&amp;\</span><br><span class="line">sudo apt-get install -y nodejs</span><br></pre></td></tr></table></figure><p>Using Debian, as root:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://deb.nodesource.com/setup_21.x | bash - &amp;&amp;\</span><br><span class="line">apt-get install -y nodejs</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/2024/08/30/114wl6s.jpg" alt="3"></p><p>使用 npm 安装 PM2：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pm2 -g</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/2024/08/30/114wrn0.jpg" alt="4"><br>使用 npm 安装 pnpm：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g pnpm</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/2024/08/30/114x4u2.jpg" alt="5"><br>确认 PM2 和 pnpm 都已正确安装并且可以运行：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pm2 -v</span><br><span class="line">pnpm -v</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/2024/08/30/115i585.jpg" alt="6"></p><p>安装完基本的环境，我们新建一个网站，顺便新建一个数据库，绑定好域名，做好解析。点击网站设置，一键申请ssl。<br><img src="https://pic.sky350.cn/images/2024/08/30/116ipcc.jpg" alt="111"><br>为了方便记，99ai我们放网站目录，点击进入网站目录，上传99ai源码，或者复制GitHub releases文件的地址，远程下载到网站目录，然后解压。<br><img src="https://pic.sky350.cn/images/2024/08/30/11619s7.jpg" alt="999"><br><img src="https://pic.sky350.cn/images/2024/08/30/116jazx.jpg" alt="222"></p><p>解压完成之后我们打开目录下的.env.example文件，复制里面的内容，并新建一个名为.env的文件，将复制的内容粘贴进去，并根据我们的实际情况，填写里面的配置，最后保存。<br><img src="https://pic.sky350.cn/images/2024/08/30/116jm29.jpg" alt="333"><br>完事我们在该目录打开SSH，安装依赖：(若安装缓慢可尝试使用国内源，部分依赖可能需要强制安装)</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm install --force</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/2024/08/30/1172uuo.jpg" alt="7"><br>安装完依赖之后启动进程：（默认使用 PM2 后台运行）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm start</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/2024/08/30/11732xq.jpg" alt="8"><br>之后浏览器打开IP:9520查看是否正常。<br><img src="https://pic.sky350.cn/images/2024/08/30/117386k.jpg" alt="9"><br>回到宝塔面板，点击网站，点击我们之前新建的网站，点击反向代理，新增反向代理，地址填<a href="http://127.0.0.1:9520/">http://127.0.0.1:9520</a> ，保存即可通过域名访问。<br><img src="https://pic.sky350.cn/images/2024/08/30/117u6vi.jpg" alt="Dingtalk_20240830225221"></p><p>管理端地址：<code>项目链接/admin</code><br>普通管理员账号：admin（默认不激活）<br>超级管理员账号：super<br>密码：123456<br><img src="https://pic.sky350.cn/images/2024/08/30/1173i7j.jpg" alt="10"><br>进入后台配置一下邮件和模型地址和API_KEY就可以愉快的使用了。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在众多AI系统中，99AI是非常不错的一个，免费，功能又齐全，希望大家多多支持作者吧。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 99ai </tag>
+            
+            <tag> nineai </tag>
+            
+            <tag> aigc </tag>
+            
+            <tag> 搭建教程 </tag>
+            
+            <tag> ChatGPT </tag>
+            
+            <tag> Midjourney </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>谷歌云GCP开通VPS并配置ssh连接教程 GCP玩机指南</title>
       <link href="/1267.html"/>
       <url>/1267.html</url>

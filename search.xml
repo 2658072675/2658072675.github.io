@@ -4,6 +4,49 @@
   
     
     <entry>
+      <title>WordPress优化之根据Cookies配置CloudFlare缓存规则</title>
+      <link href="/1271.html"/>
+      <url>/1271.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>WordPress是许多朋友建站的第一选择，因为它足够简单，生态丰富，并不需要多少技术就能轻轻松松搭建起来。然而，WordPress是非常吃性能的，如果不对站点进行优化，小VPS根本撑不起来并发。这时候就有人说了：我可以交给Cloudflare啊，Cloudflare可以帮助我全站加速呀。是的，但是WordPress的文章是动态生成的，如果你只是接入了Cloudflare开启小云朵，那么用户每次访问你的网站，CF的边缘节点都要回源到服务器获取内容，一样是解决不了问题，反而访问速度还会大大增加，本文，我将给大家介绍一下啊如何通过CF的Cache rules来配置缓存，实现网站秒开。</p><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul><li>域名接入到CF</li><li>WordPress站点</li><li>手</li></ul><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h4 id="Wordpress开启伪静态"><a href="#Wordpress开启伪静态" class="headerlink" title="Wordpress开启伪静态"></a>Wordpress开启伪静态</h4><p>首先我们进入到WordPress后台，点击设置–&gt;固定连接。<br><img src="https://pic.sky350.cn/images/2024/09/24/3gk0hd.jpg" alt="Dingtalk_20240924020856"><br>再然后，固定链接结构选择自定义结构，我推荐使用这种数字ID，写法如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/%post_id%.html</span><br></pre></td></tr></table></figure><p><img src="https://pic.sky350.cn/images/2024/09/24/3h8l5a.jpg" alt="Dingtalk_20240924020948"><br>后台配置成这样也差不多了，当然如果你的服务器安装了Redis的话我推荐你开启Redis缓存，效果更佳。（插件安装Redis Object Cache并启用即可）</p><p>后台配置完之后我们还要配置伪静态规则，如果你使用的是宝塔面板，那将非常简单，只需要点击网站，在弹出的窗口中选择伪静态，点击倒三角选择WordPress，保存即可。</p><p><img src="https://pic.sky350.cn/images/2024/09/24/3lbni0.jpg" alt="Dingtalk_20240924021927"></p><p>就此，WordPress方面配置结束。</p><h4 id="Cache-Rules配置"><a href="#Cache-Rules配置" class="headerlink" title="Cache Rules配置"></a>Cache Rules配置</h4><p>我们首先要明确一下我们的目的，我们想要的有三点：</p><ul><li>后台、登录页面和搜索页面等动态内容页面不缓存</li><li>登录的用户所访问的内容是回源的，不缓存的</li><li>普通未登录访客所访问的内容为缓存的，不需要回源的</li></ul><p>在明白了需求之后就很简单了，我们准对每一点需求配置一条合适的规则即可。</p><h5 id="第一条：不缓存的目录"><a href="#第一条：不缓存的目录" class="headerlink" title="第一条：不缓存的目录"></a>第一条：不缓存的目录</h5><p>进入 CloudFlare 后台，点击对应的域名–&gt;缓存–&gt;Cache Rules–&gt;创建规则，选择自定义筛选表达式</p><p><img src="https://pic.sky350.cn/images/2024/09/24/3taaug.jpg" alt="Dingtalk_20240924023051"></p><p>可以通过表达式粘贴再修改，也可以根据自己的主题添加一些特殊的地址，表达式如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(http.request.full_uri wildcard &quot;https://你的站点域名/wp-admin/*&quot;) or (http.request.full_uri wildcard &quot;https://你的站点域名/*preview=true*&quot;) or (http.request.full_uri wildcard &quot;https://你的站点域名/account/*&quot;) or (http.request.full_uri wildcard &quot;https://你的站点域名/?s=*&quot;)</span><br></pre></td></tr></table></figure><p>缓存资格和浏览器TTL都选择绕过缓存，随后点击部署，第一条规则完成。</p><p><img src="https://pic.sky350.cn/images/2024/09/24/3ta7f5.jpg" alt="Dingtalk_20240924023114"></p><h5 id="第二条：登录用户绕过缓存"><a href="#第二条：登录用户绕过缓存" class="headerlink" title="第二条：登录用户绕过缓存"></a>第二条：登录用户绕过缓存</h5><p>进入 CloudFlare 后台，点击对应的域名–&gt;缓存–&gt;Cache Rules–&gt;创建规则，选择自定义筛选表达式<br><img src="https://pic.sky350.cn/images/2024/09/24/3xg5pp.jpg" alt="Dingtalk_20240924023951"><br>表达式：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(starts_with(http.request.full_uri, &quot;https://你的站点域名/&quot;) and http.cookie contains &quot;wordpress_sec_&quot;) or (starts_with(http.request.full_uri, &quot;https://你的站点域名/&quot;) and http.cookie contains &quot;wordpress_logged_in&quot;) or (starts_with(http.request.full_uri, &quot;https://你的站点域名/&quot;) and http.cookie contains &quot;comment_&quot;)</span><br></pre></td></tr></table></figure><p>缓存资格和浏览器TTL都选择绕过缓存，随后点击部署，第一条规则完成。</p><p><img src="https://pic.sky350.cn/images/2024/09/24/3ta7f5.jpg" alt="Dingtalk_20240924023114"></p><h5 id="第三条：未登录用户缓存所有"><a href="#第三条：未登录用户缓存所有" class="headerlink" title="第三条：未登录用户缓存所有"></a>第三条：未登录用户缓存所有</h5><p>同理创建规则<br><img src="https://pic.sky350.cn/images/2024/09/24/410tnx.jpg" alt="Dingtalk_20240924024323"><br>表达式：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(starts_with(http.request.full_uri, &quot;https://你的站点域名/&quot;) and not http.cookie contains &quot;wordpress_sec_&quot; and not http.cookie contains &quot;wordpress_logged_in&quot; and not http.cookie contains &quot;comment_&quot;)</span><br></pre></td></tr></table></figure><p>注意这第三条是缓存规则，缓存资格选择符合缓存条件。边缘TTL也就是CF边缘节点的缓存保存时间，如果内容更新快的话可以选择短一点时间，如果长期不更新可以选择长一点时间。</p><p><img src="https://pic.sky350.cn/images/2024/09/24/41yt83.jpg" alt="Dingtalk_20240924024356"></p><p>浏览器TTL也就是浏览器缓存时间，这个大家随意，另外还有一下其他的配置，大家可以跟我的一样，也可以自行选择。</p><p><img src="https://pic.sky350.cn/images/2024/09/24/4328sg.jpg" alt="Dingtalk_20240924024415"></p><p><img src="https://pic.sky350.cn/images/2024/09/24/43v1h7.jpg" alt="Dingtalk_20240924024431"></p><p>这时三条规则就配置好了，我们回到Cache Rules看看顺序，必须要按照这个顺序来。</p><p><img src="https://pic.sky350.cn/images/2024/09/24/43yn48.jpg" alt="Dingtalk_20240924024450"></p><p>最后还需要在缓存–&gt;配置–&gt;清除所有内容，让缓存规则生效。</p><h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>未开启缓存：<br><img src="https://pic.sky350.cn/images/2024/09/24/46r4zt.jpg" alt="Dingtalk_20240924025406"><br>开启缓存：<br><img src="https://pic.sky350.cn/images/2024/09/24/46qvzo.jpg" alt="Dingtalk_20240924025434"></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>优化好WordPress，小鸡也能带的动，加油吧。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> WordPress </tag>
+            
+            <tag> 优化 </tag>
+            
+            <tag> Cookies </tag>
+            
+            <tag> CloudFlare </tag>
+            
+            <tag> 缓存规则 </tag>
+            
+            <tag> 整站加速 </tag>
+            
+            <tag> 伪静态 </tag>
+            
+            <tag> 缓存 </tag>
+            
+            <tag> Cache </tag>
+            
+            <tag> Cache Rules </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>99AI多功能可商用的AI网站搭建教程 基于NineAI二开</title>
       <link href="/1269.html"/>
       <url>/1269.html</url>
@@ -1124,15 +1167,15 @@
             
             <tag> WordPress </tag>
             
+            <tag> 伪静态 </tag>
+            
+            <tag> 缓存 </tag>
+            
             <tag> 域名 </tag>
             
             <tag> 域名邮箱 </tag>
             
             <tag> 腾讯云 </tag>
-            
-            <tag> 伪静态 </tag>
-            
-            <tag> 缓存 </tag>
             
         </tags>
       
@@ -1322,13 +1365,13 @@
       
         <tags>
             
+            <tag> WordPress </tag>
+            
             <tag> 白嫖 </tag>
             
             <tag> 免费 </tag>
             
             <tag> porkbun </tag>
-            
-            <tag> WordPress </tag>
             
             <tag> 域名 </tag>
             

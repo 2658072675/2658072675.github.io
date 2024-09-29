@@ -1,0 +1,524 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SKY博客 - 期待与你有个邂逅</title><meta name="keywords" content="Linux技术,网络技术,宝塔面板,邮局配置,域名设置,脚本运行,CentOS,Debian,Nginx"><meta name="author" content="阿宝哥呀"><meta name="copyright" content="阿宝哥呀"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Linux技术,网络技术,宝塔面板,邮局配置,域名设置,脚本运行,CentOS,Debian,Nginx">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SKY博客">
+<meta property="og:url" content="https://www.sky350.com/page/2/index.html">
+<meta property="og:site_name" content="SKY博客">
+<meta property="og:description" content="Linux技术,网络技术,宝塔面板,邮局配置,域名设置,脚本运行,CentOS,Debian,Nginx">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.sky350.cn/images/Circle_Logo.png">
+<meta property="article:author" content="阿宝哥呀">
+<meta property="article:tag" content="Linux技术,网络技术,宝塔面板,邮局配置,域名设置,脚本运行,CentOS,Debian,Nginx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.sky350.cn/images/Circle_Logo.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.sky350.com/page/2/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: 'ca-pub-5201315122723978',
+  enable_page_level_ads: 'true'
+});</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-VWC1BXX7W2"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-VWC1BXX7W2');
+</script><link rel="stylesheet" href="https://fonts.loli.net/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SKY博客',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-09-30 03:27:53'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/Circle_Logo.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">50</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tag/"><div class="headline">标签</div><div class="length-num">207</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/category/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/category/app/"><i class="fa-fw fab fa-github"></i><span> 上网神器</span></a></div><div class="menus_item"><a class="site-page" href="/category/technical/"><i class="fa-fw fab fa-chrome"></i><span> 玩法开启</span></a></div><div class="menus_item"><a class="site-page" href="/category/course/"><i class="fa-fw fas fa-book"></i><span> 系列教程</span></a></div><div class="menus_item"><a class="site-page" href="/category/ordinary/"><i class="fa-fw fas fa-file-alt"></i><span> 闲扯文档</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://ai.sky350.com"><i class="fa-fw fa-solid fa-message"></i><span> ChatGPT</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://shop.qqka.org"><i class="fa-fw fa-solid fa-cart-shopping"></i><span> 小卖店</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://itbao.ge"><i class="fa-fw fab fa-chrome"></i><span> IT宝哥</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://pic.sky350.cn/images/banner.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">SKY博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/category/app/"><i class="fa-fw fab fa-github"></i><span> 上网神器</span></a></div><div class="menus_item"><a class="site-page" href="/category/technical/"><i class="fa-fw fab fa-chrome"></i><span> 玩法开启</span></a></div><div class="menus_item"><a class="site-page" href="/category/course/"><i class="fa-fw fas fa-book"></i><span> 系列教程</span></a></div><div class="menus_item"><a class="site-page" href="/category/ordinary/"><i class="fa-fw fas fa-file-alt"></i><span> 闲扯文档</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://ai.sky350.com"><i class="fa-fw fa-solid fa-message"></i><span> ChatGPT</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://shop.qqka.org"><i class="fa-fw fa-solid fa-cart-shopping"></i><span> 小卖店</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://itbao.ge"><i class="fa-fw fab fa-chrome"></i><span> IT宝哥</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">SKY博客</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="mailto:service@sky350.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/1249.html" title="【白嫖域名】免费将Google Domains域名迁移到WordPress.com！">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2023/08/05/zifmny.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【白嫖域名】免费将Google Domains域名迁移到WordPress.com！"></a></div><div class="recent-post-info"><a class="article-title" href="/1249.html" title="【白嫖域名】免费将Google Domains域名迁移到WordPress.com！">【白嫖域名】免费将Google Domains域名迁移到WordPress.com！</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-08-05T13:42:46.000Z" title="发表于 2023-08-05 21:42:46">2023-08-05</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/category/ordinary/">闲扯文档</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tag/%E7%99%BD%E5%AB%96/">白嫖</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%85%8D%E8%B4%B9/">免费</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%9F%9F%E5%90%8D/">域名</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E8%B0%B7%E6%AD%8C%E5%9F%9F%E5%90%8D/">谷歌域名</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/Google-Domains/">Google Domains</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/wordpress/">wordpress</a></span></div><div class="content">前言WordPress.com和WordPress.org是两个不同的实体。WordPress.org是一个备受欢迎且广泛使用的内容管理系统（CMS）。
+WordPress.com则是一个提供托管服务的在线平台，可以让你创建和管理个人网站，无需购买和配置服务器设备。
+然而，今年6月中旬，Google却突然传来消息：Google Domains将在过渡期后关闭，Squarespace将接管其业务和资产。
+因此，在这个情况发生之前，我建议大家考虑续费土耳其区域名，以确保以后不会受到任何影响。
+需要注意的是，一个域名的最长有效期为10年。如果你计划转移域名，最好不要将域名续费满10年，因为域名转移通常需要再续费一年。
+此次活动转入的域名目前没有转出限制，并且每个账户转入域名数量也没有限制。前100万个从Google Domains转入的域名将免费进行转移。然而，如果你担心出现问题，我建议不要折腾，以免出现意外情况。
+我的建议是，在Google Domains中将域名续费满7年，然后转移到WordPress后，让它自动续费1年。在60天后，如果你仍然担心，可以将域名转回Google Domai ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/1247.html" title="超好看轻量版ChatGPT网站搭建 可商用！">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2023/06/15/pqfpwx.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="超好看轻量版ChatGPT网站搭建 可商用！"></a></div><div class="recent-post-info"><a class="article-title" href="/1247.html" title="超好看轻量版ChatGPT网站搭建 可商用！">超好看轻量版ChatGPT网站搭建 可商用！</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-06-15T07:57:38.000Z" title="发表于 2023-06-15 15:57:38">2023-06-15</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/category/technical/">玩法开启</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tag/ChatGPT/">ChatGPT</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/chat/">chat</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/gpt/">gpt</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E7%BD%91%E9%A1%B5/">网页</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%95%86%E7%94%A8/">商用</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/ai/">ai</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">语言模型</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/gpt3-5/">gpt3.5</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/gpt4-0/">gpt4.0</a></span></div><div class="content">小程序ChatGPT微信小程序上线，欢迎大家来玩！
+
+前言购买ChatGPT账号、KEY：https://shop.qqka.org
+很久之前，我搭建了一个公益版ChatGPT网站，收获大家不少好评，但是由于某些原因，该域名被污染了，导致中国大陆的用户无法再继续使用！后续我换绑域名，同样没过几天，又被污染了，于是我暂停了公益网站，思考该如何破局。
+我跟别的站长交流发现，只要网站不带ChatGPT关键词，外加用户系统，可以很大程度上避免被污染，于是我上GitHub寻找合适的web程序，最终是发现了本无的主角，ChatGPT Web程序。
+最新通报：作者前期版本已经开源，大家可搭建食用。
+声明：此源码属于收费源码，是本人自己花钱购买，并非网上传播的版本，有需要国内使用ChatGPT的用户可以使用我已经搭建好的，每天签到都可以获得积分，可免费使用。
+网址：ai.sky350.com
+官方项目地址：https://github.com/79E/ChatGpt-Web
+简介基本介绍ChatGPT Web是一款可部署商业化的 ChatGPT网页应用，使用React搭建。
+演示地址：ai.sky35 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/1245.html" title="Hytron低价香港VPS简单评测">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2023/06/14/qkbp4z.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hytron低价香港VPS简单评测"></a></div><div class="recent-post-info"><a class="article-title" href="/1245.html" title="Hytron低价香港VPS简单评测">Hytron低价香港VPS简单评测</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-06-14T08:26:56.000Z" title="发表于 2023-06-14 16:26:56">2023-06-14</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/category/ordinary/">闲扯文档</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tag/VPS/">VPS</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E8%AF%84%E6%B5%8B/">评测</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E9%A6%99%E6%B8%AFVPS/">香港VPS</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/Hytron/">Hytron</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E4%BE%BF%E5%AE%9C/">便宜</a></span></div><div class="content">前言闲来无事，网上冲浪时又看到了一个便宜的预售香港VPS，本着人有我有，人无我还得有的精神，直接下单。等待一周多终于开通了，使用了几天现在测试一下这个VPS的性能，分享给大家。
+在此还得先声明一下，不是广告，自己买的！
+
+VPS简介
+
+
+核心
+2核
+
+
+
+内存
+1G
+
+
+硬盘
+5G
+
+
+带宽
+5G
+
+
+流量
+5T&#x2F;月
+
+
+价格
+16.8刀&#x2F;年
+
+
+VPS评测基本信息经典老E5的CPU，不过这价格还要什么自行车呢？
+
+CPU&#x2F;内存&#x2F;硬盘CPU得分、内存硬盘速度都还行，没有拉跨。
+
+
+流媒体解锁只能说太适合当一台解锁鸡了，基本上都解锁了。
+
+IP质量IP质量还行，欺诈分不高。
+
+三网回程电信联通普通线路，并且绕美，扶墙的话需要转发来拉，移动还行，可以直连。
+
+
+网速测试这个线路下，到大陆的网络质量就别想有多好了
+
+总结机器刚开时，一天会有几次一两分钟左右的离线，随后有半天Hyton被D离线半天，后续几天基本上稳定了，后续应该没啥大问题，性能方面还是不错的就是网络线路比较拉跨，但是它的IP又好，欺诈分低，流媒体解锁多，所以这台机比较适合当一台落地鸡。
+</div></div></div><div class="recent-post-item ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="8080086871" data-ad-format="auto" data-full-width-responsive="true"></ins><script> (adsbygoogle = window.adsbygoogle || []).push({});</script></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/1243.html" title="国内低价注册ChatGPT账号以及使用官方服务">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2023/04/02/i7s8g.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="国内低价注册ChatGPT账号以及使用官方服务"></a></div><div class="recent-post-info"><a class="article-title" href="/1243.html" title="国内低价注册ChatGPT账号以及使用官方服务">国内低价注册ChatGPT账号以及使用官方服务</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-06-05T12:19:21.000Z" title="发表于 2023-06-05 20:19:21">2023-06-05</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/category/technical/">玩法开启</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tag/ChatGPT/">ChatGPT</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/chat/">chat</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/gpt/">gpt</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/sms/">sms</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E6%8E%A5%E7%A0%81/">接码</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/openai/">openai</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/google/">google</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/Microsoft/">Microsoft</a></span></div><div class="content">前言购买ChatGPT账号、KEY：https://shop.qqka.org
+受国内大环境影响，博客提供的ChatGPT公益版被无情做掉，导致许多有需求的用户无法再快乐使用，除非国内态度大转变，否则换域名浏览量起来了也无法逃过被污染的命运。对此，仍有需求的朋友可能需要花费一点成本去使用官方的服务了。
+准备无需太多准备，如果平时有科学上网的习惯，只需要花费2RMB左右就能注册到一个账号，如果平时没有科学上网的习惯，就需要自建节点或者购买机场提供的服务了，这个价值全看质量，最低可能也就几块钱一个月。
+注册OpenAI官方对部分国家或地区不提供服务，也就是说，我们必须先科学上网，才能去注册，但也并非所有国家的节点都可以，主要推荐日本，美国的节点。
+这一步呢打算长期使用的朋友我的建议是自己购买一个日本或美国的VPS，最低配的1核512M内存就够了，价格方面的话美国的就更便宜，10美元左右就能买到一年，可以看看下面这几款RackNerd的VPS。
+
+
+
+CPU
+内存
+硬盘
+带宽
+流量
+价格
+链接
+
+
+
+1
+512M
+10GB SSD
+1Gbps
+1.5T
+10.18美元&#x2F;年
+点我直达 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/1241.html" title="文件快递柜搭建-跨平台快速分享你的文件">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2023/04/01/1xxzhi.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="文件快递柜搭建-跨平台快速分享你的文件"></a></div><div class="recent-post-info"><a class="article-title" href="/1241.html" title="文件快递柜搭建-跨平台快速分享你的文件">文件快递柜搭建-跨平台快速分享你的文件</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-31T17:21:53.000Z" title="发表于 2023-04-01 01:21:53">2023-04-01</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/category/technical/">玩法开启</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tag/VPS/">VPS</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%9F%9F%E5%90%8D/">域名</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E6%96%87%E4%BB%B6/">文件</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E4%BC%A0%E8%BE%93/">传输</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%88%86%E4%BA%AB/">分享</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E6%96%87%E4%BB%B6%E5%BF%AB%E9%80%92%E6%9F%9C/">文件快递柜</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%A5%B6%E7%89%9B%E5%BF%AB%E4%BC%A0/">奶牛快传</a></span></div><div class="content">前言大家伙有没有过类似的经历，有一个小文件要从手机传到电脑，或者是从电脑传到手机，又不想登陆QQ或者微信，又懒得拿数据线。本期就是给大家带来解决小文件传输问题的方法，让大家都能愉快地在不同终端传输文件。
+项目简介项目名称：文件快递柜（FileCodeBox）
+项目地址：https://github.com/vastsa/FileCodeBox
+主要特色:轻量简洁：Fastapi+Sqlite3+Vue2+ElementUI
+轻松上传：复制粘贴，拖拽选择
+多种类型：文本，文件
+防止爆破：错误次数限制
+防止滥用：IP限制上传次数
+口令分享：随机口令，存取文件，自定义次数以及有效期
+匿名分享：无需注册，无需登录
+管理面板：查看所有文件，删除文件
+一键部署：docker一键部署
+自由拓展：阿里云OSS、本地文件流，可根据需求在storage文件中新增存储引擎
+简单明了：适合新手练手项目
+开发不易，建议大家多给作者点点star！
+搭建教程准备一台网络友好的VPS服务器，有软路由的话部署在软路由更好哦。
+官方提供两种部署方式
+Docker部署X86架构一键部署：
+1docker run -d -- ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/1239.html" title="优雅地使用ChatGPT 搭建在线ChatGPT对话网站">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2023/02/20/10u09yk.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="优雅地使用ChatGPT 搭建在线ChatGPT对话网站"></a></div><div class="recent-post-info"><a class="article-title" href="/1239.html" title="优雅地使用ChatGPT 搭建在线ChatGPT对话网站">优雅地使用ChatGPT 搭建在线ChatGPT对话网站</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-20T14:35:02.000Z" title="发表于 2023-02-20 22:35:02">2023-02-20</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/category/technical/">玩法开启</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tag/ChatGPT/">ChatGPT</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/AI/">AI</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/bing-chatgpt/">bing chatgpt</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%85%8D%E7%A7%91%E5%AD%A6/">免科学</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%AF%B9%E8%AF%9D/">对话</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/chat/">chat</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E8%81%8A%E5%A4%A9/">聊天</a></span></div><div class="content">前言购买ChatGPT账号、KEY：https://shop.qqka.org
+ChatGPT是一款非常强大的聊天机器人技术，它是基于GPT-3开发的。这款技术能够根据上下文回答问题，模拟人类的对话，并能够根据上下文提供合理的建议。此外，ChatGPT还能够执行复杂的任务，比如自然语言理解和自动文本生成，在过去几个月里火热流行。它的出现大大提高了聊天机器人技术的水平，是一种先进的技术应用。
+但是！使用ChatGPT需要注册账号，并且需要在科学上网的环境中才能使用，本片文章，我们将会搭建一个在线ChatGPT聊天网页，并且不需要科学上网的环境也能使用！
+准备VPS
+域名
+手
+搭建搭建PHP环境，不想麻烦直接无脑宝塔面板，安装Nginx+PHP环境，PHP版本大于等于8.1，如果不会安装，可先浏览本站文章https://www.sky350.com/827.html，里边有详细教程。
+好第一步新建一个网站，绑定好域名，PHP版本选择8.1
+
+打开网站目录，上传源码，并解压至根目录
+下载地址：https://sky350.lanzouo.com/ibPR60o59ixa
+
+
+解压完成之后，打 ...</div></div></div><div class="recent-post-item ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="8080086871" data-ad-format="auto" data-full-width-responsive="true"></ins><script> (adsbygoogle = window.adsbygoogle || []).push({});</script></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/1237.html" title="免费版cloudflare如何防CC攻击？不需要动手写规则！">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2023/02/15/z8hwmq.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="免费版cloudflare如何防CC攻击？不需要动手写规则！"></a></div><div class="recent-post-info"><a class="article-title" href="/1237.html" title="免费版cloudflare如何防CC攻击？不需要动手写规则！">免费版cloudflare如何防CC攻击？不需要动手写规则！</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-15T13:40:25.000Z" title="发表于 2023-02-15 21:40:25">2023-02-15</time></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tag/%E7%BD%91%E7%AB%99/">网站</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%9F%9F%E5%90%8D/">域名</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/cdn/">cdn</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/cloudflare/">cloudflare</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/DDos/">DDos</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/CC/">CC</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E6%94%BB%E5%87%BB/">攻击</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E9%98%B2%E5%BE%A1/">防御</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/Wordpress/">Wordpress</a></span></div><div class="content">前言Cloudflare是一个全球性的内容分发网络（CDN）服务提供商，用于加速网络，并改善网络性能和安全服务。Cloudflare使用一组分散的节点为网络提供快速，安全的网络服务。它的服务延伸至200多个国家和地区，支持多达20万个网站。 Cloudflare提供了许多优秀的服务，包括威胁保护，内容优化，反缓存，负载均衡等。它还提供安全拦截，阻止恶意访问和攻击，以保护用户的内容和数据安全。
+以下操作均为傻瓜式的操作，非常简单，随便点点鼠标就行了。但是防御效果不错，哪怕超过千万&#x2F;亿次攻击，普通vps也能防得住！
+配置首先域名接入Cloudflare，做好DNS解析，开启代理状态（也就是解析时点亮橙色小云朵），若您之前有按照别的教程设置WAF（防火墙规则&#x2F;速率限制规则&#x2F;托管规则&#x2F;工具，以及包含安全性的页面规则），请关闭它，否则有可能影响到下面设置的规则优先级！
+确保以上都没有问题那么我们可以开始了。
+一、
+打开Cloudflare官网登陆，点击进入要设置保护的网站，找到安全性。
+
+在安全性栏目中点击设置，按照下图设置，这里主要的目的就是拦截那些IP ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/1235.html" title="2023年免费国内CDN有哪些?国内免费CDN小结">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2023/01/14/2204va.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2023年免费国内CDN有哪些?国内免费CDN小结"></a></div><div class="recent-post-info"><a class="article-title" href="/1235.html" title="2023年免费国内CDN有哪些?国内免费CDN小结">2023年免费国内CDN有哪些?国内免费CDN小结</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-13T17:27:16.000Z" title="发表于 2023-01-14 01:27:16">2023-01-14</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/category/ordinary/">闲扯文档</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tag/CDN/">CDN</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91/">内容分发</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E7%BD%91%E7%AB%99/">网站</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%8A%A0%E9%80%9F/">加速</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/ddos/">ddos</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/cc/">cc</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E7%99%BE%E5%BA%A6%E4%BA%91%E5%8A%A0%E9%80%9F/">百度云加速</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%A5%87%E5%AE%89%E4%BF%A1/">奇安信</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%8A%A0%E9%80%9F%E4%B9%90/">加速乐</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/FreeCDN/">FreeCDN</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%8F%88%E6%8B%8D%E4%BA%91/">又拍云</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E4%B8%83%E7%89%9B%E4%BA%91/">七牛云</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%A4%9A%E5%90%89%E4%BA%91/">多吉云</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E4%BA%91%E7%9B%BE/">云盾</a></span></div><div class="content">前言一切都没有准备好，2023就到了，就是那么地突然。
+好的，回归正题，我们来聊一聊国内的CDN，很多国内的免费CDN都下线了，现存的CDN商家，也纷纷消减了流量额度和节点数量。国内CDN相对海外CDN，首先是网速要比境外CDN要快，其次不怎么容易受到国际网络干扰，CDN隐藏源站IP的同时，也提供一些基础的防护免得网站被攻击。另外优秀的访问速度对于搜索引擎的排名确实有加成。当然要使用国内CDN，政策要求是必须要网站备案的，有备案号即可，不是必须要求CDN商家备案。
+下面开始一一介绍
+CDN服务商百度云加速官网：su.baidu.com
+
+
+
+流量
+5GB&#x2F;日
+
+
+
+HTTPS
+支持
+
+
+节点数
+2
+
+
+百度云加速是百度旗下的业务，百度云加速CDN提供每个站点每天5G的流量额度，当天如果5G用超，会从下一天额度里面扣除，连续多天超过可能会被清退，不过百度云加速缓存命中率还是蛮高的。免费版实测提供两个加速节点，分配一个联通一个电信节点。
+百度云加速如果被高强度攻击，很可能会被百度云加速官方请退，或者推荐收费业务。
+特色功能:百度云加速号称对百度收录有加成，在后台也可以查询是否收录 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/1233.html" title="《高效使用你的VPS》搭建开源简单图床EasyImages">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2022/11/09/kperlv.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《高效使用你的VPS》搭建开源简单图床EasyImages"></a></div><div class="recent-post-info"><a class="article-title" href="/1233.html" title="《高效使用你的VPS》搭建开源简单图床EasyImages">《高效使用你的VPS》搭建开源简单图床EasyImages</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-11-09T04:44:07.000Z" title="发表于 2022-11-09 12:44:07">2022-11-09</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/category/course/">系列教程</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tag/vps/">vps</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%9F%9F%E5%90%8D/">域名</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%9B%BE%E5%BA%8A/">图床</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/Chevereto/">Chevereto</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%85%B0%E7%A9%BA%E5%9B%BE%E5%BA%8A/">兰空图床</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/lsky/">lsky</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/EasyImages/">EasyImages</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E7%AE%80%E5%8D%95%E5%9B%BE%E5%BA%8A/">简单图床</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%85%8D%E8%B4%B9%E5%9B%BE%E5%BA%8A/">免费图床</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%BC%80%E6%BA%90%E5%9B%BE%E5%BA%8A/">开源图床</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E5%AE%9D%E5%A1%94/">宝塔</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/hexo/">hexo</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/hugo/">hugo</a></span></div><div class="content">前言买了一台vps做科学上网，却仅仅只做了科学上网？有没有更骚的操作？当然有，本博客《系列教程》中《高效使用你的VPS》就有更多新奇好玩的做法，帮助我们能够将vps价值最大化，欢迎大家常来看看呀。
+本次我们到搭建的是一个在线图床，如果你也使用类似Hexo、Hugo等静态博客平台，那就不得不考虑图片的存放问题了，当然picgo等软件已经能很好地解决这个问题了，但如果你像我一样平时会用到多台电脑，那这种本地软件的方法就显得有点麻烦了，毕竟每次都要在电脑上做好配置。
+有没有一个方便又舒服的方法呢？答案就是在线图床，在对比了Chevereto、兰空图床等程序之后，我选择了开源的EasyImages2.0，她足够轻量，功能够用而不繁琐，大家可以对比着看哪个适合自己。
+准备
+vps云服务器x1
+域名一个x1
+手
+
+搭建新建网站照例，先在vps上安装宝塔面板或者其他面板，搭建lnmp环境。首先我们新建一个网站，并将域名解析到服务器
+
+下载程序点开网站到文件，远程下载，填入官网GitHub等下载地址
+https://github.com/icret/EasyImages2.0/archive/refs ...</div></div></div><div class="recent-post-item ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="8080086871" data-ad-format="auto" data-full-width-responsive="true"></ins><script> (adsbygoogle = window.adsbygoogle || []).push({});</script></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/1232.html" title="Hysteria科学上网协议梯子搭建 附软件下载">     <img class="post_bg" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/510cbaaf85333dd0.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hysteria科学上网协议梯子搭建 附软件下载"></a></div><div class="recent-post-info"><a class="article-title" href="/1232.html" title="Hysteria科学上网协议梯子搭建 附软件下载">Hysteria科学上网协议梯子搭建 附软件下载</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-10-28T15:05:26.000Z" title="发表于 2022-10-28 23:05:26">2022-10-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/category/technical/">玩法开启</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tag/vps/">vps</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/Hysteria/">Hysteria</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/">科学上网</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/vpn/">vpn</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E9%AD%94%E6%B3%95%E4%B8%8A%E7%BD%91/">魔法上网</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/v2rayn/">v2rayn</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E6%A2%AF%E5%AD%90/">梯子</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/%E8%8A%82%E7%82%B9/">节点</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/passwall/">passwall</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/ss/">ss</a><span class="article-meta__link">•</span><a class="article-meta__tags" href="/tag/ssr/">ssr</a></span></div><div class="content">前言Hysteria是一个功能丰富的，专为恶劣网络环境进行优化的网络工具（双边加速），比如卫星网络、拥挤的公共 Wi-Fi、在中国连接国外服务器等。 基于UDP魔改的 QUIC 协议。
+Hysteria这是一款由go编写的非常优秀的“轻量”代理程序，它很好的解决了在搭建梯子时服务器线路垃圾的最大的痛点。
+Github项目：https://github.com/emptysuns/Hi_Hysteria
+准备垃圾vps一只
+域名一个，解析到vps
+搭建root连接SSH输入一键脚本：
+1bash &lt;(curl -fsSL https://git.io/hysteria.sh)
+
+
+在安装的过程中可以先将域名解析到服务器，A记录，内容填vps的IP地址，不用打开cdn
+
+安装完成后选择1自动申请证书，然后输入我们刚刚解析的域名，端口可以随机，但是要打开端口，协议类型可以选择wechat-video，这个会将流量伪装成微信视频流量，我演示选择不带伪装的UPD(QUIC)，相对来说这个会快一丢丢。
+
+这里用作测试的是甲骨文云韩国春川的小鸡，经过太多人蹂躏，线路已经变得完全拉跨了，简单pi ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#content-inner">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#content-inner">5</a><a class="extend next" rel="next" href="/page/3/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/Circle_Logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">阿宝哥呀</div><div class="author-info__description">Linux技术,网络技术,宝塔面板,邮局配置,域名设置,脚本运行,CentOS,Debian,Nginx</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">50</div></a></div><div class="card-info-data-item is-center"><a href="/tag/"><div class="headline">标签</div><div class="length-num">207</div></a></div><div class="card-info-data-item is-center"><a href="/category/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCECSuDUCVYdpBVF-0YlZAig"><i class="fab fa-youtube"></i><span>订阅我吧</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:service@sky350.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">ChatGPT在线网站ai.sky350.com已经上线，欢迎大家使用。</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/1271.html" title="WordPress优化之根据Cookies配置CloudFlare缓存规则"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2024/09/24/46qvzo.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WordPress优化之根据Cookies配置CloudFlare缓存规则"/></a><div class="content"><a class="title" href="/1271.html" title="WordPress优化之根据Cookies配置CloudFlare缓存规则">WordPress优化之根据Cookies配置CloudFlare缓存规则</a><time datetime="2024-09-23T19:00:51.407Z" title="发表于 2024-09-24 03:00:51">2024-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1269.html" title="99AI多功能可商用的AI网站搭建教程 基于NineAI二开"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2024/08/30/117386k.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="99AI多功能可商用的AI网站搭建教程 基于NineAI二开"/></a><div class="content"><a class="title" href="/1269.html" title="99AI多功能可商用的AI网站搭建教程 基于NineAI二开">99AI多功能可商用的AI网站搭建教程 基于NineAI二开</a><time datetime="2024-08-30T14:55:46.795Z" title="发表于 2024-08-30 22:55:46">2024-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1267.html" title="谷歌云GCP开通VPS并配置ssh连接教程 GCP玩机指南"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2024/06/01/122rjfc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="谷歌云GCP开通VPS并配置ssh连接教程 GCP玩机指南"/></a><div class="content"><a class="title" href="/1267.html" title="谷歌云GCP开通VPS并配置ssh连接教程 GCP玩机指南">谷歌云GCP开通VPS并配置ssh连接教程 GCP玩机指南</a><time datetime="2024-06-01T14:56:10.101Z" title="发表于 2024-06-01 22:56:10">2024-06-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1265.html" title="最新谷歌云免信用卡获得150刀赠金方法"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2024/05/29/6yz4bq.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="最新谷歌云免信用卡获得150刀赠金方法"/></a><div class="content"><a class="title" href="/1265.html" title="最新谷歌云免信用卡获得150刀赠金方法">最新谷歌云免信用卡获得150刀赠金方法</a><time datetime="2024-05-28T20:31:47.065Z" title="发表于 2024-05-29 04:31:47">2024-05-29</time></div></div></div></div><div class="card-widget ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="7779019761" data-ad-format="auto" data-full-width-responsive="true"></ins><script> (adsbygoogle = window.adsbygoogle || []).push({});</script></div><div class="card-widget" id="card-newest-comments"><div class="item-headline"><i class="fas fa-comment-dots"></i><span>最新评论</span></div><div class="aside-lista"><span>正在加载中...</span></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tag/CDN/" style="font-size: 1.15em; color: rgb(128, 98, 90)">CDN</a><a href="/tag/%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91/" style="font-size: 1.15em; color: rgb(75, 50, 189)">内容分发</a><a href="/tag/%E7%BD%91%E7%AB%99/" style="font-size: 1.2em; color: rgb(125, 30, 55)">网站</a><a href="/tag/%E5%8A%A0%E9%80%9F/" style="font-size: 1.15em; color: rgb(182, 72, 11)">加速</a><a href="/tag/ddos/" style="font-size: 1.15em; color: rgb(74, 84, 107)">ddos</a><a href="/tag/cc/" style="font-size: 1.15em; color: rgb(61, 174, 23)">cc</a><a href="/tag/%E7%99%BE%E5%BA%A6%E4%BA%91%E5%8A%A0%E9%80%9F/" style="font-size: 1.15em; color: rgb(122, 188, 149)">百度云加速</a><a href="/tag/%E5%A5%87%E5%AE%89%E4%BF%A1/" style="font-size: 1.15em; color: rgb(79, 132, 63)">奇安信</a><a href="/tag/%E5%8A%A0%E9%80%9F%E4%B9%90/" style="font-size: 1.15em; color: rgb(52, 3, 32)">加速乐</a><a href="/tag/FreeCDN/" style="font-size: 1.15em; color: rgb(81, 192, 20)">FreeCDN</a><a href="/tag/%E5%8F%88%E6%8B%8D%E4%BA%91/" style="font-size: 1.15em; color: rgb(105, 37, 128)">又拍云</a><a href="/tag/%E4%B8%83%E7%89%9B%E4%BA%91/" style="font-size: 1.15em; color: rgb(103, 170, 180)">七牛云</a><a href="/tag/%E5%A4%9A%E5%90%89%E4%BA%91/" style="font-size: 1.15em; color: rgb(113, 29, 171)">多吉云</a><a href="/tag/%E4%BA%91%E7%9B%BE/" style="font-size: 1.15em; color: rgb(133, 147, 172)">云盾</a><a href="/tag/99ai/" style="font-size: 1.15em; color: rgb(157, 70, 165)">99ai</a><a href="/tag/nineai/" style="font-size: 1.15em; color: rgb(68, 139, 113)">nineai</a><a href="/tag/aigc/" style="font-size: 1.15em; color: rgb(38, 95, 44)">aigc</a><a href="/tag/%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/" style="font-size: 1.15em; color: rgb(7, 170, 40)">搭建教程</a><a href="/tag/ChatGPT/" style="font-size: 1.25em; color: rgb(187, 160, 86)">ChatGPT</a><a href="/tag/Midjourney/" style="font-size: 1.15em; color: rgb(34, 160, 159)">Midjourney</a><a href="/tag/vps/" style="font-size: 1.45em; color: rgb(74, 42, 13)">vps</a><a href="/tag/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.4em; color: rgb(155, 26, 119)">服务器</a><a href="/tag/ipv6/" style="font-size: 1.2em; color: rgb(103, 161, 15)">ipv6</a><a href="/tag/Hysteria/" style="font-size: 1.15em; color: rgb(83, 60, 49)">Hysteria</a><a href="/tag/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" style="font-size: 1.35em; color: rgb(13, 21, 171)">科学上网</a><a href="/tag/vpn/" style="font-size: 1.15em; color: rgb(92, 122, 151)">vpn</a><a href="/tag/%E9%AD%94%E6%B3%95%E4%B8%8A%E7%BD%91/" style="font-size: 1.15em; color: rgb(98, 3, 142)">魔法上网</a><a href="/tag/v2rayn/" style="font-size: 1.2em; color: rgb(140, 132, 53)">v2rayn</a><a href="/tag/%E6%A2%AF%E5%AD%90/" style="font-size: 1.15em; color: rgb(169, 118, 129)">梯子</a><a href="/tag/%E8%8A%82%E7%82%B9/" style="font-size: 1.15em; color: rgb(114, 64, 124)">节点</a><a href="/tag/passwall/" style="font-size: 1.15em; color: rgb(44, 159, 95)">passwall</a><a href="/tag/ss/" style="font-size: 1.2em; color: rgb(82, 106, 102)">ss</a><a href="/tag/ssr/" style="font-size: 1.25em; color: rgb(76, 135, 188)">ssr</a><a href="/tag/VPS/" style="font-size: 1.3em; color: rgb(59, 132, 36)">VPS</a><a href="/tag/%E8%AF%84%E6%B5%8B/" style="font-size: 1.15em; color: rgb(73, 12, 176)">评测</a><a href="/tag/%E9%A6%99%E6%B8%AFVPS/" style="font-size: 1.2em; color: rgb(100, 156, 9)">香港VPS</a><a href="/tag/Hytron/" style="font-size: 1.15em; color: rgb(18, 194, 194)">Hytron</a><a href="/tag/%E4%BE%BF%E5%AE%9C/" style="font-size: 1.15em; color: rgb(88, 68, 5)">便宜</a><a href="/tag/%E7%BF%BB%E5%A2%99/" style="font-size: 1.15em; color: rgb(140, 24, 63)">翻墙</a><a href="/tag/v2ray/" style="font-size: 1.3em; color: rgb(35, 23, 45)">v2ray</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2024 By 阿宝哥呀</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">联系邮箱：service@sky350.com</div><!-- 自动翻译JS--><script src="https://cdn.staticfile.net/translate.js/3.5.1/translate.js"></script><script>translate.setAutoDiscriminateLocalLanguage();
+translate.language.setLocal('chinese_simplified');
+translate.service.use('client.edge');
+translate.execute();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://pic.sky350.cn/js/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function subtitleType () {
+  if (true) { 
+    var typed = new Typed("#subtitle", {
+      strings: "今日事&#44;今日毕,Never put off till tomorrow what you can do today".split(","),
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: false,
+      backSpeed: 50
+    })
+  } else {
+    document.getElementById("subtitle").innerHTML = '今日事&#44;今日毕'
+  }
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://pic.sky350.cn/js/typed.min.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://cm.sky350.com',
+        region: '',
+        pageSize: 5,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-lista')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://pic.sky350.cn/js/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-lista')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-lista')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script defer="defer" id="ribbon" src="https://pic.sky350.cn/js/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://pic.sky350.cn/js/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-VWC1BXX7W2', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>

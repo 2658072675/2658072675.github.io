@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.sky350.com/privacy-policy/index.html</loc>
-    
-    <lastmod>2024-09-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.sky350.com/speedtest/index.html</loc>
     
     <lastmod>2024-09-29</lastmod>
@@ -21,15 +12,6 @@
   
   <url>
     <loc>https://www.sky350.com/technical/index.html</loc>
-    
-    <lastmod>2024-09-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/576.html</loc>
     
     <lastmod>2024-09-29</lastmod>
     
@@ -110,7 +92,7 @@
   </url>
   
   <url>
-    <loc>https://www.sky350.com/672.html</loc>
+    <loc>https://www.sky350.com/privacy-policy/index.html</loc>
     
     <lastmod>2024-09-29</lastmod>
     
@@ -146,16 +128,7 @@
   </url>
   
   <url>
-    <loc>https://www.sky350.com/267.html</loc>
-    
-    <lastmod>2024-09-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/621.html</loc>
+    <loc>https://www.sky350.com/576.html</loc>
     
     <lastmod>2024-09-29</lastmod>
     
@@ -263,6 +236,15 @@
   </url>
   
   <url>
+    <loc>https://www.sky350.com/672.html</loc>
+    
+    <lastmod>2024-09-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.sky350.com/1062.html</loc>
     
     <lastmod>2024-09-29</lastmod>
@@ -300,6 +282,24 @@
   
   <url>
     <loc>https://www.sky350.com/455.html</loc>
+    
+    <lastmod>2024-09-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/621.html</loc>
+    
+    <lastmod>2024-09-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/267.html</loc>
     
     <lastmod>2024-09-29</lastmod>
     

@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>比notepad++好用！Sublime Text在Linux下的安装与配置 | SKY博客</title><meta name="keywords" content="notepad++,Sublime Text,Ubuntu"><meta name="author" content="阿宝哥呀"><meta name="copyright" content="阿宝哥呀"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在转到Ubuntu平台之后，许多环境重新进行了配置，回过头来想写篇稿子却发现自带的文本编辑器太简单了，功能不够丰富。于是乎，准备给我心爱的电脑安装上我在win上常用的文本编辑其notepad++，刚准备百度其官网，就发现了这样一件事 好奇心驱使下，我点开了这个关键词，之后找到了CSDN上的一篇帖子，**_notepad++事件_卸载、抵制Notepad++_**，了解了这件事的真相。  原文链接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="比notepad++好用！Sublime Text在Linux下的安装与配置">
+<meta property="og:url" content="https://www.sky350.com/323.html">
+<meta property="og:site_name" content="SKY博客">
+<meta property="og:description" content="在转到Ubuntu平台之后，许多环境重新进行了配置，回过头来想写篇稿子却发现自带的文本编辑器太简单了，功能不够丰富。于是乎，准备给我心爱的电脑安装上我在win上常用的文本编辑其notepad++，刚准备百度其官网，就发现了这样一件事 好奇心驱使下，我点开了这个关键词，之后找到了CSDN上的一篇帖子，**_notepad++事件_卸载、抵制Notepad++_**，了解了这件事的真相。  原文链接">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/01/21/21FWhXpqc5KHTYr.png">
+<meta property="article:published_time" content="2021-05-09T07:06:10.000Z">
+<meta property="article:modified_time" content="2024-09-29T19:27:25.093Z">
+<meta property="article:author" content="阿宝哥呀">
+<meta property="article:tag" content="notepad++">
+<meta property="article:tag" content="Sublime Text">
+<meta property="article:tag" content="Ubuntu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/01/21/21FWhXpqc5KHTYr.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.sky350.com/323"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: 'ca-pub-5201315122723978',
+  enable_page_level_ads: 'true'
+});</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-VWC1BXX7W2"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-VWC1BXX7W2');
+</script><link rel="stylesheet" href="https://fonts.loli.net/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '比notepad++好用！Sublime Text在Linux下的安装与配置',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-09-30 03:27:25'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/Circle_Logo.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">50</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tag/"><div class="headline">标签</div><div class="length-num">207</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/category/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/category/app/"><i class="fa-fw fab fa-github"></i><span> 上网神器</span></a></div><div class="menus_item"><a class="site-page" href="/category/technical/"><i class="fa-fw fab fa-chrome"></i><span> 玩法开启</span></a></div><div class="menus_item"><a class="site-page" href="/category/course/"><i class="fa-fw fas fa-book"></i><span> 系列教程</span></a></div><div class="menus_item"><a class="site-page" href="/category/ordinary/"><i class="fa-fw fas fa-file-alt"></i><span> 闲扯文档</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://ai.sky350.com"><i class="fa-fw fa-solid fa-message"></i><span> ChatGPT</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://shop.qqka.org"><i class="fa-fw fa-solid fa-cart-shopping"></i><span> 小卖店</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://itbao.ge"><i class="fa-fw fab fa-chrome"></i><span> IT宝哥</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2022/01/21/21FWhXpqc5KHTYr.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">SKY博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/category/app/"><i class="fa-fw fab fa-github"></i><span> 上网神器</span></a></div><div class="menus_item"><a class="site-page" href="/category/technical/"><i class="fa-fw fab fa-chrome"></i><span> 玩法开启</span></a></div><div class="menus_item"><a class="site-page" href="/category/course/"><i class="fa-fw fas fa-book"></i><span> 系列教程</span></a></div><div class="menus_item"><a class="site-page" href="/category/ordinary/"><i class="fa-fw fas fa-file-alt"></i><span> 闲扯文档</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://ai.sky350.com"><i class="fa-fw fa-solid fa-message"></i><span> ChatGPT</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://shop.qqka.org"><i class="fa-fw fa-solid fa-cart-shopping"></i><span> 小卖店</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://itbao.ge"><i class="fa-fw fab fa-chrome"></i><span> IT宝哥</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">比notepad++好用！Sublime Text在Linux下的安装与配置</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-05-09T07:06:10.000Z" title="发表于 2021-05-09 15:06:10">2021-05-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-29T19:27:25.093Z" title="更新于 2024-09-30 03:27:25">2024-09-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/category/technical/">玩法开启</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="8080086871" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div><article class="post-content" id="article-container"><p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://s2.loli.net/2022/01/21/GkhMS84W2OX19Zq.png"></p>
+<p>在转到Ubuntu平台之后，许多环境重新进行了配置，回过头来想写篇稿子却发现自带的文本编辑器太简单了，功能不够丰富。于是乎，准备给我心爱的电脑安装上我在win上常用的文本编辑其notepad++，刚准备百度其官网，就发现了这样一件事</p>
+<p>好奇心驱使下，我点开了这个关键词，之后找到了CSDN上的一篇帖子，**_<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39876856/article/details/111278427?utm_medium=distribute.pc_feed_404.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.nonecase&depth_1-utm_source=distribute.pc_feed_404.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.nonecas">notepad++事件_卸载、抵制Notepad++</a>_**，了解了这件事的真相。</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://s2.loli.net/2022/01/21/KvXUpR7mM426Fe5.png"></p>
+<p>原文链接：**_<a target="_blank" rel="noopener" href="https://notepad-plus-plus.org/news/v781-free-uyghur-edition/">点我</a>_**</p>
+<p>大家点开就能看到了，真搞不明白，一个文本编辑其而以，这么普通却有那么自信！敢作出分裂我国的事情，反正我是不会再用这个软件了，CSDN作者也给我们推荐了其他可替代的软件，我省的大家麻烦就直接贴出来了。</p>
+<ul>
+<li>VSCode  <a target="_blank" rel="noopener" href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></li>
+<li>EditPlus  <a target="_blank" rel="noopener" href="https://www.editplus.com/">https://www.editplus.com/</a></li>
+<li>UltraEdit-32 <a target="_blank" rel="noopener" href="https://www.ultraedit.com/">https://www.ultraedit.com/</a></li>
+<li>Sublime Text <a target="_blank" rel="noopener" href="https://www.sublimetext.com/">https://www.sublimetext.com/</a></li>
+<li>Source Insight  <a target="_blank" rel="noopener" href="https://www.sourceinsight.com/">https://www.sourceinsight.com/</a></li>
+</ul>
+<p>这些软件我大致看了一下，选取了一个比较适合为习惯和审美的，也就是这篇文章的主角<strong>Sublime Text</strong>，接下来就一步一步安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg  sudo apt-key add -</span><br><span class="line">sudo apt-get install apt-transport-https</span><br><span class="line">echo &quot;deb https://download.sublimetext.com/ apt/stable/&quot;  sudo tee /etc/apt/sources.list.d/sublime-text.list</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install sublime-text</span><br></pre></td></tr></table></figure>
+
+<p>Ubuntu打开终端，从上往下逐条输入执行就可完成安装，打开一看，居然是英文的，Emmm…</p>
+<p>好吧，那就设置一下中文吧，百度一下发现，要切换成中文需要下载中文包。</p>
+<p>然而网上都说第一步先在Preferences里面找到Package Control，但是当时我的Preferences里面并没有这一项，顿时人傻了。</p>
+<p>再查找一番后发现，Package Control是需要自己手动安装的（为什么网上的教程没有呢，难道是新版本需要手动安装旧版本不需要？），算了无所谓了，能安装就行了，下面就是我整理的安装方法。</p>
+<p>打开Sublime Text,使用快捷键<strong>Shift+Ctrl+P</strong>,弹出查找栏，在搜索框中输入关键字 install ,点击选择其中的：Package Control: Install Package</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://s2.loli.net/2022/01/21/g4VNQzRp1vSF2lU.png"></p>
+<p>点击之后稍微等一小会儿，安装完成会弹出如下界面</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://s2.loli.net/2022/01/21/21FWhXpqc5KHTYr.png"></p>
+<p>在搜索框中输入chinese，选择下拉框中的ChineseLocalizations</p>
+<p>点击之后，中文包就安装完成了，之后关闭软件重新打开，点击任务栏中的<strong>Help-&gt;Language-&gt;简体中文</strong> ，中文切换就完成了！</p>
+<p>之后的个性化设置就自己去摸索吧！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">阿宝哥呀</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.sky350.com/323.html">https://www.sky350.com/323.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.sky350.com" target="_blank">SKY博客</a>！</span></div></div><div class="ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="8080086871" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tag/notepad/">notepad++</a><a class="post-meta__tags" href="/tag/sublime-Text/">Sublime Text</a><a class="post-meta__tags" href="/tag/ubuntu/">Ubuntu</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2022/01/21/21FWhXpqc5KHTYr.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/353.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/353_5.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Clash.Net简约强大的科学上网客户端</div></div></a></div><div class="next-post pull-right"><a href="/294.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/294.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">保姆级MC基岩版开服教程，附带控制面板（腾讯云服务器演示）</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/Circle_Logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">阿宝哥呀</div><div class="author-info__description">Linux技术,网络技术,宝塔面板,邮局配置,域名设置,脚本运行,CentOS,Debian,Nginx</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">50</div></a></div><div class="card-info-data-item is-center"><a href="/tag/"><div class="headline">标签</div><div class="length-num">207</div></a></div><div class="card-info-data-item is-center"><a href="/category/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCECSuDUCVYdpBVF-0YlZAig"><i class="fab fa-youtube"></i><span>订阅我吧</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:service@sky350.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">ChatGPT在线网站ai.sky350.com已经上线，欢迎大家使用。</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/1271.html" title="WordPress优化之根据Cookies配置CloudFlare缓存规则"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2024/09/24/46qvzo.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WordPress优化之根据Cookies配置CloudFlare缓存规则"/></a><div class="content"><a class="title" href="/1271.html" title="WordPress优化之根据Cookies配置CloudFlare缓存规则">WordPress优化之根据Cookies配置CloudFlare缓存规则</a><time datetime="2024-09-23T19:00:51.407Z" title="发表于 2024-09-24 03:00:51">2024-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1269.html" title="99AI多功能可商用的AI网站搭建教程 基于NineAI二开"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2024/08/30/117386k.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="99AI多功能可商用的AI网站搭建教程 基于NineAI二开"/></a><div class="content"><a class="title" href="/1269.html" title="99AI多功能可商用的AI网站搭建教程 基于NineAI二开">99AI多功能可商用的AI网站搭建教程 基于NineAI二开</a><time datetime="2024-08-30T14:55:46.795Z" title="发表于 2024-08-30 22:55:46">2024-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1267.html" title="谷歌云GCP开通VPS并配置ssh连接教程 GCP玩机指南"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2024/06/01/122rjfc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="谷歌云GCP开通VPS并配置ssh连接教程 GCP玩机指南"/></a><div class="content"><a class="title" href="/1267.html" title="谷歌云GCP开通VPS并配置ssh连接教程 GCP玩机指南">谷歌云GCP开通VPS并配置ssh连接教程 GCP玩机指南</a><time datetime="2024-06-01T14:56:10.101Z" title="发表于 2024-06-01 22:56:10">2024-06-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1265.html" title="最新谷歌云免信用卡获得150刀赠金方法"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2024/05/29/6yz4bq.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="最新谷歌云免信用卡获得150刀赠金方法"/></a><div class="content"><a class="title" href="/1265.html" title="最新谷歌云免信用卡获得150刀赠金方法">最新谷歌云免信用卡获得150刀赠金方法</a><time datetime="2024-05-28T20:31:47.065Z" title="发表于 2024-05-29 04:31:47">2024-05-29</time></div></div></div></div><div class="card-widget ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="7779019761" data-ad-format="auto" data-full-width-responsive="true"></ins><script> (adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2024 By 阿宝哥呀</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">联系邮箱：service@sky350.com</div><!-- 自动翻译JS--><script src="https://cdn.staticfile.net/translate.js/3.5.1/translate.js"></script><script>translate.setAutoDiscriminateLocalLanguage();
+translate.language.setLocal('chinese_simplified');
+translate.service.use('client.edge');
+translate.execute();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://pic.sky350.cn/js/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://cm.sky350.com',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://cm.sky350.com',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://pic.sky350.cn/js/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://cm.sky350.com',
+        region: '',
+        pageSize: 5,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-lista')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://pic.sky350.cn/js/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-lista')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-lista')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script defer="defer" id="ribbon" src="https://pic.sky350.cn/js/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://pic.sky350.cn/js/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-VWC1BXX7W2', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>

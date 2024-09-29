@@ -1,0 +1,451 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>《高效使用你的VPS》搭建私人多端音乐平台 | SKY博客</title><meta name="keywords" content="vps,服务器,域名,博客,建站"><meta name="author" content="阿宝哥呀"><meta name="copyright" content="阿宝哥呀"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言买了一台vps做科学上网，却仅仅只做了科学上网！这不符合我们勤俭节约的理念，所以《高效使用你的VPS》将会教大家如何高效地榨干vps，以获得最大的收益。《高效使用你的VPS》未来可能持续更新（我得自己先体验过才会看情况值不值得更新）。 准备本期教程所需要的东西：  域名一个（推荐解析到CloudFlare，有免费的CDN） vps云服务器一台，预装Linux系统 手  搭建本教程采用操作较为简">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《高效使用你的VPS》搭建私人多端音乐平台">
+<meta property="og:url" content="https://www.sky350.com/1211.html">
+<meta property="og:site_name" content="SKY博客">
+<meta property="og:description" content="前言买了一台vps做科学上网，却仅仅只做了科学上网！这不符合我们勤俭节约的理念，所以《高效使用你的VPS》将会教大家如何高效地榨干vps，以获得最大的收益。《高效使用你的VPS》未来可能持续更新（我得自己先体验过才会看情况值不值得更新）。 准备本期教程所需要的东西：  域名一个（推荐解析到CloudFlare，有免费的CDN） vps云服务器一台，预装Linux系统 手  搭建本教程采用操作较为简">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.sky350.cn/images/1211_7.png">
+<meta property="article:published_time" content="2022-04-14T09:44:57.000Z">
+<meta property="article:modified_time" content="2024-09-29T19:27:25.093Z">
+<meta property="article:author" content="阿宝哥呀">
+<meta property="article:tag" content="vps">
+<meta property="article:tag" content="服务器">
+<meta property="article:tag" content="域名">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="建站">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.sky350.cn/images/1211_7.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.sky350.com/1211"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: 'ca-pub-5201315122723978',
+  enable_page_level_ads: 'true'
+});</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-VWC1BXX7W2"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-VWC1BXX7W2');
+</script><link rel="stylesheet" href="https://fonts.loli.net/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '《高效使用你的VPS》搭建私人多端音乐平台',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-30 03:27:25'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><meta name="generator" content="Hexo 5.4.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/Circle_Logo.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">50</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tag/"><div class="headline">标签</div><div class="length-num">207</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/category/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/category/app/"><i class="fa-fw fab fa-github"></i><span> 上网神器</span></a></div><div class="menus_item"><a class="site-page" href="/category/technical/"><i class="fa-fw fab fa-chrome"></i><span> 玩法开启</span></a></div><div class="menus_item"><a class="site-page" href="/category/course/"><i class="fa-fw fas fa-book"></i><span> 系列教程</span></a></div><div class="menus_item"><a class="site-page" href="/category/ordinary/"><i class="fa-fw fas fa-file-alt"></i><span> 闲扯文档</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://ai.sky350.com"><i class="fa-fw fa-solid fa-message"></i><span> ChatGPT</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://shop.qqka.org"><i class="fa-fw fa-solid fa-cart-shopping"></i><span> 小卖店</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://itbao.ge"><i class="fa-fw fab fa-chrome"></i><span> IT宝哥</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.sky350.cn/images/1211_7.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">SKY博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/category/app/"><i class="fa-fw fab fa-github"></i><span> 上网神器</span></a></div><div class="menus_item"><a class="site-page" href="/category/technical/"><i class="fa-fw fab fa-chrome"></i><span> 玩法开启</span></a></div><div class="menus_item"><a class="site-page" href="/category/course/"><i class="fa-fw fas fa-book"></i><span> 系列教程</span></a></div><div class="menus_item"><a class="site-page" href="/category/ordinary/"><i class="fa-fw fas fa-file-alt"></i><span> 闲扯文档</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://ai.sky350.com"><i class="fa-fw fa-solid fa-message"></i><span> ChatGPT</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://shop.qqka.org"><i class="fa-fw fa-solid fa-cart-shopping"></i><span> 小卖店</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://itbao.ge"><i class="fa-fw fab fa-chrome"></i><span> IT宝哥</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">《高效使用你的VPS》搭建私人多端音乐平台</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-14T09:44:57.000Z" title="发表于 2022-04-14 17:44:57">2022-04-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-29T19:27:25.093Z" title="更新于 2024-09-30 03:27:25">2024-09-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/category/course/">系列教程</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="8080086871" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div><article class="post-content" id="article-container"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>买了一台vps做科学上网，却仅仅只做了科学上网！这不符合我们勤俭节约的理念，所以《高效使用你的VPS》将会教大家如何高效地榨干vps，以获得最大的收益。《高效使用你的VPS》未来可能持续更新（我得自己先体验过才会看情况值不值得更新）。</p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>本期教程所需要的东西：</p>
+<ul>
+<li>域名一个（推荐解析到CloudFlare，有免费的CDN）</li>
+<li>vps云服务器一台，预装Linux系统</li>
+<li>手</li>
+</ul>
+<h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>本教程采用操作较为简单的docker安装，这里推荐大家安装宝塔面板（<a target="_blank" rel="noopener" href="https://www.bt.cn/">https://www.bt.cn/</a> ） 再从宝塔面板一键安装，这样既方便建站，又方便对vps进行管理。安装宝塔面板非常简单，这里就不写了。</p>
+<h4 id="Navidrome优缺点"><a href="#Navidrome优缺点" class="headerlink" title="Navidrome优缺点"></a>Navidrome优缺点</h4><p><strong>优点：</strong></p>
+<ul>
+<li>内存占用低（待机状态40Mb左右）</li>
+<li>界面简洁，支持中文</li>
+<li>支持Subsonic API，也就是说Subsonic能用的客户端，Navidrome都能用</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>好像没法显示歌词</li>
+<li>不支持通过界面删除歌曲（作者说的是为了安全考虑，我个人感觉过于谨慎了）</li>
+</ul>
+<h4 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h4><p>直接在宝塔面板的应用商店里面下载就可以了</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1211_1.png" alt="1211_1"></p>
+<h4 id="安装docker-compose"><a href="#安装docker-compose" class="headerlink" title="安装docker-compose"></a>安装docker-compose</h4><p>这时候一般是没有安装docker-compose的，大家可以连接ssh敲一下docker-compose看看有没有下面的提示，没有的话就得安装。</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1211_2.png"></p>
+<p>安装也不难，首先设置国内镜像源</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/docker/daemon.json</span><br></pre></td></tr></table></figure>
+
+<p>写入下面的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;registry-mirrors&quot;: [&quot;https://cq20bk8v.mirror.aliyuncs.com&quot;] &#125;</span><br></pre></td></tr></table></figure>
+
+<p>按esc键 在输入  :wq</p>
+<p>四条命令敲一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install epel-release</span><br><span class="line">yum install python3-pip </span><br><span class="line">pip3 install --upgrade pip </span><br><span class="line">pip3 install docker-compose</span><br></pre></td></tr></table></figure>
+
+<p>若是报错：ModuleNotFoundError: No module named ‘setuptools_rust’</p>
+<p>解决方法：pip3 install -U pip setuptools</p>
+<p>这一步就完成了</p>
+<h4 id="部署navidrome"><a href="#部署navidrome" class="headerlink" title="部署navidrome"></a>部署navidrome</h4><p>这一步还是比较简单的，宝塔面板—-&gt;文件，点击根目录就到vps的根目录了，选择一个位置用来存放歌曲，我个人则是在home目录下创建了个music文件夹，music里面再创建两个文件夹，一个data，一个song，前者用来存放缓存，后者用来存放歌曲。</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1211_3.png" alt="1211_3"></p>
+<p>此外，仍需在music目录下创建一个名为<code>docker-compose.yaml</code>的文件，双击编辑，内容复制下面的内容。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;3&quot;</span><br><span class="line">services:</span><br><span class="line">  navidrome:</span><br><span class="line">    container_name: navidrome</span><br><span class="line">    image: deluan/navidrome:latest</span><br><span class="line">    user: 0:0 #0:0代表用root用户运行</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;4533:4533&quot;</span><br><span class="line">    restart: unless-stopped</span><br><span class="line">    environment:</span><br><span class="line">      # Optional: put your config options customization here. Examples:</span><br><span class="line">      ND_SCANSCHEDULE: 1h</span><br><span class="line">      ND_LOGLEVEL: info  </span><br><span class="line">      ND_SESSIONTIMEOUT: 24h</span><br><span class="line">      ND_BASEURL: &quot;&quot;</span><br><span class="line">      ND_ENABLETRANSCODINGCONFIG: &quot;true&quot;</span><br><span class="line">      ND_TRANSCODINGCACHESIZE: &quot;4000M&quot;</span><br><span class="line">      ND_IMAGECACHESIZE: &quot;1000M&quot;</span><br><span class="line">      </span><br><span class="line">    volumes:</span><br><span class="line">      - &quot;/home/music/data:/data&quot;</span><br><span class="line">      - &quot;/home/music/song:/music:ro&quot;</span><br><span class="line"></span><br><span class="line">  miniserve:</span><br><span class="line">    image: svenstaro/miniserve:latest</span><br><span class="line">    depends_on:</span><br><span class="line">      - navidrome</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;4534:4534&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - &quot;/home/music/song:/downloads&quot;  </span><br><span class="line">    command: &quot;-r -z -u -q -p 4534 -a admin:123456 /downloads&quot; </span><br><span class="line">    restart: unless-stopped</span><br></pre></td></tr></table></figure>
+<p>注意：在安装navidrome的同时，我们顺便安装一个miniserve文件服务器，可以用来上传音乐文件，如果你存储音乐的文件夹和我不一样，请将两处<code>/home/music/song</code>都进行修改。</p>
+<ul>
+<li><code>/home/music/data</code>：用来存储navidrome缓存的位置</li>
+<li><code>/home/music/song</code>：存储音乐文件的路径</li>
+<li><code>admin:123456</code>：miniserve文件服务器的用户名和密码，格式 用户名:密码</li>
+</ul>
+<p>下面连接ssh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /home/music</span><br><span class="line">#先进入music目录</span><br><span class="line">docker-compose up -d</span><br><span class="line">#再输入上面这条命令开始部署</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1211_3_1.png" alt="1211_3_1"></p>
+<p>done就完成部署了。</p>
+<h4 id="配置-amp-优化"><a href="#配置-amp-优化" class="headerlink" title="配置&amp;优化"></a>配置&amp;优化</h4><p>打开IP:4533（navidrome），创建用户名和密码</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1211_4.png" alt="1211_4"></p>
+<p>点击右上角头像，点击Personal，Language选择简体中文。</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1211_4_1.png" alt="1211_4_1"></p>
+<p>当我们上传音乐文件之后，点击头像左边的图标可以快速扫描音乐文件。</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1211_4_2.png" alt="1211_4_2"></p>
+<p>打开IP:4534（miniserve），输入我们预先设置的用户名和密码</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1211_5.png" alt="1211_5"></p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1211_6.png" alt="1211_6"></p>
+<p>到此工作就完成了，我们只需要将下载到的音乐上传到服务器就好了。</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1211_7.png"></p>
+<h4 id="适配APP平台"><a href="#适配APP平台" class="headerlink" title="适配APP平台"></a>适配APP平台</h4><p>Navidrome 可以与以下所有 Subsonic 客户端兼容。</p>
+<ul>
+<li>iOS：play:Sub、 substreamer、 Amperfy和 iSub</li>
+<li>安卓：DSub， Subtracks， substreamer， Ultrasonic和 Audinaut</li>
+<li>桌面：Sublime Music (Linux) 和Sonixd (Windows&#x2F;Linux&#x2F;macOS)</li>
+<li>CLI：Jellycli (Windows&#x2F;Linux) 和STMP (Linux&#x2F;macOS)</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Navidrome是一个非常不错的程序，就是大家需要想办法下载到自己喜欢的歌曲，而且，歌曲也会占用服务器的一部分空间，服务器比较闲的朋友可以拿来耍耍，或者家里有软路由的也可以直接搭建在软路由上。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">阿宝哥呀</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.sky350.com/1211.html">https://www.sky350.com/1211.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.sky350.com" target="_blank">SKY博客</a>！</span></div></div><div class="ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="8080086871" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tag/vps/">vps</a><a class="post-meta__tags" href="/tag/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a><a class="post-meta__tags" href="/tag/%E5%9F%9F%E5%90%8D/">域名</a><a class="post-meta__tags" href="/tag/%E5%8D%9A%E5%AE%A2/">博客</a><a class="post-meta__tags" href="/tag/%E5%BB%BA%E7%AB%99/">建站</a></div><div class="post_share"><div class="social-share" data-image="https://pic.sky350.cn/images/1211_7.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/1213.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2022/1656395305.2096515.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">微软Azure B1s 香港VPS简单评测</div></div></a></div><div class="next-post pull-right"><a href="/871.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1439137513.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">《高效使用你的VPS》搭建私人多平台笔记系统</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/871.html" title="《高效使用你的VPS》搭建私人多平台笔记系统"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/1439137513.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-20</div><div class="title">《高效使用你的VPS》搭建私人多平台笔记系统</div></div></a></div><div><a href="/827.html" title="《高效使用你的VPS》快速搭建个人博客 新手基础篇"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/18.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-02</div><div class="title">《高效使用你的VPS》快速搭建个人博客 新手基础篇</div></div></a></div><div><a href="/951.html" title="《搭建一个合适自己的梯子》服务器挑选篇"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/21.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-31</div><div class="title">《搭建一个合适自己的梯子》服务器挑选篇</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/Circle_Logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">阿宝哥呀</div><div class="author-info__description">Linux技术,网络技术,宝塔面板,邮局配置,域名设置,脚本运行,CentOS,Debian,Nginx</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">50</div></a></div><div class="card-info-data-item is-center"><a href="/tag/"><div class="headline">标签</div><div class="length-num">207</div></a></div><div class="card-info-data-item is-center"><a href="/category/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCECSuDUCVYdpBVF-0YlZAig"><i class="fab fa-youtube"></i><span>订阅我吧</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:service@sky350.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">ChatGPT在线网站ai.sky350.com已经上线，欢迎大家使用。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA"><span class="toc-number">3.</span> <span class="toc-text">搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Navidrome%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">3.1.</span> <span class="toc-text">Navidrome优缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85docker"><span class="toc-number">3.2.</span> <span class="toc-text">安装docker</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85docker-compose"><span class="toc-number">3.3.</span> <span class="toc-text">安装docker-compose</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2navidrome"><span class="toc-number">3.4.</span> <span class="toc-text">部署navidrome</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-amp-%E4%BC%98%E5%8C%96"><span class="toc-number">3.5.</span> <span class="toc-text">配置&amp;优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%82%E9%85%8DAPP%E5%B9%B3%E5%8F%B0"><span class="toc-number">3.6.</span> <span class="toc-text">适配APP平台</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/1271.html" title="WordPress优化之根据Cookies配置CloudFlare缓存规则"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2024/09/24/46qvzo.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WordPress优化之根据Cookies配置CloudFlare缓存规则"/></a><div class="content"><a class="title" href="/1271.html" title="WordPress优化之根据Cookies配置CloudFlare缓存规则">WordPress优化之根据Cookies配置CloudFlare缓存规则</a><time datetime="2024-09-23T19:00:51.407Z" title="发表于 2024-09-24 03:00:51">2024-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1269.html" title="99AI多功能可商用的AI网站搭建教程 基于NineAI二开"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2024/08/30/117386k.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="99AI多功能可商用的AI网站搭建教程 基于NineAI二开"/></a><div class="content"><a class="title" href="/1269.html" title="99AI多功能可商用的AI网站搭建教程 基于NineAI二开">99AI多功能可商用的AI网站搭建教程 基于NineAI二开</a><time datetime="2024-08-30T14:55:46.795Z" title="发表于 2024-08-30 22:55:46">2024-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1267.html" title="谷歌云GCP开通VPS并配置ssh连接教程 GCP玩机指南"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2024/06/01/122rjfc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="谷歌云GCP开通VPS并配置ssh连接教程 GCP玩机指南"/></a><div class="content"><a class="title" href="/1267.html" title="谷歌云GCP开通VPS并配置ssh连接教程 GCP玩机指南">谷歌云GCP开通VPS并配置ssh连接教程 GCP玩机指南</a><time datetime="2024-06-01T14:56:10.101Z" title="发表于 2024-06-01 22:56:10">2024-06-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/1265.html" title="最新谷歌云免信用卡获得150刀赠金方法"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://pic.sky350.cn/images/2024/05/29/6yz4bq.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="最新谷歌云免信用卡获得150刀赠金方法"/></a><div class="content"><a class="title" href="/1265.html" title="最新谷歌云免信用卡获得150刀赠金方法">最新谷歌云免信用卡获得150刀赠金方法</a><time datetime="2024-05-28T20:31:47.065Z" title="发表于 2024-05-29 04:31:47">2024-05-29</time></div></div></div></div><div class="card-widget ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5201315122723978" data-ad-slot="7779019761" data-ad-format="auto" data-full-width-responsive="true"></ins><script> (adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2024 By 阿宝哥呀</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">联系邮箱：service@sky350.com</div><!-- 自动翻译JS--><script src="https://cdn.staticfile.net/translate.js/3.5.1/translate.js"></script><script>translate.setAutoDiscriminateLocalLanguage();
+translate.language.setLocal('chinese_simplified');
+translate.service.use('client.edge');
+translate.execute();</script></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://pic.sky350.cn/js/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://cm.sky350.com',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://cm.sky350.com',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://pic.sky350.cn/js/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://cm.sky350.com',
+        region: '',
+        pageSize: 5,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-lista')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://pic.sky350.cn/js/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-lista')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-lista')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script defer="defer" id="ribbon" src="https://pic.sky350.cn/js/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script src="https://pic.sky350.cn/js/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-VWC1BXX7W2', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>

@@ -2,60 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.sky350.com/app/index.html</loc>
-    
-    <lastmod>2024-09-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/bbr/index.html</loc>
-    
-    <lastmod>2024-09-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/categories/index.html</loc>
-    
-    <lastmod>2024-09-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/course/index.html</loc>
-    
-    <lastmod>2024-09-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/link/index.html</loc>
-    
-    <lastmod>2024-09-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/privacy-policy/index.html</loc>
-    
-    <lastmod>2024-09-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.sky350.com/speedtest/index.html</loc>
     
     <lastmod>2024-09-29</lastmod>
@@ -66,24 +12,6 @@
   
   <url>
     <loc>https://www.sky350.com/technical/index.html</loc>
-    
-    <lastmod>2024-09-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/294.html</loc>
-    
-    <lastmod>2024-09-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/1213.html</loc>
     
     <lastmod>2024-09-29</lastmod>
     
@@ -137,7 +65,7 @@
   </url>
   
   <url>
-    <loc>https://www.sky350.com/34.html</loc>
+    <loc>https://www.sky350.com/app/index.html</loc>
     
     <lastmod>2024-09-29</lastmod>
     
@@ -146,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://www.sky350.com/353.html</loc>
+    <loc>https://www.sky350.com/bbr/index.html</loc>
     
     <lastmod>2024-09-29</lastmod>
     
@@ -155,7 +83,7 @@
   </url>
   
   <url>
-    <loc>https://www.sky350.com/455.html</loc>
+    <loc>https://www.sky350.com/categories/index.html</loc>
     
     <lastmod>2024-09-29</lastmod>
     
@@ -164,7 +92,7 @@
   </url>
   
   <url>
-    <loc>https://www.sky350.com/621.html</loc>
+    <loc>https://www.sky350.com/course/index.html</loc>
     
     <lastmod>2024-09-29</lastmod>
     
@@ -173,7 +101,7 @@
   </url>
   
   <url>
-    <loc>https://www.sky350.com/267.html</loc>
+    <loc>https://www.sky350.com/link/index.html</loc>
     
     <lastmod>2024-09-29</lastmod>
     
@@ -182,16 +110,7 @@
   </url>
   
   <url>
-    <loc>https://www.sky350.com/323.html</loc>
-    
-    <lastmod>2024-09-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.sky350.com/396.html</loc>
+    <loc>https://www.sky350.com/privacy-policy/index.html</loc>
     
     <lastmod>2024-09-29</lastmod>
     
@@ -290,6 +209,24 @@
   </url>
   
   <url>
+    <loc>https://www.sky350.com/294.html</loc>
+    
+    <lastmod>2024-09-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/1213.html</loc>
+    
+    <lastmod>2024-09-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.sky350.com/1062.html</loc>
     
     <lastmod>2024-09-29</lastmod>
@@ -300,6 +237,69 @@
   
   <url>
     <loc>https://www.sky350.com/1210.html</loc>
+    
+    <lastmod>2024-09-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/34.html</loc>
+    
+    <lastmod>2024-09-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/353.html</loc>
+    
+    <lastmod>2024-09-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/455.html</loc>
+    
+    <lastmod>2024-09-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/621.html</loc>
+    
+    <lastmod>2024-09-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/267.html</loc>
+    
+    <lastmod>2024-09-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/323.html</loc>
+    
+    <lastmod>2024-09-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.sky350.com/396.html</loc>
     
     <lastmod>2024-09-29</lastmod>
     

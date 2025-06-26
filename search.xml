@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>腾讯 EdgeOne CDN 体验 支持中国大陆加速的免费CDN</title>
+      <link href="/1273.html"/>
+      <url>/1273.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>中国大陆网络加速一直是比较高成本的，原因是国内的商业带宽价格非常贵。在 VPS 的体现上就是美国等外国地区 VPS 常见速率是 1G，而国内VPS 常见的是几 M 的小水管。当然，国内也有大带宽共享，流量计费的模式，但相对来说，流量成本也是偏贵的。</p><p>除此之外，要在中国大陆提供网络服务是需要备案的，这也是大陆地区网络加速成本偏高的愿意之一，像是赛博活佛Cloudflare与京东云也存在合作关系，但是因为需要备案，使得没有办法向全球提供加速服务。假如不想备案，又想拥有高速的网络服务，只能购买海外地区三大运营商高端线路的 VPS，中国移动的 CMIN2 线路，中国联通的 AS9929 和 AS10099，中国电信的  CN2GIA线路，而这些，也并不便宜。</p><p>前阵子，云巨头之一的阿里云宣布提供全球免费 CDN（中国大陆除外），而现在，腾讯云也打出了自己的牌，EdgeOne CDN 全球免费加速 CDN，不限流量，且包含中国大陆地区！</p><h3 id="EdgeOne-简介"><a href="#EdgeOne-简介" class="headerlink" title="EdgeOne 简介"></a>EdgeOne 简介</h3><ul><li>全球加速</li><li>无限CDN流量</li><li>无限DDoS防护</li><li>支持中国大陆</li><li>免费SSL证书免费</li><li>免费托管规则集</li><li>自适应速率限制</li><li>自定义防火墙规则</li><li>…</li></ul><p>看完功能介绍，是不是很高兴，先不要激动，EdgeOne 现在还处于公测阶段，需要兑换码才能兑换到免费套餐，而兑换码有两个获取途径。</p><p><img src="https://pic.sky350.cn/images/2025/06/26/3uv9uu.webp" alt="iShot_2025-06-26_02.32.32"></p><p><img src="https://pic.sky350.cn/images/2025/06/26/3peuqu.webp" alt="iShot_2025-06-26_02.24.00"></p><p>官方详细的介绍页面：<a href="https://edgeone.ai/zh/redemption">https://edgeone.ai/zh/redemption</a></p><p><img src="https://pic.sky350.cn/images/2025/06/26/3qlx4g.webp" alt="iShot_2025-06-26_02.26.22"></p><h3 id="EdgeOne-后台"><a href="#EdgeOne-后台" class="headerlink" title="EdgeOne 后台"></a>EdgeOne 后台</h3><p>兑换 EdgeOne 免费版套餐之后，我们可以新建一个站点，并绑定我们的套餐，绑定套餐时，会让我们选择加速区域，可选<code>全球可用区（不含中国大陆）</code>和<code>全球可用区（含中国大陆）</code>，但如果想要使用中国大陆加速，必须要<code>实名认证</code>，<code>备案域名</code>，此时就存在一个问题，腾讯云国际站不支持大陆身份实名认证，所以国人没办法使用全球可用区（含中国大陆），而国外的朋友，想要使用中国大陆加速，又必须要备案域名。我曾向官方提出这个事情，官方只说国际站不支持大陆身份实名，就结束了。</p><p><img src="https://pic.sky350.cn/images/2025/06/26/10l65qu.webp" alt="iShot_2025-06-26_22.11.17"></p><p>点击进入站点之后，我们可以在域名管理中添加我们要加速的二级域名，且支持自动申请免费 ssl 证书。</p><p><img src="https://pic.sky350.cn/images/2025/06/26/10u0e3w.webp" alt="iShot_2025-06-26_22.18.01"></p><p>然后其他功能我就不一一赘述了，大家看下面的截图就好。总得来说，可以配置的规则不少，但部分功能还是需要高级&#x2F;企业套餐才能使用是。</p><p><img src="https://pic.sky350.cn/images/2025/06/26/10x3sj8.webp" alt="iShot_2025-06-26_22.28.29"><br><img src="https://pic.sky350.cn/images/2025/06/26/10x3x5x.webp" alt="iShot_2025-06-26_22.29.15"><br><img src="https://pic.sky350.cn/images/2025/06/26/10x42pv.webp" alt="iShot_2025-06-26_22.29.21"><br><img src="https://pic.sky350.cn/images/2025/06/26/10x46ap.webp" alt="iShot_2025-06-26_22.29.27"><br><img src="https://pic.sky350.cn/images/2025/06/26/10x4nwv.webp" alt="iShot_2025-06-26_22.29.32"><br><img src="https://pic.sky350.cn/images/2025/06/26/10x4v3n.webp" alt="iShot_2025-06-26_22.29.46"><br><img src="https://pic.sky350.cn/images/2025/06/26/10x53fj.webp" alt="iShot_2025-06-26_22.30.04"><br><img src="https://pic.sky350.cn/images/2025/06/26/10x58vo.webp" alt="iShot_2025-06-26_22.30.13"><br><img src="https://pic.sky350.cn/images/2025/06/26/10x5e46.webp" alt="iShot_2025-06-26_22.30.20"><br><img src="https://pic.sky350.cn/images/2025/06/26/10x5s5l.webp" alt="iShot_2025-06-26_22.30.29"></p><h3 id="EdgeOne-测试"><a href="#EdgeOne-测试" class="headerlink" title="EdgeOne 测试"></a>EdgeOne 测试</h3><p>由于没能实名认证，我无法给大家测试大陆地区节点，但没关系，我们可以测一下不含大陆节点对大陆地区的加速效果，就以本站为例，本站是HEXO框架的生成式静态博客，正好所有资源都可以缓存到 CDN 节点，所以我配置了如下规则，</p><p><img src="https://pic.sky350.cn/images/2025/06/26/111om3u.webp" alt="iShot_2025-06-26_22.39.02"></p><p>北京时间 22:45 使用 ITDOG 网站测速功能进行三网测速，结果分别如下。</p><p><img src="https://pic.sky350.cn/images/2025/06/27/lhtmm.webp" alt="iShot_2025-06-26_22.46.23"><br><img src="https://pic.sky350.cn/images/2025/06/27/li20z.webp" alt="iShot_2025-06-26_22.57.43"><br><img src="https://pic.sky350.cn/images/2025/06/27/li9ck.webp" alt="iShot_2025-06-27_00.36.07"></p><p>看了一下缓存是命中了的</p><p><img src="https://pic.sky350.cn/images/2025/06/27/mwex0.webp" alt="iShot_2025-06-27_00.38.38"></p><p>关于对<code>全球可用区（不含中国大陆）</code>对中国大陆的加速效果，大家自己来评判吧。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在国际站支持大陆实名认证之前，咱国人怕是难以享受免费的中国大陆加速了，不过大家还是可以去弄一个兑换码留着，万一什么时候能实名认证了呢！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 玩法开启 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CDN </tag>
+            
+            <tag> 腾讯云 </tag>
+            
+            <tag> EdgeOne </tag>
+            
+            <tag> 免费 CDN </tag>
+            
+            <tag> 无限流量 </tag>
+            
+            <tag> DDos 防护 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>WordPress优化之根据Cookies配置CloudFlare缓存规则</title>
       <link href="/1271.html"/>
       <url>/1271.html</url>
